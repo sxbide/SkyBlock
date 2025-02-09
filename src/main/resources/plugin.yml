@@ -1,0 +1,12 @@
+name: SkyBlock
+version: 1.0
+author: yasde
+main: eu.revanox.skyblock.SkyBlockPlugin
+api-version: '1.20'
+
+
+commands:
+  island:
+  setlocation:
+  spawn:
+  visit:
