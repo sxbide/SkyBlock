@@ -20,7 +20,7 @@ public class SpawnCommand implements CommandExecutor {
                 player.sendMessage(ChatAction.of("§7Du wurdest zum Spawnpunkt teleportiert."));
             });
             SkyBlockUser skyBlockUser = SkyBlockPlugin.instance().getUserManager().getUser(player.getUniqueId());
-            skyBlockUser.setBalance((skyBlockUser.getBalance())+0.10);
+            skyBlockUser.addBalance(0.10);
 
             SoundAction.playGoodWork(player);
         }

@@ -3,11 +3,10 @@ package eu.revanox.skyblock;
 import eu.koboo.en2do.Credentials;
 import eu.koboo.en2do.MongoManager;
 import eu.revanox.skyblock.codec.LocationCodec;
-import eu.revanox.skyblock.command.IslandCommand;
-import eu.revanox.skyblock.command.LocationCommand;
-import eu.revanox.skyblock.command.SpawnCommand;
-import eu.revanox.skyblock.command.VisitCommand;
+import eu.revanox.skyblock.command.*;
 import eu.revanox.skyblock.inventory.IslandInventory;
+import eu.revanox.skyblock.inventory.seller.SellerInventory;
+import eu.revanox.skyblock.inventory.seller.SellerListInventory;
 import eu.revanox.skyblock.island.IslandManager;
 import eu.revanox.skyblock.listener.PlayerJoinListener;
 import eu.revanox.skyblock.listener.PlayerQuitListener;
@@ -39,6 +38,10 @@ public class SkyBlockPlugin extends JavaPlugin {
 
     @NonFinal
     private IslandInventory islandInventory;
+    @NonFinal
+    private SellerInventory sellerInventory;
+    @NonFinal
+    private SellerListInventory sellerListInventory;
 
     public static SkyBlockPlugin instance() {
         return instance;
@@ -54,7 +57,10 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.scoreboardManager = new ScoreboardManager(this);
         this.islandManager = new IslandManager();
         this.locationManager = new LocationManager();
+
         this.islandInventory = new IslandInventory();
+        this.sellerInventory = new SellerInventory();
+        this.sellerListInventory = new SellerListInventory();
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
@@ -63,6 +69,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.getCommand("setlocation").setExecutor(new LocationCommand());
         this.getCommand("spawn").setExecutor(new SpawnCommand());
         this.getCommand("visit").setExecutor(new VisitCommand());
+        this.getCommand("seller").setExecutor(new SellerCommand());
 
     }
 

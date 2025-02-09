@@ -20,6 +20,16 @@ public class SkyBlockUser {
 
     double balance;
 
+    public void setBalance(double amount) {
+        this.balance = amount;
+        SkyBlockPlugin.instance().getUserManager().saveUser(this);
+    }
+
+    public void addBalance(double amount) {
+        this.balance += amount;
+        SkyBlockPlugin.instance().getUserManager().saveUser(this);
+    }
+
     public void removeBalance(double amount) {
         this.balance -= amount;
         SkyBlockPlugin.instance().getUserManager().saveUser(this);

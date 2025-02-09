@@ -11,13 +11,9 @@ public class NumberUtil {
     public String formatBalance(double balance) {
         long integerPart = (long) balance;
         int cents = (int) ((balance - integerPart) * 100);
-
-        String formattedInteger;
-        if (integerPart >= 1000) {
-            formattedInteger = String.format("%.1fk", integerPart / 1000.0).replace('.', ',');
-        } else {
-            formattedInteger = NumberFormat.getNumberInstance(Locale.GERMANY).format(integerPart);
-        }
-        return formattedInteger + "," + String.format("%02d", cents);
+        String formattedInteger = NumberFormat.getNumberInstance(Locale.GERMANY).format(integerPart);
+        String formattedCents = String.format("%02d", cents);
+        return formattedInteger + "," + formattedCents;
     }
+
 }
