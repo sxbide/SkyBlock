@@ -26,13 +26,20 @@ public class UserManager {
             skyBlockUser = new SkyBlockUser();
             skyBlockUser.setUniqueId(uuid);
             skyBlockUser.setBalance(0);
+            skyBlockUser.setGoldPieces(0);
         }
 
         this.uuidSkyBlockUserMap.put(uuid, skyBlockUser);
     }
 
     public SkyBlockUser getUser(UUID uuid) {
-        return this.uuidSkyBlockUserMap.get(uuid);
+        SkyBlockUser skyBlockUser = this.uuidSkyBlockUserMap.get(uuid);
+
+        if(skyBlockUser == null) {
+            skyBlockUser = this.repository.findFirstById(uuid);
+        }
+
+        return skyBlockUser;
     }
 
     public void saveUser(UUID uuid) {

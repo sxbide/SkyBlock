@@ -15,6 +15,7 @@ repositories {
     maven { url 'https://jitpack.io' }
     maven { url 'https://reposilite.koboo.eu/releases' }
     maven { url 'https://s01.oss.sonatype.org/content/groups/public/' }
+
 }
 
 dependencies {
@@ -32,6 +33,8 @@ dependencies {
     implementation 'eu.koboo:en2do:3.1.10'
 
     implementation("fr.mrmicky:fastboard:2.1.3")
+    implementation 'io.github.rysefoxx.inventory:RyseInventory-Plugin:1.6.5'
+
 
 
 }

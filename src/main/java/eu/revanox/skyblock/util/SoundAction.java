@@ -16,10 +16,10 @@ public class SoundAction {
     }
 
     public void playTaskComplete(Player player) {
-        player.playSound(player.getLocation(), Sound.BLOCK_GRINDSTONE_USE, 100, 1);
+        player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 100, 1);
     }
 
     public void playTaskFailed(Player player) {
-        player.playSound(player.getLocation(), Sound.ENTITY_GLOW_ITEM_FRAME_BREAK, 100, 1);
+        player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 100, 1);
     }
 }

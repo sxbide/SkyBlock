@@ -2,17 +2,18 @@ package eu.revanox.skyblock;
 
 import eu.koboo.en2do.Credentials;
 import eu.koboo.en2do.MongoManager;
+import eu.revanox.skyblock.auctions.AuctionsManager;
+import eu.revanox.skyblock.codec.ItemStackCodec;
 import eu.revanox.skyblock.codec.LocationCodec;
 import eu.revanox.skyblock.command.*;
-import eu.revanox.skyblock.inventory.IslandInventory;
-import eu.revanox.skyblock.inventory.seller.SellerInventory;
-import eu.revanox.skyblock.inventory.seller.SellerListInventory;
 import eu.revanox.skyblock.island.IslandManager;
+import eu.revanox.skyblock.listener.InventoryCloseListener;
 import eu.revanox.skyblock.listener.PlayerJoinListener;
 import eu.revanox.skyblock.listener.PlayerQuitListener;
 import eu.revanox.skyblock.location.LocationManager;
 import eu.revanox.skyblock.scoreboard.ScoreboardManager;
 import eu.revanox.skyblock.user.UserManager;
+import io.github.rysefoxx.inventory.plugin.pagination.InventoryManager;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
@@ -35,13 +36,12 @@ public class SkyBlockPlugin extends JavaPlugin {
     private IslandManager islandManager;
     @NonFinal
     private LocationManager locationManager;
+    @NonFinal
+    private AuctionsManager auctionsManager;
 
     @NonFinal
-    private IslandInventory islandInventory;
-    @NonFinal
-    private SellerInventory sellerInventory;
-    @NonFinal
-    private SellerListInventory sellerListInventory;
+    private InventoryManager inventoryManager;
+
 
     public static SkyBlockPlugin instance() {
         return instance;
@@ -52,24 +52,29 @@ public class SkyBlockPlugin extends JavaPlugin {
         instance = this;
 
         this.mongoManager = new MongoManager(Credentials.of("mongodb://revanox:Modd7V5hg2wAFYa30BvqMAk6ofVCCkRx@77.90.60.134:27017/", "skyblock"))
-                .registerCodec(new LocationCodec());
+                .registerCodec(new LocationCodec())
+                .registerCodec(new ItemStackCodec());
         this.userManager = new UserManager();
         this.scoreboardManager = new ScoreboardManager(this);
         this.islandManager = new IslandManager();
         this.locationManager = new LocationManager();
+        this.auctionsManager = new AuctionsManager();
 
-        this.islandInventory = new IslandInventory();
-        this.sellerInventory = new SellerInventory();
-        this.sellerListInventory = new SellerListInventory();
+        this.inventoryManager = new InventoryManager(this);
+        this.inventoryManager.invoke();
+
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
 
         this.getCommand("island").setExecutor(new IslandCommand());
         this.getCommand("setlocation").setExecutor(new LocationCommand());
         this.getCommand("spawn").setExecutor(new SpawnCommand());
         this.getCommand("visit").setExecutor(new VisitCommand());
         this.getCommand("seller").setExecutor(new SellerCommand());
+        this.getCommand("gold").setExecutor(new GoldPiecesCommand());
+        this.getCommand("auctions").setExecutor(new AuctionsCommand());
 
     }
 

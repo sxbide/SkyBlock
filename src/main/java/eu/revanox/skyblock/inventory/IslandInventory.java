@@ -32,8 +32,6 @@ public class IslandInventory implements Listener {
         Inventory inventory = Bukkit.createInventory(null, 3 * 9, Component.text("Island"));
         SkyBlockIsland skyBlockIsland = SkyBlockPlugin.instance().getIslandManager().getIslandByPlayer(player);
 
-        Util.fill(inventory, ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).displayName("§r").build());
-
         ItemBuilder islandItem = ItemBuilder.of(Material.BARREL)
                 .displayName(Component.text("§aErste Insel von " + player.getName()))
                 .lore(

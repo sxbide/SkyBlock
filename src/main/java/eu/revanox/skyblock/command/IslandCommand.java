@@ -12,7 +12,7 @@ public class IslandCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
         if (sender instanceof Player player) {
-            player.openInventory(SkyBlockPlugin.instance().getIslandInventory().inventory(player));
+            //player.openInventory(SkyBlockPlugin.instance().getIslandInventory().inventory(player));
         }
         return false;
     }

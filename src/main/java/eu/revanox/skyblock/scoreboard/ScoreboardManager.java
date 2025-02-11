@@ -5,6 +5,7 @@ import eu.revanox.skyblock.island.model.SkyBlockIsland;
 import eu.revanox.skyblock.user.model.SkyBlockUser;
 import eu.revanox.skyblock.util.NumberUtil;
 import fr.mrmicky.fastboard.FastBoard;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -35,6 +36,12 @@ public class ScoreboardManager {
         }
 
         fastBoard.updateTitle("§7SkyBlock");
+
+        Component tabHeader = Component.newline().append(Component.text("§6§lSkyBlock")).appendNewline();
+        Component tabFooter = Component.newline().append(Component.text("§7Du spielst auf §eSkyBlock §7mit §6" + (Bukkit.getOnlinePlayers().size()-1) + " §7anderen Spielern"))
+                .appendNewline();
+
+        player.sendPlayerListHeaderAndFooter(tabHeader, tabFooter);
 
         if (skyBlockIsland != null) {
             fastBoard.updateLines(
