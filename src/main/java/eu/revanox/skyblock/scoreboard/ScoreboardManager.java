@@ -39,7 +39,7 @@ public class ScoreboardManager {
 
         fastBoard.updateTitle(ChatAction.getPrefixGradient());
 
-        Component tabHeader = Component.newline().append(ChatAction.getPrefixGradient().appendNewline().append(Component.text("§7§odein skyblock abenteuer")).appendNewline());
+        Component tabHeader = Component.newline().append(ChatAction.getPrefixGradient().appendNewline().append(Component.text("§7§oearly access skyblock")).appendNewline());
         Component tabFooter = Component.newline().append(MiniMessage.miniMessage().deserialize("<gradient:#FAEDCB:#FAEDCB>pixelbande.net</gradient>"))
                 .appendNewline();
 
@@ -57,7 +57,8 @@ public class ScoreboardManager {
                     Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>" + Bukkit.getOfflinePlayer(skyBlockIsland.getOwnerUniqueId()).getName())),
                     Component.empty(),
                     Component.text(" §8• §7Besucher"),
-                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>" + (player.getWorld().getPlayerCount() - 1) + " §8» §c/list")),
+                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>" + (player.getWorld().getPlayerCount() - 1))
+                            .append(Component.text(" §8» §c/list"))),
                     Component.empty()
             );
         } else {
@@ -67,7 +68,7 @@ public class ScoreboardManager {
                     Component.text(" §8• §7Kontostand"),
                     Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>" + NumberUtil.formatBalance(skyBlockUser.getBalance()) + " ⛃")),
                     Component.empty(),
-                    Component.text(" §8• §7Spieler"),
+                    Component.text(" §8• §7Online"),
                     Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>" + Bukkit.getOnlinePlayers().size())),
                     Component.empty(),
                     Component.text(" §8• §7Insel"),
