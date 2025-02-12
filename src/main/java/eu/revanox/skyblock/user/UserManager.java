@@ -35,7 +35,7 @@ public class UserManager {
     public SkyBlockUser getUser(UUID uuid) {
         SkyBlockUser skyBlockUser = this.uuidSkyBlockUserMap.get(uuid);
 
-        if(skyBlockUser == null) {
+        if (skyBlockUser == null) {
             skyBlockUser = this.repository.findFirstById(uuid);
         }
 

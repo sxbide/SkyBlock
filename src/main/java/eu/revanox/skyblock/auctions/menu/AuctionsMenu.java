@@ -3,22 +3,27 @@ package eu.revanox.skyblock.auctions.menu;
 import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.user.model.SkyBlockUser;
 import eu.revanox.skyblock.util.*;
+import io.github.rysefoxx.inventory.plugin.animator.SlideAnimation;
 import io.github.rysefoxx.inventory.plugin.content.IntelligentItem;
 import io.github.rysefoxx.inventory.plugin.content.InventoryContents;
 import io.github.rysefoxx.inventory.plugin.content.InventoryProvider;
+import io.github.rysefoxx.inventory.plugin.enums.AnimatorDirection;
+import io.github.rysefoxx.inventory.plugin.enums.TimeSetting;
+import io.github.rysefoxx.inventory.plugin.pagination.Pagination;
 import io.github.rysefoxx.inventory.plugin.pagination.RyseInventory;
+import io.github.rysefoxx.inventory.plugin.pagination.SlotIterator;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-
-import java.util.concurrent.atomic.AtomicInteger;
+import org.bukkit.inventory.ItemStack;
 
 @Getter
 public class AuctionsMenu implements InventoryProvider {
 
     RyseInventory ryseInventory;
+
 
     public AuctionsMenu() {
         this.ryseInventory = RyseInventory.builder()
@@ -28,12 +33,22 @@ public class AuctionsMenu implements InventoryProvider {
                 .build(SkyBlockPlugin.instance());
     }
 
+
     @Override
     public void init(Player player, InventoryContents contents) {
 
         Util.defaultInventory(contents);
 
-        AtomicInteger slot = new AtomicInteger(0);
+        Pagination pagination = contents.pagination();
+        pagination.setItemsPerPage(21);
+        pagination.iterator(SlotIterator.builder()
+                .startPosition(10)
+                .blackList(17, 18, 26,27)
+                .override()
+                .type(SlotIterator.SlotIteratorType.HORIZONTAL)
+                .build());
+
+
         SkyBlockPlugin.instance().getAuctionsManager().getAuctionItems().forEach((id, auctionItem) -> {
 
             ItemBuilder auctionItemStack = ItemBuilder.of(auctionItem.getItemStack().clone());
@@ -44,7 +59,7 @@ public class AuctionsMenu implements InventoryProvider {
             auctionItemStack.getLore().add(Component.empty());
             auctionItemStack.getLore().add(Component.text("§7<Linksklicke zum kaufen>"));
 
-            contents.set(slot.getAndIncrement(), IntelligentItem.of(auctionItemStack.build(), event -> {
+            pagination.addItem(IntelligentItem.of(auctionItemStack.build(), event -> {
 
                 if (auctionItem.getSellerUniqueId().equals(player.getUniqueId())) {
                     player.sendMessage(ChatAction.failure("§cDu kannst deine eigene Auktion nicht kaufen."));
@@ -83,28 +98,29 @@ public class AuctionsMenu implements InventoryProvider {
             }));
         });
 
-        ItemBuilder playerAuctions = ItemBuilder.of(Material.EMERALD)
+
+        contents.set(53, Util.nextButton(pagination));
+        contents.set(45, Util.backButton(pagination));
+
+        contents.set(47, IntelligentItem.of(ItemBuilder.of(Material.EMERALD)
                 .displayName("§aDeine Auktionen")
                 .lore(
                         Component.empty(),
                         Component.text("§7<Linksklicke zum öffnen>")
-                );
-
-        contents.set(48, IntelligentItem.of(playerAuctions.build(), event -> {
+                ).build(), event -> {
             new AuctionsPlayerMenu().getRyseInventory().open(player);
         }));
 
-        ItemBuilder howToAuction = ItemBuilder.of(Material.OAK_HANGING_SIGN)
+        contents.set(51, IntelligentItem.of(ItemBuilder.of(Material.GUSTER_BANNER_PATTERN)
                 .displayName("§aAuktion erstellen?")
                 .lore(
                         Component.empty(),
                         Component.text("§7Halte das gewünschte Item in deiner Hand"),
                         Component.text("§7und benutze /Auktion sell <Preis z.B 12.50>")
-                );
-
-        contents.set(50, IntelligentItem.of(howToAuction.build(), event -> {
+                ).build(), event -> {
             event.setCancelled(true);
         }));
+
 
         SoundAction.playInventoryOpen(player);
 

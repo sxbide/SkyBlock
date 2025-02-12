@@ -7,7 +7,6 @@ import eu.revanox.skyblock.user.model.SkyBlockUser;
 import eu.revanox.skyblock.util.ChatAction;
 import eu.revanox.skyblock.util.ItemBuilder;
 import eu.revanox.skyblock.util.SoundAction;
-import eu.revanox.skyblock.util.Util;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

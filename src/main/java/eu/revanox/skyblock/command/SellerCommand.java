@@ -1,6 +1,5 @@
 package eu.revanox.skyblock.command;
 
-import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.seller.menu.SellerMenu;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

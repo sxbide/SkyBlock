@@ -3,7 +3,6 @@ package eu.revanox.skyblock.auctions;
 import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.auctions.model.AuctionItem;
 import eu.revanox.skyblock.auctions.repository.AuctionsRepository;
-import eu.revanox.skyblock.user.model.SkyBlockUser;
 import eu.revanox.skyblock.util.NumberUtil;
 import lombok.Getter;
 import org.bukkit.inventory.ItemStack;
@@ -13,13 +12,13 @@ import java.util.*;
 public class AuctionsManager {
 
     @Getter
-    Map<Integer, AuctionItem> auctionItems;
+    LinkedHashMap<Integer, AuctionItem> auctionItems;
     AuctionsRepository repository;
 
     public AuctionsManager() {
         this.repository = SkyBlockPlugin.instance().getMongoManager().create(AuctionsRepository.class);
 
-        this.auctionItems = new HashMap<>();
+        this.auctionItems = new LinkedHashMap<>();
 
         for (AuctionItem auctionItem : this.repository.findAll()) {
             this.auctionItems.put(auctionItem.getId(), auctionItem);
@@ -41,7 +40,7 @@ public class AuctionsManager {
     public void deleteAuction(int auctionId) {
         AuctionItem auctionItem = this.auctionItems.get(auctionId);
 
-        if(auctionItem != null) {
+        if (auctionItem != null) {
             this.auctionItems.remove(auctionId);
             this.repository.delete(auctionItem);
         }

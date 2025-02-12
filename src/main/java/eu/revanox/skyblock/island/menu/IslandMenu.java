@@ -27,6 +27,5 @@ public class IslandMenu implements InventoryProvider {
         Util.defaultInventory(contents);
 
 
-
     }
 }

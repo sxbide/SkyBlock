@@ -1,10 +1,16 @@
 package eu.revanox.skyblock.util;
 
+import io.github.rysefoxx.inventory.plugin.content.IntelligentItem;
 import io.github.rysefoxx.inventory.plugin.content.InventoryContents;
+import io.github.rysefoxx.inventory.plugin.pagination.Pagination;
+import io.github.rysefoxx.inventory.plugin.pagination.RyseInventory;
+import lombok.NonNull;
 import lombok.experimental.UtilityClass;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
-import org.bukkit.inventory.Inventory;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 @UtilityClass
 public class Util {
@@ -19,5 +25,54 @@ public class Util {
         ItemBuilder placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE)
                 .displayName("§7-/-");
         return placeholder.build();
+    }
+
+    public @NotNull IntelligentItem nextButton(@NonNull Pagination pagination) {
+        return IntelligentItem.of(ItemBuilder.of(Material.GREEN_STAINED_GLASS_PANE).displayName("§aNächste Seite »")
+                .lore(
+                        Component.empty(),
+                        Component.text("§7<Linksklicke zum vor gehen>")
+                )
+                .build(), event -> {
+            if (!(event.getWhoClicked() instanceof Player player)) {
+                return;
+            }
+
+            if (pagination.isLast()) {
+                player.sendMessage(ChatAction.failure("Du befindest dich bereits auf der letzten Seite"));
+                return;
+            }
+
+            RyseInventory currentInventory = pagination.inventory();
+            currentInventory.open(player, pagination.next().page());
+        });
+    }
+
+    public @NotNull IntelligentItem backButton(@NonNull Pagination pagination) {
+        return IntelligentItem.of(ItemBuilder.of(Material.RED_STAINED_GLASS_PANE)
+                .displayName("§c« Zurück")
+                .lore(
+                        Component.empty(),
+                        Component.text("§7<Linksklicke zum zurück gehen>")
+                ).build(), event -> {
+
+            if (!(event.getWhoClicked() instanceof Player player)) {
+                return;
+            }
+
+            if(pagination.isFirst()) {
+                player.sendMessage(ChatAction.failure("Du befindest dich bereits auf der ersten Seite"));
+                return;
+            }
+
+            RyseInventory currentInventory = pagination.inventory();
+            currentInventory.open(player, pagination.previous().page());
+        });
+    }
+
+    public @NotNull IntelligentItem exitButton(@NonNull RyseInventory inventory) {
+        return IntelligentItem.of(ItemBuilder.of(Material.BARRIER)
+                .displayName("§cZurück")
+                .lore("§7Klicke, um dieses Menü zu schließen.").build(), event -> inventory.close((Player) event.getWhoClicked()));
     }
 }

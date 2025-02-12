@@ -36,7 +36,6 @@ dependencies {
     implementation 'io.github.rysefoxx.inventory:RyseInventory-Plugin:1.6.5'
 
 
-
 }
 
 java {

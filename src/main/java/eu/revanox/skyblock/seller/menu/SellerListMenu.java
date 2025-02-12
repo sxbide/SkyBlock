@@ -44,11 +44,11 @@ public class SellerListMenu implements InventoryProvider {
         }));
 
         contents.set(49, IntelligentItem.of(ItemBuilder.of(Material.BARRIER)
-                        .displayName("§cZurück zum Startseite")
-                        .lore(
-                                Component.empty(),
-                                Component.text("§7<Linksklicke zum zurückgehen>")
-                        )
+                .displayName("§cZurück zum Startseite")
+                .lore(
+                        Component.empty(),
+                        Component.text("§7<Linksklicke zum zurückgehen>")
+                )
                 .build(), event -> {
 
             event.setCancelled(true);

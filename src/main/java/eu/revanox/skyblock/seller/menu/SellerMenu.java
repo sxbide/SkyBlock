@@ -124,7 +124,7 @@ public class SellerMenu implements InventoryProvider {
 
         }));
 
-        contents.set(51, IntelligentItem.of(ItemBuilder.of(Material.WRITABLE_BOOK)
+        contents.set(51, IntelligentItem.of(ItemBuilder.of(Material.GUSTER_BANNER_PATTERN)
                 .displayName("§6Preisübersicht öffnen")
                 .lore(
                         Component.empty(),

@@ -3,9 +3,11 @@ package eu.revanox.skyblock.scoreboard;
 import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.island.model.SkyBlockIsland;
 import eu.revanox.skyblock.user.model.SkyBlockUser;
+import eu.revanox.skyblock.util.ChatAction;
 import eu.revanox.skyblock.util.NumberUtil;
-import fr.mrmicky.fastboard.FastBoard;
+import fr.mrmicky.fastboard.adventure.FastBoard;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -35,42 +37,42 @@ public class ScoreboardManager {
             skyBlockIsland = SkyBlockPlugin.instance().getIslandManager().getIslandByWorld(player.getWorld());
         }
 
-        fastBoard.updateTitle("§7SkyBlock");
+        fastBoard.updateTitle(ChatAction.getPrefixGradient());
 
-        Component tabHeader = Component.newline().append(Component.text("§6§lSkyBlock")).appendNewline();
-        Component tabFooter = Component.newline().append(Component.text("§7Du spielst auf §eSkyBlock §7mit §6" + (Bukkit.getOnlinePlayers().size()-1) + " §7anderen Spielern"))
+        Component tabHeader = Component.newline().append(ChatAction.getPrefixGradient().appendNewline().append(Component.text("§7§odein skyblock abenteuer")).appendNewline());
+        Component tabFooter = Component.newline().append(MiniMessage.miniMessage().deserialize("<gradient:#FAEDCB:#FAEDCB>pixelbande.net</gradient>"))
                 .appendNewline();
 
         player.sendPlayerListHeaderAndFooter(tabHeader, tabFooter);
 
         if (skyBlockIsland != null) {
             fastBoard.updateLines(
-                    "",
-                    " §8• §c" + (skyBlockIsland.getOwnerUniqueId().equals(player.getUniqueId()) ? "§cBesitzer" : "§9Besucher"),
-                    "",
-                    " §8• §7Kontostand",
-                    "  §8► §e§o" + NumberUtil.formatBalance(skyBlockUser.getBalance()) + " ⛃",
-                    "",
-                    " §8• §7Insel",
-                    "  §8► §e§o" + Bukkit.getOfflinePlayer(skyBlockIsland.getOwnerUniqueId()).getName(),
-                    "",
-                    " §8• §7Besucher",
-                    "  §8► §e§o" + (player.getWorld().getPlayerCount() - 1) + " §8» §c/list",
-                    ""
+                    Component.empty(),
+                    Component.text(" §8• §c" + (skyBlockIsland.getOwnerUniqueId().equals(player.getUniqueId()) ? "§cBesitzer" : "§9Besucher")),
+                    Component.empty(),
+                    Component.text(" §8• §7Kontostand"),
+                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>" + NumberUtil.formatBalance(skyBlockUser.getBalance()) + " ⛃")),
+                    Component.empty(),
+                    Component.text(" §8• §7Insel"),
+                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>" + Bukkit.getOfflinePlayer(skyBlockIsland.getOwnerUniqueId()).getName())),
+                    Component.empty(),
+                    Component.text(" §8• §7Besucher"),
+                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>" + (player.getWorld().getPlayerCount() - 1) + " §8» §c/list")),
+                    Component.empty()
             );
         } else {
 
             fastBoard.updateLines(
-                    "",
-                    " §8• §7Kontostand",
-                    "  §8► §e§o" + NumberUtil.formatBalance(skyBlockUser.getBalance()) + " ⛃",
-                    "",
-                    " §8• §7Spieler",
-                    "  §8► §e§o" + Bukkit.getOnlinePlayers().size(),
-                    "",
-                    " §8• §7Inseln",
-                    "  §8► §e§oSpawn",
-                    ""
+                    Component.empty(),
+                    Component.text(" §8• §7Kontostand"),
+                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>" + NumberUtil.formatBalance(skyBlockUser.getBalance()) + " ⛃")),
+                    Component.empty(),
+                    Component.text(" §8• §7Spieler"),
+                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>" + Bukkit.getOnlinePlayers().size())),
+                    Component.empty(),
+                    Component.text(" §8• §7Insel"),
+                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>Spawn")),
+                    Component.empty()
             );
         }
     }

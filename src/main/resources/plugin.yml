@@ -7,11 +7,20 @@ api-version: '1.20'
 
 commands:
   island:
+    aliases:
+      - is
+      - insel
   setlocation:
   spawn:
   visit:
   seller:
+    aliases:
+      - verkäufer
+      - verkaufen
   gold:
   auctions:
+    aliases:
+      - auktion
+      - auktionen
 
 

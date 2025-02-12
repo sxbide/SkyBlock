@@ -2,13 +2,11 @@ package eu.revanox.skyblock.user.model;
 
 import eu.koboo.en2do.repository.entity.Id;
 import eu.revanox.skyblock.SkyBlockPlugin;
-import eu.revanox.skyblock.auctions.model.AuctionItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
