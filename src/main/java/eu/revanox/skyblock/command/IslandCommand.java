@@ -1,5 +1,6 @@
 package eu.revanox.skyblock.command;
 
+import eu.revanox.skyblock.island.menu.IslandMenu;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,7 +12,7 @@ public class IslandCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
         if (sender instanceof Player player) {
-            //player.openInventory(SkyBlockPlugin.instance().getIslandInventory().inventory(player));
+            new IslandMenu().getRyseInventory().open(player);
         }
         return false;
     }

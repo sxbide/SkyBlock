@@ -8,15 +8,19 @@ import eu.revanox.skyblock.codec.LocationCodec;
 import eu.revanox.skyblock.command.*;
 import eu.revanox.skyblock.island.IslandManager;
 import eu.revanox.skyblock.listener.InventoryCloseListener;
+import eu.revanox.skyblock.listener.PlayerChatListener;
 import eu.revanox.skyblock.listener.PlayerJoinListener;
 import eu.revanox.skyblock.listener.PlayerQuitListener;
 import eu.revanox.skyblock.location.LocationManager;
 import eu.revanox.skyblock.scoreboard.ScoreboardManager;
+import eu.revanox.skyblock.tablist.TablistManager;
 import eu.revanox.skyblock.user.UserManager;
 import io.github.rysefoxx.inventory.plugin.pagination.InventoryManager;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -38,9 +42,12 @@ public class SkyBlockPlugin extends JavaPlugin {
     private LocationManager locationManager;
     @NonFinal
     private AuctionsManager auctionsManager;
-
+    @NonFinal
+    private LuckPerms luckPerms;
     @NonFinal
     private InventoryManager inventoryManager;
+    @NonFinal
+    private TablistManager tablistManager;
 
 
     public static SkyBlockPlugin instance() {
@@ -51,6 +58,8 @@ public class SkyBlockPlugin extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        this.luckPerms = LuckPermsProvider.get();
+
         this.mongoManager = new MongoManager(Credentials.of("mongodb://revanox:Modd7V5hg2wAFYa30BvqMAk6ofVCCkRx@77.90.60.134:27017/", "skyblock"))
                 .registerCodec(new LocationCodec())
                 .registerCodec(new ItemStackCodec());
@@ -59,6 +68,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.islandManager = new IslandManager();
         this.locationManager = new LocationManager();
         this.auctionsManager = new AuctionsManager();
+        this.tablistManager = new TablistManager();
 
         this.inventoryManager = new InventoryManager(this);
         this.inventoryManager.invoke();
@@ -67,6 +77,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerChatListener(), this);
 
         this.getCommand("island").setExecutor(new IslandCommand());
         this.getCommand("setlocation").setExecutor(new LocationCommand());

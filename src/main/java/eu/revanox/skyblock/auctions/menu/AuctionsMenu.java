@@ -94,7 +94,8 @@ public class AuctionsMenu implements InventoryProvider {
                 }
 
                 SkyBlockPlugin.instance().getAuctionsManager().deleteAuction(id);
-                event.getInventory().setItem(event.getSlot(), Util.placeholderItem());
+                event.getInventory().setItem(event.getSlot(), Util.placeholderItemEdit().material(Material.GREEN_STAINED_GLASS_PANE)
+                        .displayName("§aGekauft von dir").build());
             }));
         });
 

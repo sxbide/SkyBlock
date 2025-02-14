@@ -27,6 +27,12 @@ public class Util {
         return placeholder.build();
     }
 
+    public ItemBuilder placeholderItemEdit() {
+        ItemBuilder placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE)
+                .displayName("§7-/-");
+        return placeholder;
+    }
+
     public @NotNull IntelligentItem nextButton(@NonNull Pagination pagination) {
         return IntelligentItem.of(ItemBuilder.of(Material.GREEN_STAINED_GLASS_PANE).displayName("§aNächste Seite »")
                 .lore(

@@ -24,7 +24,7 @@ public class SellerListMenu implements InventoryProvider {
     public SellerListMenu() {
 
         this.ryseInventory = RyseInventory.builder()
-                .title("Verkäufer - Liste")
+                .title("Preisübersicht")
                 .rows(6)
                 .provider(this)
                 .disableUpdateTask()

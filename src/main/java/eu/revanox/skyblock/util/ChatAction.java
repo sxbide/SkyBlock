@@ -11,7 +11,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 public class ChatAction {
 
     @Getter
-    private Component prefixGradient = MiniMessage.miniMessage().deserialize("<gradient:#FDAF65:#F34E4E>PixelBande</gradient>");
+    private Component prefixGradient = MiniMessage.miniMessage().deserialize("<gradient:#E2A574:#E0EF50>Blockarion</gradient>");
     private String prefix = "§a✔ §7";
     private String failurePrefix = "§c✘ §c";
     @Getter

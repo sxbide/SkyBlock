@@ -32,6 +32,7 @@ public class PlayerJoinListener implements Listener {
         event.joinMessage(Component.empty());
         SkyBlockPlugin.instance().getUserManager().loadUser(player.getUniqueId());
         SkyBlockPlugin.instance().getScoreboardManager().createScoreboard(player);
+        SkyBlockPlugin.instance().getTablistManager().setTablist(player);
 
         player.playSound(player.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 100, 0.7F);
 

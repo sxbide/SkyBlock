@@ -40,7 +40,7 @@ public class ScoreboardManager {
         fastBoard.updateTitle(ChatAction.getPrefixGradient());
 
         Component tabHeader = Component.newline().append(ChatAction.getPrefixGradient().appendNewline().append(Component.text("§7§oearly access skyblock")).appendNewline());
-        Component tabFooter = Component.newline().append(MiniMessage.miniMessage().deserialize("<gradient:#FAEDCB:#FAEDCB>pixelbande.net</gradient>"))
+        Component tabFooter = Component.newline().append(MiniMessage.miniMessage().deserialize("<gradient:#E2A574:#E0EF50>skyblock.blockarion.de</gradient>"))
                 .appendNewline();
 
         player.sendPlayerListHeaderAndFooter(tabHeader, tabFooter);
@@ -51,13 +51,13 @@ public class ScoreboardManager {
                     Component.text(" §8• §c" + (skyBlockIsland.getOwnerUniqueId().equals(player.getUniqueId()) ? "§cBesitzer" : "§9Besucher")),
                     Component.empty(),
                     Component.text(" §8• §7Kontostand"),
-                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>" + NumberUtil.formatBalance(skyBlockUser.getBalance()) + " ⛃")),
+                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>" + NumberUtil.formatBalance(skyBlockUser.getBalance()) + " ⛃")),
                     Component.empty(),
                     Component.text(" §8• §7Insel"),
-                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>" + Bukkit.getOfflinePlayer(skyBlockIsland.getOwnerUniqueId()).getName())),
+                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>" + Bukkit.getOfflinePlayer(skyBlockIsland.getOwnerUniqueId()).getName())),
                     Component.empty(),
                     Component.text(" §8• §7Besucher"),
-                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>" + (player.getWorld().getPlayerCount() - 1))
+                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>" + (player.getWorld().getPlayerCount() - 1))
                             .append(Component.text(" §8» §c/list"))),
                     Component.empty()
             );
@@ -66,13 +66,13 @@ public class ScoreboardManager {
             fastBoard.updateLines(
                     Component.empty(),
                     Component.text(" §8• §7Kontostand"),
-                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>" + NumberUtil.formatBalance(skyBlockUser.getBalance()) + " ⛃")),
+                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>" + NumberUtil.formatBalance(skyBlockUser.getBalance()) + " ⛃")),
                     Component.empty(),
                     Component.text(" §8• §7Online"),
-                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>" + Bukkit.getOnlinePlayers().size())),
+                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>" + Bukkit.getOnlinePlayers().size())),
                     Component.empty(),
                     Component.text(" §8• §7Insel"),
-                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#FDAF65>Spawn")),
+                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>Spawn")),
                     Component.empty()
             );
         }
