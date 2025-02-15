@@ -86,6 +86,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.getCommand("seller").setExecutor(new SellerCommand());
         this.getCommand("gold").setExecutor(new GoldPiecesCommand());
         this.getCommand("auctions").setExecutor(new AuctionsCommand());
+        this.getCommand("perk").setExecutor(new PerkCommand());
 
     }
 

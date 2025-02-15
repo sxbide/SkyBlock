@@ -53,9 +53,10 @@ public class AuctionsMenu implements InventoryProvider {
 
             ItemBuilder auctionItemStack = ItemBuilder.of(auctionItem.getItemStack().clone());
 
+            auctionItemStack.getLore().add(Component.text("§8§m-------------"));
             auctionItemStack.getLore().add(Component.empty());
             auctionItemStack.getLore().add(Component.text("§7Auktion von §e" + Bukkit.getOfflinePlayer(auctionItem.getSellerUniqueId()).getName()));
-            auctionItemStack.getLore().add(Component.text("§7Preis: §e" + (auctionItem.getPrice() > 0 ? NumberUtil.formatBalance(auctionItem.getPrice()) + " ⛃" : "§aGRATIS")));
+            auctionItemStack.getLore().add(Component.text("§7Kosten: §e" + (auctionItem.getPrice() > 0 ? NumberUtil.formatBalance(auctionItem.getPrice()) + " ⛃" : "§aGRATIS")));
             auctionItemStack.getLore().add(Component.empty());
             auctionItemStack.getLore().add(Component.text("§7<Linksklicke zum kaufen>"));
 

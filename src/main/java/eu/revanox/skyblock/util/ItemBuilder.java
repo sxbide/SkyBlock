@@ -120,7 +120,6 @@ public class ItemBuilder {
         return this;
     }
 
-
     public ItemBuilder customModelData(@Nonnegative int data) {
         this.customModelData = data;
         return this;

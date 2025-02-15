@@ -22,5 +22,8 @@ commands:
     aliases:
       - auktion
       - auktionen
+  perk:
+    aliases:
+      - vorteile
 
 
