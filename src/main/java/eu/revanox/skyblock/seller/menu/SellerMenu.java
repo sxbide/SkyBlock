@@ -12,11 +12,13 @@ import io.github.rysefoxx.inventory.plugin.content.InventoryContents;
 import io.github.rysefoxx.inventory.plugin.content.InventoryProvider;
 import io.github.rysefoxx.inventory.plugin.enums.Action;
 import io.github.rysefoxx.inventory.plugin.enums.DisabledInventoryClick;
+import io.github.rysefoxx.inventory.plugin.enums.InventoryOptions;
 import io.github.rysefoxx.inventory.plugin.pagination.RyseInventory;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -125,6 +127,7 @@ public class SellerMenu implements InventoryProvider {
         }));
 
         contents.set(51, IntelligentItem.of(ItemBuilder.of(Material.GUSTER_BANNER_PATTERN)
+                .itemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
                 .displayName("§6Preisübersicht öffnen")
                 .lore(
                         Component.empty(),

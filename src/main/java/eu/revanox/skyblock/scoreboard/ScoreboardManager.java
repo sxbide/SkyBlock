@@ -40,7 +40,8 @@ public class ScoreboardManager {
         fastBoard.updateTitle(ChatAction.getPrefixGradient());
 
         Component tabHeader = Component.newline().append(ChatAction.getPrefixGradient().appendNewline().append(Component.text("§7§oearly access skyblock")).appendNewline());
-        Component tabFooter = Component.newline().append(MiniMessage.miniMessage().deserialize("<gradient:#E2A574:#E0EF50>skyblock.blockarion.de</gradient>"))
+        Component tabFooter = Component.newline().append(MiniMessage.miniMessage()
+                        .deserialize("<gradient:#E2A574:#E0EF50>Trete unserem Discord bei: blockarion.de/discord</gradient>"))
                 .appendNewline();
 
         player.sendPlayerListHeaderAndFooter(tabHeader, tabFooter);

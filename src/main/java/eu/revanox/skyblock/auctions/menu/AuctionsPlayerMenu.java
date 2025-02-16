@@ -39,7 +39,11 @@ public class AuctionsPlayerMenu implements InventoryProvider {
 
     @Override
     public void init(Player player, InventoryContents contents) {
-        Util.defaultInventory(contents);
+        Util.borderInventory(contents);
+
+        for (int i = 37; i < 44; i++) {
+            contents.set(i, Util.placeholderItem());
+        }
 
         Pagination pagination = contents.pagination();
         pagination.setItemsPerPage(21);

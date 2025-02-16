@@ -1,30 +1,5 @@
 name: SkyBlock
 version: 1.0
-author: yasde
+author: yasde & mzcy_
 main: eu.revanox.skyblock.SkyBlockPlugin
 api-version: '1.20'
-
-
-commands:
-  island:
-    aliases:
-      - is
-      - insel
-  setlocation:
-  spawn:
-  visit:
-  seller:
-    aliases:
-      - verkäufer
-      - verkaufen
-  gold:
-  auctions:
-    aliases:
-      - auktion
-      - auktionen
-      - ah
-  perk:
-    aliases:
-      - vorteile
-
-

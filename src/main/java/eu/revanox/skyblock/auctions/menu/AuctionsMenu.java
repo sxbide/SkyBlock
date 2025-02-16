@@ -3,12 +3,9 @@ package eu.revanox.skyblock.auctions.menu;
 import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.user.model.SkyBlockUser;
 import eu.revanox.skyblock.util.*;
-import io.github.rysefoxx.inventory.plugin.animator.SlideAnimation;
 import io.github.rysefoxx.inventory.plugin.content.IntelligentItem;
 import io.github.rysefoxx.inventory.plugin.content.InventoryContents;
 import io.github.rysefoxx.inventory.plugin.content.InventoryProvider;
-import io.github.rysefoxx.inventory.plugin.enums.AnimatorDirection;
-import io.github.rysefoxx.inventory.plugin.enums.TimeSetting;
 import io.github.rysefoxx.inventory.plugin.pagination.Pagination;
 import io.github.rysefoxx.inventory.plugin.pagination.RyseInventory;
 import io.github.rysefoxx.inventory.plugin.pagination.SlotIterator;
@@ -17,7 +14,7 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ItemFlag;
 
 @Getter
 public class AuctionsMenu implements InventoryProvider {
@@ -37,13 +34,17 @@ public class AuctionsMenu implements InventoryProvider {
     @Override
     public void init(Player player, InventoryContents contents) {
 
-        Util.defaultInventory(contents);
+        Util.borderInventory(contents);
+
+        for (int i = 37; i < 44; i++) {
+            contents.set(i, Util.placeholderItem());
+        }
 
         Pagination pagination = contents.pagination();
         pagination.setItemsPerPage(21);
         pagination.iterator(SlotIterator.builder()
                 .startPosition(10)
-                .blackList(17, 18, 26,27)
+                .blackList(17, 18, 26, 27)
                 .override()
                 .type(SlotIterator.SlotIteratorType.HORIZONTAL)
                 .build());
@@ -114,6 +115,7 @@ public class AuctionsMenu implements InventoryProvider {
         }));
 
         contents.set(51, IntelligentItem.of(ItemBuilder.of(Material.GUSTER_BANNER_PATTERN)
+                .itemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
                 .displayName("§aAuktion erstellen?")
                 .lore(
                         Component.empty(),

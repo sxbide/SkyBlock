@@ -22,29 +22,20 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
-@FieldDefaults(makeFinal = true)
 public class SkyBlockPlugin extends JavaPlugin {
 
     private static SkyBlockPlugin instance;
 
-    @NonFinal
     private MongoManager mongoManager;
-    @NonFinal
     private UserManager userManager;
-    @NonFinal
     private ScoreboardManager scoreboardManager;
-    @NonFinal
     private IslandManager islandManager;
-    @NonFinal
     private LocationManager locationManager;
-    @NonFinal
     private AuctionsManager auctionsManager;
-    @NonFinal
     private LuckPerms luckPerms;
-    @NonFinal
     private InventoryManager inventoryManager;
-    @NonFinal
     private TablistManager tablistManager;
+    private CommandManager commandManager;
 
 
     public static SkyBlockPlugin instance() {
@@ -57,7 +48,7 @@ public class SkyBlockPlugin extends JavaPlugin {
 
         this.luckPerms = LuckPermsProvider.get();
 
-        this.mongoManager = new MongoManager(Credentials.of("mongodb://revanox:Modd7V5hg2wAFYa30BvqMAk6ofVCCkRx@77.90.60.134:27017/", "skyblock"))
+        this.mongoManager = new MongoManager(Credentials.of("mongodb://keinepixel:rc8Saw8UNU4Dp+8UuWOUuVWZnJOEwp2nYhOcvqf5L@87.106.178.7:27017/", "skyblock"))
                 .registerCodec(new LocationCodec())
                 .registerCodec(new ItemStackCodec());
         this.userManager = new UserManager();
@@ -66,6 +57,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.locationManager = new LocationManager();
         this.auctionsManager = new AuctionsManager();
         this.tablistManager = new TablistManager();
+        this.commandManager = new CommandManager(this);
 
         this.inventoryManager = new InventoryManager(this);
         this.inventoryManager.invoke();
@@ -75,15 +67,6 @@ public class SkyBlockPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerChatListener(), this);
-
-        this.getCommand("island").setExecutor(new IslandCommand());
-        this.getCommand("setlocation").setExecutor(new LocationCommand());
-        this.getCommand("spawn").setExecutor(new SpawnCommand());
-        this.getCommand("visit").setExecutor(new VisitCommand());
-        this.getCommand("seller").setExecutor(new SellerCommand());
-        this.getCommand("gold").setExecutor(new GoldPiecesCommand());
-        this.getCommand("auctions").setExecutor(new AuctionsCommand());
-        this.getCommand("perk").setExecutor(new PerkCommand());
 
     }
 

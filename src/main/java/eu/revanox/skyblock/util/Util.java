@@ -21,6 +21,12 @@ public class Util {
         contents.fill(placeholder.build());
     }
 
+    public void borderInventory(InventoryContents contents) {
+        ItemBuilder placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE)
+                .displayName("§7-/-");
+        contents.fillBorders(placeholder.build());
+    }
+
     public ItemStack placeholderItem() {
         ItemBuilder placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE)
                 .displayName("§7-/-");
@@ -34,7 +40,16 @@ public class Util {
     }
 
     public @NotNull IntelligentItem nextButton(@NonNull Pagination pagination) {
-        return IntelligentItem.of(ItemBuilder.of(Material.GREEN_STAINED_GLASS_PANE).displayName("§aNächste Seite »")
+
+        Material material;
+
+        if(pagination.isLast()) {
+            material = Material.GRAY_STAINED_GLASS_PANE;
+        } else {
+            material = Material.GREEN_STAINED_GLASS_PANE;
+        }
+
+        return IntelligentItem.of(ItemBuilder.of(material).displayName("§aNächste Seite »")
                 .lore(
                         Component.empty(),
                         Component.text("§7<Linksklicke zum vor gehen>")
@@ -55,7 +70,15 @@ public class Util {
     }
 
     public @NotNull IntelligentItem backButton(@NonNull Pagination pagination) {
-        return IntelligentItem.of(ItemBuilder.of(Material.RED_STAINED_GLASS_PANE)
+        Material material;
+
+        if(pagination.isFirst()) {
+            material = Material.GRAY_STAINED_GLASS_PANE;
+        } else {
+            material = Material.RED_STAINED_GLASS_PANE;
+        }
+
+        return IntelligentItem.of(ItemBuilder.of(material)
                 .displayName("§c« Zurück")
                 .lore(
                         Component.empty(),
