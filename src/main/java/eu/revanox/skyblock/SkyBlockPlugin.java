@@ -75,7 +75,6 @@ public class SkyBlockPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerChatListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerHeldItemListener(), this);
 
         this.getCommand("island").setExecutor(new IslandCommand());
         this.getCommand("setlocation").setExecutor(new LocationCommand());
