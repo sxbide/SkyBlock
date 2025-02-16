@@ -7,10 +7,7 @@ import eu.revanox.skyblock.codec.ItemStackCodec;
 import eu.revanox.skyblock.codec.LocationCodec;
 import eu.revanox.skyblock.command.*;
 import eu.revanox.skyblock.island.IslandManager;
-import eu.revanox.skyblock.listener.InventoryCloseListener;
-import eu.revanox.skyblock.listener.PlayerChatListener;
-import eu.revanox.skyblock.listener.PlayerJoinListener;
-import eu.revanox.skyblock.listener.PlayerQuitListener;
+import eu.revanox.skyblock.listener.*;
 import eu.revanox.skyblock.location.LocationManager;
 import eu.revanox.skyblock.scoreboard.ScoreboardManager;
 import eu.revanox.skyblock.tablist.TablistManager;
@@ -78,6 +75,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerChatListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerHeldItemListener(), this);
 
         this.getCommand("island").setExecutor(new IslandCommand());
         this.getCommand("setlocation").setExecutor(new LocationCommand());
