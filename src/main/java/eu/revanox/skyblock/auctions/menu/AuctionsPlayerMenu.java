@@ -70,7 +70,7 @@ public class AuctionsPlayerMenu implements InventoryProvider {
         }));
 
         if (auctionItems.isEmpty()) {
-            contents.set(0, ItemBuilder.of(Material.PAPER).displayName("§cDu hast keine Auktionen :(").build());
+            contents.set(10, ItemBuilder.of(Material.PAPER).displayName("§cDu hast keine Auktionen :(").build());
             return;
         }
 
