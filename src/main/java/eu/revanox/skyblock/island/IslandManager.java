@@ -80,7 +80,7 @@ public class IslandManager {
         return null;
     }
 
-    public World createIsland(Player player) {
+    public void createIsland(Player player) {
         SlimeWorld slimeWorld = this.slimePlugin.getWorld("islandTemplateDefault");
 
 
@@ -130,7 +130,6 @@ public class IslandManager {
         this.repository.save(skyBlockIsland);
 
         player.sendMessage(ChatAction.of("§7Eine neue Insel wurde für dich erstellt!"));
-        return Bukkit.getWorld(this.islandWorldPrefix + player.getUniqueId());
     }
 
     public boolean isIslandLoaded(Player player) {
