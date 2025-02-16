@@ -66,7 +66,6 @@ public class IslandManager {
     }
 
     /**
-     * @param world
      * @return null if no island is given
      */
     public SkyBlockIsland getIslandByWorld(World world) {
