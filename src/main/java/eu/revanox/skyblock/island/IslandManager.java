@@ -137,6 +137,10 @@ public class IslandManager {
         return slimePlugin.getWorld(worldName) != null;
     }
 
+    public boolean islandExists(Player player) {
+        return this.repository.findFirstByOwnerUniqueId(player.getUniqueId()) != null && slimePlugin.getWorld(this.islandWorldPrefix + player.getUniqueId()) != null;
+    }
+
     public World loadIsland(Player player) {
         AtomicReference<World> world = new AtomicReference<>(Bukkit.getWorld(this.islandWorldPrefix + player.getUniqueId()));
 
@@ -180,7 +184,7 @@ public class IslandManager {
     public void teleportToIsland(Player player) {
         World world = Bukkit.getWorld(this.islandWorldPrefix + player.getUniqueId());
 
-        if (world == null) {
+        if (world == null && islandExists(player)) {
             CompletableFuture.supplyAsync(() -> this.loadIsland(player))
                     .thenAccept(loadedWorld -> {
                         Location location = new Location(loadedWorld, 0.5, 62, 0.5);
@@ -188,10 +192,12 @@ public class IslandManager {
                         player.sendMessage(ChatAction.of("§7Du wurdest auf deine Insel teleportiert."));
                     });
 
-        } else {
+        } else if (world != null) {
             Location location = new Location(world, 0.5, 62, 0.5);
             player.teleportAsync(location);
             player.sendMessage(ChatAction.of("§7Du wurdest auf deine Insel teleportiert."));
+        } else {
+            createIsland(player);
         }
     }
 
