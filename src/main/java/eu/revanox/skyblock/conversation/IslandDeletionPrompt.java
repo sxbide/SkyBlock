@@ -13,7 +13,7 @@ public class IslandDeletionPrompt extends StringPrompt {
     @Override
     public String getPromptText(ConversationContext context) {
         Player player = (Player) context.getForWhom();
-        return ChatAction.failure("§cBist du sicher, dass du deine Insel permanent löschen möchtest? Schreibe 'Ja' oder 'Nein'");
+        return "§c✘ Bist du sicher, dass du deine Insel permanent löschen möchtest? Schreibe 'Ja' oder 'Nein'";
     }
 
     @Override

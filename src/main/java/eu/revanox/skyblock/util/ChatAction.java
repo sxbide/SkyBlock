@@ -4,27 +4,32 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.UtilityClass;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.ChatColor;
 
 @UtilityClass
 @FieldDefaults(makeFinal = true)
 public class ChatAction {
 
     @Getter
-    private Component prefixGradient = MiniMessage.miniMessage().deserialize("<gradient:#E2A574:#E0EF50>Blockarion</gradient>");
-    private String prefix = "§a✔ §7";
-    private String failurePrefix = "§c✘ §c";
-    @Getter
-    private String noPermission = failurePrefix + "§cDazu hast du keine Berechtigung!";
-    @Getter
-    private String offline = failurePrefix + "§cDieser Spieler wurde nicht gefunden!";
+    private final Component prefixGradient = MiniMessage.miniMessage().deserialize("<gradient:#E2A574:#E0EF50>Blockarion</gradient>");
+    private final Component failurePrefix = MiniMessage.miniMessage().deserialize("<#fb1d1d>✘ ");
+    private final Component prefix = MiniMessage.miniMessage().deserialize("<#6cd414>✔ ");
 
-    public String of(String message) {
-        return prefix + message;
+    @Getter
+    private final Component noPermission = failurePrefix.append(Component.text("Dazu hast du keine Berechtigung!", NamedTextColor.RED));
+    @Getter
+    private final Component offline = failurePrefix.append(Component.text("Dieser Spieler wurde nicht gefunden!", NamedTextColor.RED));
+
+    public Component of(String message) {
+        return prefix.append(MiniMessage.miniMessage().deserialize("<#6cd414>" + ChatColor.stripColor(message)));
     }
 
-    public String failure(String message) {
-        return failurePrefix + message;
+    public Component failure(String message) {
+        return failurePrefix.append(MiniMessage.miniMessage().deserialize("<#fb1d1d>" + ChatColor.stripColor(message)));
     }
+
 }
+
 

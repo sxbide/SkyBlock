@@ -94,6 +94,15 @@ public class TablistManager {
                 .collect(Collectors.toList());
     }
 
+    public Team getTeamByPlayer(Player player) {
+        String playerGroup = SkyBlockPlugin.instance().getLuckPerms().getUserManager()
+                .getUser(player.getUniqueId())
+                .getPrimaryGroup();
+
+        return this.teams.getOrDefault(playerGroup, this.teams.get("default"));
+    }
+
+
     private int getGroupWeight(Group group) {
         var weight = group.getWeight();
         if (weight.isPresent()) {
