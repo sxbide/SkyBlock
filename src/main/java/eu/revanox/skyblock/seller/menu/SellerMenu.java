@@ -41,7 +41,7 @@ public class SellerMenu implements InventoryProvider {
                 .provider(this)
                 .ignoredSlots(IntStream.range(0, 44).toArray())
                 .ignoreClickEvent(DisabledInventoryClick.BOTTOM)
-                .enableAction(Action.MOVE_TO_OTHER_INVENTORY)
+                .enableAction(Action.MOVE_TO_OTHER_INVENTORY, Action.DOUBLE_CLICK)
                 .build(SkyBlockPlugin.instance());
 
         this.itemsToSell = new ArrayList<>();

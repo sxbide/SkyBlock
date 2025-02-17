@@ -34,7 +34,6 @@ public class SellerListMenu implements InventoryProvider {
                 .title("Preisübersicht")
                 .rows(6)
                 .provider(this)
-                .enableAction(Action.MOVE_TO_OTHER_INVENTORY, Action.DOUBLE_CLICK)
                 .disableUpdateTask()
                 .build(SkyBlockPlugin.instance());
 
