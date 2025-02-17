@@ -26,7 +26,6 @@ import java.util.stream.IntStream;
 public class PerkMenu implements InventoryProvider {
 
     RyseInventory ryseInventory;
-    List<ItemStack> itemsToSell;
 
     public PerkMenu() {
 
@@ -35,8 +34,6 @@ public class PerkMenu implements InventoryProvider {
                 .rows(5)
                 .provider(this)
                 .build(SkyBlockPlugin.instance());
-
-        this.itemsToSell = new ArrayList<>();
     }
 
     @Override

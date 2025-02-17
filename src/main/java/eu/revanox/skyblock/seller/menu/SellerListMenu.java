@@ -4,12 +4,17 @@ import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.seller.SellerItems;
 import eu.revanox.skyblock.util.ItemBuilder;
 import eu.revanox.skyblock.util.NumberUtil;
+import eu.revanox.skyblock.util.Util;
 import io.github.rysefoxx.inventory.plugin.content.IntelligentItem;
 import io.github.rysefoxx.inventory.plugin.content.InventoryContents;
 import io.github.rysefoxx.inventory.plugin.content.InventoryProvider;
+import io.github.rysefoxx.inventory.plugin.enums.Action;
+import io.github.rysefoxx.inventory.plugin.pagination.Pagination;
 import io.github.rysefoxx.inventory.plugin.pagination.RyseInventory;
+import io.github.rysefoxx.inventory.plugin.pagination.SlotIterator;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -20,6 +25,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SellerListMenu implements InventoryProvider {
 
     RyseInventory ryseInventory;
+    Pagination pagination;
+    int page;
 
     public SellerListMenu() {
 
@@ -27,24 +34,36 @@ public class SellerListMenu implements InventoryProvider {
                 .title("Preisübersicht")
                 .rows(6)
                 .provider(this)
+                .enableAction(Action.MOVE_TO_OTHER_INVENTORY, Action.DOUBLE_CLICK)
                 .disableUpdateTask()
                 .build(SkyBlockPlugin.instance());
+
+        this.page = 0;
     }
 
     @Override
     public void init(Player player, InventoryContents contents) {
+
+        pagination = contents.pagination();
+        SlotIterator slotIterator = SlotIterator.builder()
+                .override()
+                .startPosition(10)
+                .endPosition(43)
+                .blackList(17, 18, 26, 27, 35, 36)
+                .build();
+        pagination.iterator(slotIterator);
 
         contents.fillArea(0, 44, IntelligentItem.of(ItemStack.empty(), event -> {
             event.setCancelled(true);
         }));
 
         contents.fillArea(45, 53, IntelligentItem.of(ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE)
-                .displayName("§7-/-").build(), event -> {
+                .displayName("§r").build(), event -> {
             event.setCancelled(true);
         }));
 
         contents.set(49, IntelligentItem.of(ItemBuilder.of(Material.BARRIER)
-                .displayName("§cZurück zum Startseite")
+                .displayName(MiniMessage.miniMessage().deserialize("<#ff0000>Zurück zum Startseite"))
                 .lore(
                         Component.empty(),
                         Component.text("§7<Linksklicke zum zurückgehen>")
@@ -56,7 +75,9 @@ public class SellerListMenu implements InventoryProvider {
 
         }));
 
-        AtomicInteger slot = new AtomicInteger(0);
+        contents.set(47, Util.backButton(pagination));
+        contents.set(51, Util.nextButton(pagination));
+
         for (SellerItems value : SellerItems.values()) {
 
             ItemBuilder itemStack = ItemBuilder.of(value.getMaterial())
@@ -65,9 +86,15 @@ public class SellerListMenu implements InventoryProvider {
                             Component.text("§7Verkaufspreis: §e" + NumberUtil.formatBalance(value.getPrice()) + " ⛃")
                     );
 
-            contents.set(slot.getAndIncrement(), IntelligentItem.of(itemStack.build(), event -> {
+            pagination.addItem(IntelligentItem.of(itemStack.build(), event -> {
                 event.setCancelled(true);
             }));
         }
+
+        update(0, contents);
+    }
+
+    public void update(int newPage, InventoryContents contents) {
+        //TODO: Implement update method
     }
 }
