@@ -26,6 +26,11 @@ public class SkyBlockUser {
     List<Tags> tags;
     Tags selectedTag;
 
+    public void setSelectedTag(Tags tag) {
+        this.selectedTag = tag;
+        SkyBlockPlugin.instance().getUserManager().saveUser(this);
+    }
+
     public void addTag(Tags tag) {
         this.tags.add(tag);
         SkyBlockPlugin.instance().getUserManager().saveUser(this);
