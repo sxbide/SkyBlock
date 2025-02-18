@@ -17,7 +17,7 @@ public class PingCommand extends AbstractCommand {
     @Override
     public void run(Player player, String[] args) {
         if (args.length == 0) {
-            player.sendMessage(ChatAction.info("Dein Ping beträgt ").append(formatPing(player.getPing())).append(Component.text(".")));
+            player.sendMessage(ChatAction.info("Dein Ping beträgt ").append(formatPing(player.getPing())).append(MiniMessage.miniMessage().deserialize("<#c0f0fb>.")));
             return;
         }
         String targetName = args[0];
@@ -26,23 +26,23 @@ public class PingCommand extends AbstractCommand {
             player.sendMessage(ChatAction.getOffline());
             return;
         }
-        player.sendMessage(ChatAction.info("Der Ping von ").append(Component.text("§e" + target.getName())).append(MiniMessage.miniMessage().deserialize("<#c0f0fb> beträgt ")).append(formatPing(target.getPing())).append(Component.text(".")));
+        player.sendMessage(ChatAction.info("Der Ping von ").append(Component.text("§e" + target.getName())).append(MiniMessage.miniMessage().deserialize("<#c0f0fb> beträgt ")).append(formatPing(target.getPing())).append(MiniMessage.miniMessage().deserialize("<#c0f0fb>.")));
     }
 
 
     private Component formatPing(int ping) {
         if (ping < 30) {
-            return MiniMessage.miniMessage().deserialize("<#00ff00>" + ping + "ms</color>");
+            return MiniMessage.miniMessage().deserialize("<#00ff00>" + ping + "ms<reset>");
         }
         if (ping < 60) {
-            return MiniMessage.miniMessage().deserialize("<#ffff00>" + ping + "ms</color>");
+            return MiniMessage.miniMessage().deserialize("<#ffff00>" + ping + "ms<reset>");
         }
         if (ping < 100) {
-            return MiniMessage.miniMessage().deserialize("<red>" + ping + "ms</red>");
+            return MiniMessage.miniMessage().deserialize("<red>" + ping + "ms<reset>");
         }
         if (ping <= 130) {
-            return MiniMessage.miniMessage().deserialize("<#ff0000>" + ping + "ms</color>");
+            return MiniMessage.miniMessage().deserialize("<#ff0000>" + ping + "ms<reset>");
         }
-        return MiniMessage.miniMessage().deserialize("<#9D9D9D>" + ping + "ms</color>");
+        return MiniMessage.miniMessage().deserialize("<#9D9D9D>" + ping + "ms<reset>");
     }
 }

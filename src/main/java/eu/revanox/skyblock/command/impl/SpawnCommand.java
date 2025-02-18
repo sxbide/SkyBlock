@@ -13,7 +13,7 @@ public class SpawnCommand extends AbstractCommand {
 
 
     public SpawnCommand(@NotNull SkyBlockPlugin plugin) {
-        super(plugin, "spawn", null, "hub", "lobby", "leave", "l", "s", "h", "hubschrauber", "hubschrauberlandeplatz", "tetris", "ehrenlos", "yasde", "mzcy_", "spawnpunkt", "sp", "spawnpoint");
+        super(plugin, "spawn", null, "hub", "lobby", "leave");
     }
 
     @Override

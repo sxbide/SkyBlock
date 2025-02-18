@@ -7,6 +7,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Color;
 import org.bukkit.entity.Display;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TextDisplay;
 import org.w3c.dom.Text;
@@ -26,7 +27,13 @@ public class TagManager {
     public void updateTag(Player player) {
         SkyBlockUser skyBlockUser = SkyBlockPlugin.instance().getUserManager().getUser(player.getUniqueId());
 
-        TextDisplay textDisplay = player.getWorld().spawn(player.getLocation(), TextDisplay.class);
+        TextDisplay textDisplay;
+        if (this.tagMap.containsKey(player.getUniqueId())) {
+            textDisplay = this.tagMap.get(player.getUniqueId());
+        } else {
+            textDisplay = player.getWorld().spawn(player.getLocation(), TextDisplay.class);
+            this.tagMap.put(player.getUniqueId(), textDisplay);
+        }
         textDisplay.text(skyBlockUser.getSelectedTag().getTagText().append(Component.newline()).append(Component.newline()));
         textDisplay.setBillboard(Display.Billboard.CENTER);
         textDisplay.setShadowed(false);
@@ -35,9 +42,12 @@ public class TagManager {
         textDisplay.setGravity(false);
         textDisplay.setPersistent(false);
 
+        for (Entity passenger : player.getPassengers()) {
+            if (passenger instanceof TextDisplay) {
+                passenger.remove();
+            }
+        }
         player.addPassenger(textDisplay);
-
-
 
     }
 

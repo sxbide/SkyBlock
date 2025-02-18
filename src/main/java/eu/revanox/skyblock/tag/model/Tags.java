@@ -1,4 +1,4 @@
-package eu.revanox.skyblock.tag;
+package eu.revanox.skyblock.tag.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

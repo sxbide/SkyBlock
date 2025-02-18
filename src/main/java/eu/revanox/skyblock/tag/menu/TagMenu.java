@@ -1,7 +1,7 @@
 package eu.revanox.skyblock.tag.menu;
 
 import eu.revanox.skyblock.SkyBlockPlugin;
-import eu.revanox.skyblock.tag.Tags;
+import eu.revanox.skyblock.tag.model.Tags;
 import eu.revanox.skyblock.user.model.SkyBlockUser;
 import eu.revanox.skyblock.util.ChatAction;
 import eu.revanox.skyblock.util.ItemBuilder;
