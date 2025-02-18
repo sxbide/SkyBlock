@@ -3,10 +3,7 @@ package eu.revanox.skyblock.tag.menu;
 import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.tag.model.Tags;
 import eu.revanox.skyblock.user.model.SkyBlockUser;
-import eu.revanox.skyblock.util.ChatAction;
-import eu.revanox.skyblock.util.ItemBuilder;
-import eu.revanox.skyblock.util.SoundAction;
-import eu.revanox.skyblock.util.Util;
+import eu.revanox.skyblock.util.*;
 import io.github.rysefoxx.inventory.plugin.content.IntelligentItem;
 import io.github.rysefoxx.inventory.plugin.content.InventoryContents;
 import io.github.rysefoxx.inventory.plugin.content.InventoryProvider;
@@ -53,13 +50,17 @@ public class TagMenu implements InventoryProvider {
 
         for (Tags tag : Tags.values()) {
             ItemBuilder itemBuilder = ItemBuilder.of(Material.NAME_TAG)
-                    .displayName(tag.getTagText());
+                    .displayName(tag.getTagText().append(Component.text(" §8› §7Titel")));
 
 
             if (skyBlockUser.getSelectedTag() != null && skyBlockUser.getSelectedTag().equals(tag)) {
                 itemBuilder.enchantment(Enchantment.SHARPNESS, 1);
             }
             itemBuilder.itemFlags(ItemFlag.HIDE_ENCHANTS);
+
+            itemBuilder.getLore().add(Component.empty());
+            itemBuilder.getLore().add(Component.text("§7Seltenheit: ").append(tag.getRarity().getDisplayName()));
+
 
 
             if (skyBlockUser.getTags().contains(tag)) {
@@ -69,14 +70,18 @@ public class TagMenu implements InventoryProvider {
                 itemBuilder.getLore().add(Component.empty());
                 itemBuilder.getLore().add(Component.text("§cDieser Titel kann nicht gekauft werden."));
             } else {
-                itemBuilder.getLore().add(Component.empty());
-                itemBuilder.getLore().add(Component.text("§7Kosten: §e" + tag.getPrice() + " ⛃"));
+                itemBuilder.getLore().add(Component.text("§7Kosten: §e" + NumberUtil.formatBalance(tag.getPrice()) + " ⛃"));
                 itemBuilder.getLore().add(Component.empty());
                 itemBuilder.getLore().add(Component.text("§7<Linksklicke zum kaufen>"));
             }
 
             pagination.addItem(IntelligentItem.of(itemBuilder
                     .build(), event -> {
+
+                if(tag.getPrice() == -1) {
+                    player.sendMessage(ChatAction.failure("§cDieser Titel kann nicht gekauft werden."));
+                    return;
+                }
 
                 if (!skyBlockUser.getTags().contains(tag)) {
 
@@ -89,6 +94,7 @@ public class TagMenu implements InventoryProvider {
                     skyBlockUser.addTag(tag);
                     SoundAction.playTaskComplete(player);
                     player.sendMessage(ChatAction.of("§aDu hast den Titel erfolgreich gekauft."));
+                    player.closeInventory();
 
                 } else {
 
@@ -97,14 +103,19 @@ public class TagMenu implements InventoryProvider {
                         itemBuilder.getEnchantments().clear();
                         player.sendMessage(ChatAction.failure("§cDu hast nun keinen Titel mehr ausgewählt."));
                         SkyBlockPlugin.instance().getTagManager().updateTag(player);
+                        player.closeInventory();
                     } else {
                         skyBlockUser.setSelectedTag(tag);
                         itemBuilder.enchantment(Enchantment.SHARPNESS, 1);
                         player.sendMessage(ChatAction.of("§aDu hast den Titel erfolgreich ausgewählt."));
                         SkyBlockPlugin.instance().getTagManager().updateTag(player);
+                        player.closeInventory();
                     }
                 }
             }));
         }
+
+        contents.set(53, Util.nextButton(pagination));
+        contents.set(45, Util.backButton(pagination));
     }
 }
