@@ -43,6 +43,8 @@ public class SellerListMenu implements InventoryProvider {
     @Override
     public void init(Player player, InventoryContents contents) {
 
+        Util.borderInventory(contents);
+
         pagination = contents.pagination();
         SlotIterator slotIterator = SlotIterator.builder()
                 .override()
@@ -74,8 +76,8 @@ public class SellerListMenu implements InventoryProvider {
 
         }));
 
-        contents.set(47, Util.backButton(pagination));
-        contents.set(51, Util.nextButton(pagination));
+        contents.set(53, Util.nextButton(pagination));
+        contents.set(45, Util.backButton(pagination));
 
         for (SellerItems value : SellerItems.values()) {
 

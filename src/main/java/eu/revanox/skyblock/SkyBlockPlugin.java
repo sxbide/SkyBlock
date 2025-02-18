@@ -11,6 +11,7 @@ import eu.revanox.skyblock.listener.*;
 import eu.revanox.skyblock.location.LocationManager;
 import eu.revanox.skyblock.scoreboard.ScoreboardManager;
 import eu.revanox.skyblock.tablist.TablistManager;
+import eu.revanox.skyblock.tag.TagManager;
 import eu.revanox.skyblock.user.UserManager;
 import io.github.rysefoxx.inventory.plugin.pagination.InventoryManager;
 import lombok.Getter;
@@ -36,6 +37,7 @@ public class SkyBlockPlugin extends JavaPlugin {
     private InventoryManager inventoryManager;
     private TablistManager tablistManager;
     private CommandManager commandManager;
+    private TagManager tagManager;
 
 
     public static SkyBlockPlugin instance() {
@@ -58,6 +60,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.auctionsManager = new AuctionsManager();
         this.tablistManager = new TablistManager();
         this.commandManager = new CommandManager(this);
+        this.tagManager = new TagManager();
 
         this.inventoryManager = new InventoryManager(this);
         this.inventoryManager.invoke();

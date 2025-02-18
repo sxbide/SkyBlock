@@ -2,11 +2,13 @@ package eu.revanox.skyblock.user.model;
 
 import eu.koboo.en2do.repository.entity.Id;
 import eu.revanox.skyblock.SkyBlockPlugin;
+import eu.revanox.skyblock.tag.Tags;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -20,6 +22,14 @@ public class SkyBlockUser {
 
     double balance;
     long goldPieces;
+
+    List<Tags> tags;
+    Tags selectedTag;
+
+    public void addTag(Tags tag) {
+        this.tags.add(tag);
+        SkyBlockPlugin.instance().getUserManager().saveUser(this);
+    }
 
     public void setBalance(double amount) {
         this.balance = amount;

@@ -4,6 +4,7 @@ import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.user.model.SkyBlockUser;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -27,6 +28,8 @@ public class UserManager {
             skyBlockUser.setUniqueId(uuid);
             skyBlockUser.setBalance(0);
             skyBlockUser.setGoldPieces(0);
+            skyBlockUser.setSelectedTag(null);
+            skyBlockUser.setTags(new ArrayList<>());
         }
 
         this.uuidSkyBlockUserMap.put(uuid, skyBlockUser);

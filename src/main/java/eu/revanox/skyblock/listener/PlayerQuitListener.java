@@ -18,5 +18,7 @@ public class PlayerQuitListener implements Listener {
         SkyBlockPlugin.instance().getUserManager().saveUser(player.getUniqueId());
         SkyBlockPlugin.instance().getScoreboardManager().destroyScoreboard(player);
 
+        SkyBlockPlugin.instance().getTagManager().destroyTag(player);
+
     }
 }
