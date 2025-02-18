@@ -56,7 +56,7 @@ public class TagMenu implements InventoryProvider {
                     .displayName(tag.getTagText());
 
 
-            if (skyBlockUser.getSelectedTag().equals(tag)) {
+            if (skyBlockUser.getSelectedTag() != null && skyBlockUser.getSelectedTag().equals(tag)) {
                 itemBuilder.enchantment(Enchantment.SHARPNESS, 1);
             }
             itemBuilder.itemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -65,7 +65,10 @@ public class TagMenu implements InventoryProvider {
             if (skyBlockUser.getTags().contains(tag)) {
                 itemBuilder.getLore().add(Component.empty());
                 itemBuilder.getLore().add(Component.text("§7<Linksklicke zum auswählen>"));
-            } else if (tag.getPrice() > 0) {
+            } else if (tag.getPrice() == -1) {
+                itemBuilder.getLore().add(Component.empty());
+                itemBuilder.getLore().add(Component.text("§cDieser Titel kann nicht gekauft werden."));
+            } else {
                 itemBuilder.getLore().add(Component.empty());
                 itemBuilder.getLore().add(Component.text("§7Kosten: §e" + tag.getPrice() + " ⛃"));
                 itemBuilder.getLore().add(Component.empty());
@@ -86,16 +89,19 @@ public class TagMenu implements InventoryProvider {
                     skyBlockUser.addTag(tag);
                     SoundAction.playTaskComplete(player);
                     player.sendMessage(ChatAction.of("§aDu hast den Titel erfolgreich gekauft."));
+
                 } else {
 
-                    if (skyBlockUser.getSelectedTag().equals(tag)) {
+                    if (skyBlockUser.getSelectedTag() != null && skyBlockUser.getSelectedTag().equals(tag)) {
                         skyBlockUser.setSelectedTag(null);
                         itemBuilder.getEnchantments().clear();
-                        player.sendMessage(ChatAction.of("§cDu hast nun keinen Titel mehr ausgewählt."));
+                        player.sendMessage(ChatAction.failure("§cDu hast nun keinen Titel mehr ausgewählt."));
+                        SkyBlockPlugin.instance().getTagManager().updateTag(player);
                     } else {
                         skyBlockUser.setSelectedTag(tag);
                         itemBuilder.enchantment(Enchantment.SHARPNESS, 1);
                         player.sendMessage(ChatAction.of("§aDu hast den Titel erfolgreich ausgewählt."));
+                        SkyBlockPlugin.instance().getTagManager().updateTag(player);
                     }
                 }
             }));

@@ -27,6 +27,11 @@ public class TagManager {
     public void updateTag(Player player) {
         SkyBlockUser skyBlockUser = SkyBlockPlugin.instance().getUserManager().getUser(player.getUniqueId());
 
+        if(skyBlockUser.getSelectedTag() == null) {
+            destroyTag(player);
+            return;
+        }
+
         TextDisplay textDisplay;
         if (this.tagMap.containsKey(player.getUniqueId())) {
             textDisplay = this.tagMap.get(player.getUniqueId());

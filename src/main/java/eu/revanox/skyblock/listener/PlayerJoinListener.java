@@ -38,5 +38,7 @@ public class PlayerJoinListener implements Listener {
         player.playSound(player.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 100, 0.7F);
 
         SkyBlockPlugin.instance().getIslandManager().loadIsland(player);
+        SkyBlockPlugin.instance().getTagManager().updateTag(player);
+
     }
 }
