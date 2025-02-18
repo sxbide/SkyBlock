@@ -94,13 +94,13 @@ public class Util {
 
             if(pagination.isFirst()) {
                 player.sendMessage(ChatAction.failure("Du befindest dich bereits auf der ersten Seite"));
-                player.playSound(player.getLocation(), Sound.ITEM_ARMOR_EQUIP_TURTLE, 100, 1);
+                player.playSound(player.getLocation(), Sound.BLOCK_LANTERN_STEP, 100, 1);
                 return;
             }
 
             RyseInventory currentInventory = pagination.inventory();
             currentInventory.open(player, pagination.previous().page());
-            player.playSound(player.getLocation(), Sound.ENTITY_HORSE_ARMOR, 100, 0.7F);
+            player.playSound(player.getLocation(), Sound.ITEM_ARMOR_EQUIP_TURTLE, 100, 1);
         });
     }
 

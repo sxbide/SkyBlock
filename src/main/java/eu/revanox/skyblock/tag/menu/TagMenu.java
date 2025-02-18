@@ -25,7 +25,7 @@ public class TagMenu implements InventoryProvider {
     public TagMenu() {
 
         this.ryseInventory = RyseInventory.builder()
-                .title("Titel")
+                .title("Wähle deinen Titel aus")
                 .rows(6)
                 .provider(this)
                 .disableUpdateTask()
@@ -102,15 +102,13 @@ public class TagMenu implements InventoryProvider {
                         skyBlockUser.setSelectedTag(null);
                         itemBuilder.getEnchantments().clear();
                         player.sendMessage(ChatAction.failure("§cDu hast nun keinen Titel mehr ausgewählt."));
-                        SkyBlockPlugin.instance().getTagManager().updateTag(player);
-                        player.closeInventory();
                     } else {
                         skyBlockUser.setSelectedTag(tag);
                         itemBuilder.enchantment(Enchantment.SHARPNESS, 1);
                         player.sendMessage(ChatAction.of("§aDu hast den Titel erfolgreich ausgewählt."));
-                        SkyBlockPlugin.instance().getTagManager().updateTag(player);
-                        player.closeInventory();
                     }
+                    SkyBlockPlugin.instance().getTagManager().updateTag(player);
+                    player.closeInventory();
                 }
             }));
         }
