@@ -2,10 +2,11 @@ package eu.revanox.skyblock.listener;
 
 import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.location.model.Location;
+import eu.revanox.skyblock.util.ChatAction;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -37,7 +38,5 @@ public class PlayerJoinListener implements Listener {
         player.playSound(player.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 100, 0.7F);
 
         SkyBlockPlugin.instance().getIslandManager().loadIsland(player);
-
-
     }
 }
