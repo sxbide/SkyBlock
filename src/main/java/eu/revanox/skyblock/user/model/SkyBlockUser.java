@@ -29,32 +29,28 @@ public class SkyBlockUser {
 
     public void setSelectedTag(Tags tag) {
         this.selectedTag = tag;
-        SkyBlockPlugin.instance().getUserManager().saveUser(this);
-        SkyBlockPlugin.instance().getUserManager().updateEntry(uniqueId, this);
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
     }
 
     public void addTag(Tags tag) {
         this.tags.add(tag);
-        SkyBlockPlugin.instance().getUserManager().saveUser(this);
-        SkyBlockPlugin.instance().getUserManager().updateEntry(uniqueId, this);
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
     }
 
     public void setBalance(double amount) {
         this.balance = amount;
-        SkyBlockPlugin.instance().getUserManager().saveUser(this);
-        SkyBlockPlugin.instance().getUserManager().updateEntry(uniqueId, this);
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
     }
 
     public void addBalance(double amount) {
         this.balance += amount;
-        SkyBlockPlugin.instance().getUserManager().saveUser(this);
-        SkyBlockPlugin.instance().getUserManager().updateEntry(uniqueId, this);
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
     }
 
     public void removeBalance(double amount) {
         this.balance -= amount;
-        SkyBlockPlugin.instance().getUserManager().saveUser(this);
-        SkyBlockPlugin.instance().getUserManager().updateEntry(uniqueId, this);
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+
     }
 
 }
