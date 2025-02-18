@@ -9,6 +9,7 @@ import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.island.model.SkyBlockIsland;
 import eu.revanox.skyblock.island.repository.IslandRepository;
 import eu.revanox.skyblock.util.ChatAction;
+import io.papermc.paper.entity.TeleportFlag;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -117,7 +118,8 @@ public class IslandManager {
             }
 
             Location location = new Location(Bukkit.getWorld(this.islandWorldPrefix + player.getUniqueId()), 0.5, 62, 0.5);
-            player.teleportAsync(location);
+            player.teleport(location, TeleportFlag.EntityState.RETAIN_PASSENGERS);
+
         });
 
         SkyBlockIsland skyBlockIsland = new SkyBlockIsland();
@@ -190,13 +192,13 @@ public class IslandManager {
             CompletableFuture.supplyAsync(() -> this.loadIsland(player))
                     .thenAccept(loadedWorld -> {
                         Location location = new Location(loadedWorld, 0.5, 62, 0.5);
-                        player.teleportAsync(location);
+                        player.teleport(location, TeleportFlag.EntityState.RETAIN_PASSENGERS);
                         player.sendMessage(ChatAction.of("§7Du wurdest auf deine Insel teleportiert."));
                     });
 
         } else if (world != null) {
             Location location = new Location(world, 0.5, 62, 0.5);
-            player.teleportAsync(location);
+            player.teleport(location, TeleportFlag.EntityState.RETAIN_PASSENGERS);
             player.sendMessage(ChatAction.of("§7Du wurdest auf deine Insel teleportiert."));
         } else {
             createIsland(player);
@@ -223,13 +225,13 @@ public class IslandManager {
         SkyBlockIsland skyBlockIsland = this.repository.findFirstByOwnerUniqueId(player.getUniqueId());
 
         if (!world.getPlayers().isEmpty()) {
-            CompletableFuture<Void> completableFuture =
-                    CompletableFuture.allOf(world.getPlayers().stream().map(worldPayer ->
-                            worldPayer.teleportAsync(SkyBlockPlugin.instance().getLocationManager().getPosition("spawn").getLocation())).toList().toArray(CompletableFuture[]::new));
+            for (Player worldPlayer : world.getPlayers()) {
+                worldPlayer.teleport(
+                        SkyBlockPlugin.instance().getLocationManager().getPosition("spawn").getLocation(),
+                        TeleportFlag.EntityState.RETAIN_PASSENGERS);
+            }
+            Bukkit.unloadWorld(world, false);
 
-            completableFuture.thenRun(() -> {
-                Bukkit.unloadWorld(world, false);
-            });
         } else {
             Bukkit.unloadWorld(world, false);
         }

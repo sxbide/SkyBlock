@@ -20,6 +20,10 @@ public class UserManager {
         this.repository = SkyBlockPlugin.instance().getMongoManager().create(SkyBlockUserRepository.class);
     }
 
+    public void updateEntry(UUID uuid, SkyBlockUser user) {
+        this.uuidSkyBlockUserMap.put(uuid, user);
+    }
+
     public void loadUser(UUID uuid) {
         SkyBlockUser skyBlockUser = this.repository.findFirstById(uuid);
 

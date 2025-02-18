@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,26 +30,31 @@ public class SkyBlockUser {
     public void setSelectedTag(Tags tag) {
         this.selectedTag = tag;
         SkyBlockPlugin.instance().getUserManager().saveUser(this);
+        SkyBlockPlugin.instance().getUserManager().updateEntry(uniqueId, this);
     }
 
     public void addTag(Tags tag) {
         this.tags.add(tag);
         SkyBlockPlugin.instance().getUserManager().saveUser(this);
+        SkyBlockPlugin.instance().getUserManager().updateEntry(uniqueId, this);
     }
 
     public void setBalance(double amount) {
         this.balance = amount;
         SkyBlockPlugin.instance().getUserManager().saveUser(this);
+        SkyBlockPlugin.instance().getUserManager().updateEntry(uniqueId, this);
     }
 
     public void addBalance(double amount) {
         this.balance += amount;
         SkyBlockPlugin.instance().getUserManager().saveUser(this);
+        SkyBlockPlugin.instance().getUserManager().updateEntry(uniqueId, this);
     }
 
     public void removeBalance(double amount) {
         this.balance -= amount;
         SkyBlockPlugin.instance().getUserManager().saveUser(this);
+        SkyBlockPlugin.instance().getUserManager().updateEntry(uniqueId, this);
     }
 
 }
