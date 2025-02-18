@@ -62,10 +62,16 @@ public class TagMenu implements InventoryProvider {
             itemBuilder.getLore().add(Component.text("§7Seltenheit: ").append(tag.getRarity().getDisplayName()));
 
 
-
             if (skyBlockUser.getTags().contains(tag)) {
                 itemBuilder.getLore().add(Component.empty());
-                itemBuilder.getLore().add(Component.text("§7<Linksklicke zum auswählen>"));
+
+                if(skyBlockUser.getSelectedTag() != null && skyBlockUser.getSelectedTag().equals(tag)) {
+                    itemBuilder.getLore().add(Component.text("§aAktuell ausgewählter Titel"));
+                    itemBuilder.getLore().add(Component.text("§7<Linksklicke zum nicht mehr auswählen>"));
+                } else {
+                    itemBuilder.getLore().add(Component.text("§7<Linksklicke zum auswählen>"));
+                }
+
             } else if (tag.getPrice() == -1) {
                 itemBuilder.getLore().add(Component.empty());
                 itemBuilder.getLore().add(Component.text("§cDieser Titel kann nicht gekauft werden."));
@@ -78,7 +84,7 @@ public class TagMenu implements InventoryProvider {
             pagination.addItem(IntelligentItem.of(itemBuilder
                     .build(), event -> {
 
-                if(tag.getPrice() == -1) {
+                if(tag.getPrice() == -1 && !skyBlockUser.getTags().contains(tag)) {
                     player.sendMessage(ChatAction.failure("§cDieser Titel kann nicht gekauft werden."));
                     return;
                 }
