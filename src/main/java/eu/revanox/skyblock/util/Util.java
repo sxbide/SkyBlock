@@ -8,6 +8,7 @@ import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -61,11 +62,13 @@ public class Util {
 
             if (pagination.isLast()) {
                 player.sendMessage(ChatAction.failure("Du befindest dich bereits auf der letzten Seite"));
+                player.playSound(player.getLocation(), Sound.BLOCK_LANTERN_STEP, 100, 1);
                 return;
             }
 
             RyseInventory currentInventory = pagination.inventory();
             currentInventory.open(player, pagination.next().page());
+            player.playSound(player.getLocation(), Sound.ENTITY_HORSE_ARMOR, 100, 0.7F);
         });
     }
 
@@ -91,11 +94,13 @@ public class Util {
 
             if(pagination.isFirst()) {
                 player.sendMessage(ChatAction.failure("Du befindest dich bereits auf der ersten Seite"));
+                player.playSound(player.getLocation(), Sound.BLOCK_LANTERN_STEP, 100, 1);
                 return;
             }
 
             RyseInventory currentInventory = pagination.inventory();
             currentInventory.open(player, pagination.previous().page());
+            player.playSound(player.getLocation(), Sound.ENTITY_HORSE_ARMOR, 100, 0.7F);
         });
     }
 

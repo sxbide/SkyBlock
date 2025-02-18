@@ -28,18 +28,5 @@ public class GoldPiecesCommand extends AbstractCommand {
     public void run(Player player, String[] args) {
         SkyBlockUser skyBlockUser = SkyBlockPlugin.instance().getUserManager().getUser(player.getUniqueId());
         player.sendMessage(ChatAction.of("§7Du hast aktuell §e" + skyBlockUser.getGoldPieces() + " §7Goldstücke"));
-
-        TextDisplay textDisplay = player.getWorld().spawn(player.getLocation(), TextDisplay.class);
-        textDisplay.text(ChatAction.getPrefixGradient().append(Component.newline()).append(Component.newline()));
-        textDisplay.setBillboard(Display.Billboard.CENTER);
-        textDisplay.setShadowed(false);
-        // Remove color; make colorless
-        textDisplay.setBackgroundColor(Color.fromARGB(25, 0, 0, 0));
-        textDisplay.setDefaultBackground(false);
-        textDisplay.setSeeThrough(true);
-        textDisplay.setGravity(false);
-        textDisplay.setPersistent(false);
-
-        player.addPassenger(textDisplay);
     }
 }
