@@ -18,7 +18,7 @@ import java.util.UUID;
 
 public class TagManager {
 
-    private Map<UUID, TextDisplay> tagMap;
+    private final Map<UUID, TextDisplay> tagMap;
 
     public TagManager() {
         this.tagMap = new HashMap<>();
@@ -27,14 +27,18 @@ public class TagManager {
     public void updateTag(Player player) {
         SkyBlockUser skyBlockUser = SkyBlockPlugin.instance().getUserManager().getUser(player.getUniqueId());
 
-        TextDisplay textDisplay;
-        if (this.tagMap.containsKey(player.getUniqueId())) {
-            textDisplay = this.tagMap.get(player.getUniqueId());
-        } else {
-            textDisplay = player.getWorld().spawn(player.getLocation(), TextDisplay.class);
-            this.tagMap.put(player.getUniqueId(), textDisplay);
-        }
-        textDisplay.text(skyBlockUser.getSelectedTag().getTagText().append(Component.newline()).append(Component.newline()));
+        TextDisplay textDisplay = this.tagMap.computeIfAbsent(player.getUniqueId(), _ -> {
+            TextDisplay display = player.getWorld().spawn(player.getLocation(), TextDisplay.class);
+            display.text(Component.empty().appendNewline().appendNewline());
+            display.setBillboard(Display.Billboard.CENTER);
+            display.setShadowed(false);
+            display.setBackgroundColor(Color.fromARGB(25, 0, 0, 0));
+            display.setSeeThrough(false);
+            display.setGravity(false);
+            display.setPersistent(false);
+            return display;
+        });
+        textDisplay.text(skyBlockUser.getSelectedTag().getTagText().appendNewline().appendNewline());
         textDisplay.setBillboard(Display.Billboard.CENTER);
         textDisplay.setShadowed(false);
         textDisplay.setBackgroundColor(Color.fromARGB(25, 0, 0, 0));
@@ -52,7 +56,7 @@ public class TagManager {
     }
 
     public void destroyTag(Player player) {
-        TextDisplay textDisplay = this.tagMap.get(player.getUniqueId());
+        TextDisplay textDisplay = this.tagMap.remove(player.getUniqueId());
         if(textDisplay != null) {
             textDisplay.remove();
         }
