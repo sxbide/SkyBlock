@@ -33,10 +33,7 @@ public class GoldPiecesCommand extends AbstractCommand {
         textDisplay.text(ChatAction.getPrefixGradient().append(Component.newline()).append(Component.newline()));
         textDisplay.setBillboard(Display.Billboard.CENTER);
         textDisplay.setShadowed(false);
-        // Remove color; make colorless
         textDisplay.setBackgroundColor(Color.fromARGB(25, 0, 0, 0));
-        textDisplay.setDefaultBackground(false);
-        textDisplay.setSeeThrough(true);
         textDisplay.setGravity(false);
         textDisplay.setPersistent(false);
 
