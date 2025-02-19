@@ -2,9 +2,6 @@ package eu.revanox.skyblock.listener;
 
 import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.location.model.Location;
-import eu.revanox.skyblock.log.privatemessage.model.PrivateMessage;
-import eu.revanox.skyblock.user.model.SkyBlockUser;
-import eu.revanox.skyblock.util.ChatAction;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -44,12 +41,12 @@ public class PlayerJoinListener implements Listener {
         SkyBlockPlugin.instance().getIslandManager().loadIsland(player);
         SkyBlockPlugin.instance().getTagManager().updateTag(player);
 
-        SkyBlockUser skyBlockUser = SkyBlockPlugin.instance().getUserManager().getUser(player.getUniqueId());
-        List<PrivateMessage> unreadMessages = skyBlockUser.getPrivateMessageLog().getAllUnreadMessages();
-        if (!unreadMessages.isEmpty()) {
-            player.sendMessage(ChatAction.info("Du hast " + unreadMessages.size() + " ungelesene Nachrichten."));
-            player.sendMessage(ChatAction.info("Nutze /nachrichten um sie zu lesen."));
-        }
+//        SkyBlockUser skyBlockUser = SkyBlockPlugin.instance().getUserManager().getUser(player.getUniqueId());
+//        List<PrivateMessage> unreadMessages = skyBlockUser.getPrivateMessageLog().getAllUnreadMessages();
+//        if (!unreadMessages.isEmpty()) {
+//            player.sendMessage(ChatAction.info("Du hast " + unreadMessages.size() + " ungelesene Nachrichten."));
+//            player.sendMessage(ChatAction.info("Nutze /nachrichten um sie zu lesen."));
+//        }
 
     }
 }
