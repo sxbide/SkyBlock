@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
@@ -29,7 +30,7 @@ public class SkyBlockUser {
     double balance;
     long goldPieces;
 
-    List<Tags> tags;
+    Map<Tags, Boolean> tags;
     Tags selectedTag;
 
     public void setSelectedTag(Tags tag) {
@@ -38,8 +39,19 @@ public class SkyBlockUser {
     }
 
     public void addTag(Tags tag) {
-        this.tags.add(tag);
+        this.tags.put(tag, true);
         SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+    }
+
+    public void removeTag(Tags tag) {
+        this.tags.remove(tag);
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+    }
+
+    public boolean hasTag(Tags tag) {
+        boolean hasTag = this.tags.computeIfAbsent(tag, k -> false);
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+        return hasTag;
     }
 
     public void setBalance(double amount) {

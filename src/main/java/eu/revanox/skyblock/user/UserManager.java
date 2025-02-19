@@ -1,13 +1,12 @@
 package eu.revanox.skyblock.user;
 
 import eu.revanox.skyblock.SkyBlockPlugin;
+import eu.revanox.skyblock.tag.model.Tags;
 import eu.revanox.skyblock.user.model.SkyBlockUser;
 import lombok.experimental.FieldDefaults;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @FieldDefaults(makeFinal = true)
 public class UserManager {
@@ -33,7 +32,11 @@ public class UserManager {
             skyBlockUser.setBalance(500);
             skyBlockUser.setGoldPieces(5);
             skyBlockUser.setSelectedTag(null);
-            skyBlockUser.setTags(new ArrayList<>());
+            Map<Tags, Boolean> allTags = new ConcurrentHashMap<>();
+            for (Tags tag : Tags.values()) {
+                allTags.put(tag, false);
+            }
+            skyBlockUser.setTags(new ConcurrentHashMap<>(allTags));
         }
 
         this.uuidSkyBlockUserMap.put(uuid, skyBlockUser);

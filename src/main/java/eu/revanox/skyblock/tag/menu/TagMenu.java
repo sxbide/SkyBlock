@@ -12,6 +12,7 @@ import io.github.rysefoxx.inventory.plugin.pagination.RyseInventory;
 import io.github.rysefoxx.inventory.plugin.pagination.SlotIterator;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -48,7 +49,7 @@ public class TagMenu implements InventoryProvider {
 
         SkyBlockUser skyBlockUser = SkyBlockPlugin.instance().getUserManager().getUser(player.getUniqueId());
 
-        for (Tags tag : Tags.values()) {
+        for (Tags tag : Tags.sortByRarity()) {
             ItemBuilder itemBuilder = ItemBuilder.of(Material.NAME_TAG)
                     .displayName(tag.getTagText().append(Component.text(" §8› §7Titel")));
 
@@ -62,10 +63,10 @@ public class TagMenu implements InventoryProvider {
             itemBuilder.getLore().add(Component.text("§7Seltenheit: ").append(tag.getRarity().getDisplayName()));
 
 
-            if (skyBlockUser.getTags().contains(tag)) {
+            if (skyBlockUser.hasTag(tag)) {
                 itemBuilder.getLore().add(Component.empty());
 
-                if(skyBlockUser.getSelectedTag() != null && skyBlockUser.getSelectedTag().equals(tag)) {
+                if (skyBlockUser.getSelectedTag() != null && skyBlockUser.getSelectedTag().equals(tag)) {
                     itemBuilder.getLore().add(Component.text("§aAktuell ausgewählter Titel"));
                     itemBuilder.getLore().add(Component.text("§7<Linksklicke zum nicht mehr auswählen>"));
                 } else {
@@ -84,12 +85,12 @@ public class TagMenu implements InventoryProvider {
             pagination.addItem(IntelligentItem.of(itemBuilder
                     .build(), event -> {
 
-                if(tag.getPrice() == -1 && !skyBlockUser.getTags().contains(tag)) {
+                if (tag.getPrice() == -1 && !skyBlockUser.hasTag(tag)) {
                     player.sendMessage(ChatAction.failure("§cDieser Titel kann nicht gekauft werden."));
                     return;
                 }
 
-                if (!skyBlockUser.getTags().contains(tag)) {
+                if (!skyBlockUser.hasTag(tag)) {
 
                     if (skyBlockUser.getBalance() < tag.getPrice()) {
                         player.sendMessage(ChatAction.failure("§cDazu ist dein Kontostand zu niedrig."));
@@ -120,6 +121,35 @@ public class TagMenu implements InventoryProvider {
         }
 
         contents.set(53, Util.nextButton(pagination));
+
+        contents.set(48, IntelligentItem.empty(ItemBuilder.of(Material.KNOWLEDGE_BOOK)
+                .displayName(MiniMessage.miniMessage().deserialize("<#00ff00>Information"))
+                .lore(
+                        Component.empty(),
+                        Component.text("§7Hier kannst du dir deinen Titel aussuchen."),
+                        Component.text("§7Dieser wird dann über deinem Namen angezeigt."),
+                        Component.empty(),
+                        Component.text("§7Du hast §e" + skyBlockUser.getTags().values().stream().filter(tag -> tag).count() + " §7von §e" + Tags.values().length + " §7Titel freigeschaltet."),
+                        Component.text("§7Du kannst nur einen Titel gleichzeitig auswählen."),
+                        Component.empty()
+                )
+                .build()
+        ));
+
+        contents.set(50, IntelligentItem.of(ItemBuilder.of(Material.BARRIER)
+                        .displayName(MiniMessage.miniMessage().deserialize("<#ff0000>Titel entfernen"))
+                        .lore(
+                                Component.text("§7Hiermit entfernst du deinen ausgewählten Titel."),
+                                Component.empty(),
+                                Component.text("§7<Linksklicke zum entfernen>")
+                        ).build(), event -> {
+                    skyBlockUser.setSelectedTag(null);
+                    player.sendMessage(ChatAction.of("§aDu hast deinen Titel erfolgreich entfernt."));
+                    SkyBlockPlugin.instance().getTagManager().updateTag(player);
+                    player.closeInventory();
+                }
+        ));
+
         contents.set(45, Util.backButton(pagination));
     }
 }
