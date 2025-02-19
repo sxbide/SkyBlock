@@ -73,7 +73,7 @@ public class EnderChestMenu implements Listener {
             });
             skyBlockUser.getEnderChests().set(enderChestIndex - 1, ItemStackConverter.encodeList(list));
             plugin.getUserManager().saveUser(skyBlockUser);
-            event.getPlayer().sendMessage(ChatAction.of("Deine Enderkiste #" + enderChestIndex + " wurde gespeichert."));
+            //event.getPlayer().sendMessage(ChatAction.of("Deine Enderkiste #" + enderChestIndex + " wurde gespeichert."));
         }
     }
 

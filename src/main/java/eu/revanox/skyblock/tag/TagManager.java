@@ -48,9 +48,14 @@ public class TagManager {
     }
 
     public void destroyTag(Player player) {
-        TextDisplay textDisplay = this.tagMap.remove(player.getUniqueId());
-        if (textDisplay != null) {
-            textDisplay.remove();
+//        TextDisplay textDisplay = this.tagMap.remove(player.getUniqueId());
+//        if (textDisplay != null) {
+//            textDisplay.remove();
+//        }
+        TextDisplay currentDisplay = (TextDisplay) player.getPassenger();
+
+        if (currentDisplay != null) {
+            currentDisplay.remove();
         }
     }
 }

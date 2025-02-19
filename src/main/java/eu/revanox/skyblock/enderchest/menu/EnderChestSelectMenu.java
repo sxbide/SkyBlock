@@ -42,33 +42,56 @@ public class EnderChestSelectMenu implements InventoryProvider {
         contents.set(0, ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).displayName("§r").build());
         contents.set(4, ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).displayName("§r").build());
 
-        contents.set(1, IntelligentItem.of(ItemBuilder.of(Material.CHEST_MINECART).displayName("§7Enderkiste §8#§e1").lore(Component.empty(), Component.text("§7Klicke, um die Enderkiste §8#§e1 §7zu öffnen."), Component.empty(), Component.text("§7<Klicke zum Öffnen>")).build(), event -> {
-            player.closeInventory();
-            new EnderChestMenu(this.skyBlockUser, 1).open(player);
-        }));
+        contents.set(1, IntelligentItem.of(ItemBuilder.of(Material.CHEST_MINECART).displayName("§7Enderkiste §8#§e1")
+                        .lore(
+                                Component.empty(),
+                                Component.text("§7Klicke, um die Enderkiste §8#§e1 §7zu öffnen."),
+                                Component.empty(),
+                                Component.text("§7<Klicke zum Öffnen>")).build(),
+                event -> {
+                    player.closeInventory();
+                    new EnderChestMenu(this.skyBlockUser, 1).open(player);
+                }));
 
         //TODO: Change those boolean checks to a more efficient way, e.g. by using ranks instead of permissions
         boolean hasEnderchest2 = luckPerms.getUserManager().getUser(player.getUniqueId()).getCachedData().getPermissionData().checkPermission("skyblock.enderchest.2").asBoolean();
         boolean hasEnderchest3 = luckPerms.getUserManager().getUser(player.getUniqueId()).getCachedData().getPermissionData().checkPermission("skyblock.enderchest.3").asBoolean();
 
         if (hasEnderchest2) {
-            contents.set(2, IntelligentItem.of(ItemBuilder.of(Material.CHEST_MINECART).displayName("§7Enderkiste §8#§e2").lore(Component.empty(), Component.text("§7Klicke, um die Enderkiste §8#§e2 §7zu öffnen."), Component.empty(), Component.text("§7<Klicke zum Öffnen>")).build(), event -> {
+            contents.set(2, IntelligentItem.of(ItemBuilder.of(Material.CHEST_MINECART).displayName("§7Enderkiste §8#§e2")
+                    .lore(
+                            Component.empty(),
+                            Component.text("§7Klicke, um die Enderkiste §8#§e2 §7zu öffnen."),
+                            Component.empty(),
+                            Component.text("§7<Linksklicke zum Öffnen>")).build(), event -> {
                 player.closeInventory();
                 new EnderChestMenu(this.skyBlockUser, 2).open(player);
             }));
         } else {
-            contents.set(2, IntelligentItem.of(ItemBuilder.of(Material.MINECART).displayName("§7Enderkiste §8#§e2").lore(Component.empty(), Component.text("§cDu hast keine Berechtigung für diese Enderkiste.")).build(), event -> {
+            contents.set(2, IntelligentItem.of(ItemBuilder.of(Material.MINECART).displayName("§7Enderkiste §8#§e2")
+                    .lore(
+                            Component.empty(),
+                            Component.text("§cDu hast keine Berechtigung für diese Enderkiste.")).build(), event -> {
                 player.sendMessage(ChatAction.failure("Du hast keine Berechtigung für diese Enderkiste."));
             }));
         }
 
         if (hasEnderchest3) {
-            contents.set(3, IntelligentItem.of(ItemBuilder.of(Material.CHEST_MINECART).displayName("§7Enderkiste §8#§e3").lore(Component.empty(), Component.text("§7Klicke, um die Enderkiste §8#§e3 §7zu öffnen."), Component.empty(), Component.text("§7<Klicke zum Öffnen>")).build(), event -> {
+            contents.set(3, IntelligentItem.of(ItemBuilder.of(Material.CHEST_MINECART).displayName("§7Enderkiste §8#§e3")
+                    .lore(
+                            Component.empty(),
+                            Component.text("§7Klicke, um die Enderkiste §8#§e3 §7zu öffnen."),
+                            Component.empty(),
+                            Component.text("§7<Linksklicke zum Öffnen>")).build(), event -> {
                 player.closeInventory();
                 new EnderChestMenu(this.skyBlockUser, 3).open(player);
             }));
         } else {
-            contents.set(3, IntelligentItem.of(ItemBuilder.of(Material.MINECART).displayName("§7Enderkiste §8#§e3").lore(Component.empty(), Component.text("§cDu hast keine Berechtigung für diese Enderkiste.")).build(), event -> {
+            contents.set(3, IntelligentItem.of(ItemBuilder.of(Material.MINECART).displayName("§7Enderkiste §8#§e3")
+                    .lore(
+                            Component.empty(),
+                            Component.text("§cDu hast keine Berechtigung für diese Enderkiste.")
+                    ).build(), event -> {
                 player.sendMessage(ChatAction.failure("Du hast keine Berechtigung für diese Enderkiste."));
             }));
         }
