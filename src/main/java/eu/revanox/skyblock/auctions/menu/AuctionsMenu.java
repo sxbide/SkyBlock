@@ -105,7 +105,7 @@ public class AuctionsMenu implements InventoryProvider {
         contents.set(53, Util.nextButton(pagination));
         contents.set(45, Util.backButton(pagination));
 
-        contents.set(47, IntelligentItem.of(ItemBuilder.of(Material.EMERALD)
+        contents.set(47, IntelligentItem.of(ItemBuilder.of(Material.KNOWLEDGE_BOOK)
                 .displayName("§aDeine Auktionen")
                 .lore(
                         Component.empty(),

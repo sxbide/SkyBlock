@@ -43,7 +43,6 @@ public class SellerListMenu implements InventoryProvider {
     @Override
     public void init(Player player, InventoryContents contents) {
 
-        Util.borderInventory(contents);
 
         pagination = contents.pagination();
         SlotIterator slotIterator = SlotIterator.builder()
@@ -57,6 +56,8 @@ public class SellerListMenu implements InventoryProvider {
         contents.fillArea(0, 44, IntelligentItem.of(ItemStack.empty(), event -> {
             event.setCancelled(true);
         }));
+
+        Util.borderInventory(contents);
 
         contents.fillArea(45, 53, IntelligentItem.of(ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE)
                 .displayName("§r").build(), event -> {

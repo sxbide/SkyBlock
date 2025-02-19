@@ -25,7 +25,7 @@ public enum Tags {
     double price;
 
     public static List<Tags> sortByRarity() {
-        return Arrays.stream(values()).sorted((tag1, tag2) -> tag2.getRarity().compareTo(tag1.getRarity())).collect(Collectors.toList());
+        return Arrays.stream(values()).sorted((tag1, tag2) -> tag2.getRarity().compareTo(tag1.getRarity())).toList().reversed();
     }
 
 }

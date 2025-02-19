@@ -130,8 +130,7 @@ public class TagMenu implements InventoryProvider {
                         Component.text("§7Dieser wird dann über deinem Namen angezeigt."),
                         Component.empty(),
                         Component.text("§7Du hast §e" + skyBlockUser.getTags().values().stream().filter(tag -> tag).count() + " §7von §e" + Tags.values().length + " §7Titel freigeschaltet."),
-                        Component.text("§7Du kannst nur einen Titel gleichzeitig auswählen."),
-                        Component.empty()
+                        Component.text("§7Du kannst nur einen Titel gleichzeitig auswählen.")
                 )
                 .build()
         ));
@@ -139,6 +138,7 @@ public class TagMenu implements InventoryProvider {
         contents.set(50, IntelligentItem.of(ItemBuilder.of(Material.BARRIER)
                         .displayName(MiniMessage.miniMessage().deserialize("<#ff0000>Titel entfernen"))
                         .lore(
+                                Component.empty(),
                                 Component.text("§7Hiermit entfernst du deinen ausgewählten Titel."),
                                 Component.empty(),
                                 Component.text("§7<Linksklicke zum entfernen>")

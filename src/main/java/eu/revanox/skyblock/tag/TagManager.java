@@ -35,8 +35,7 @@ public class TagManager {
             TextDisplay textDisplay = player.getWorld().spawn(player.getLocation(), TextDisplay.class);
             textDisplay.text(skyBlockUser.getSelectedTag().getTagText().appendNewline().appendNewline());
             textDisplay.setBillboard(Display.Billboard.VERTICAL);
-            textDisplay.setShadowed(false);
-            textDisplay.setBackgroundColor(Color.fromARGB(25, 0, 0, 0));
+            textDisplay.setShadowed(true);
             textDisplay.setSeeThrough(false);
             textDisplay.setGravity(false);
             textDisplay.setPersistent(false);
