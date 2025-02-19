@@ -15,12 +15,8 @@ public class UserManager {
     private SkyBlockUserRepository repository;
 
     public UserManager() {
-        this.uuidSkyBlockUserMap = new HashMap<>();
+        this.uuidSkyBlockUserMap = new ConcurrentHashMap<>();
         this.repository = SkyBlockPlugin.instance().getMongoManager().create(SkyBlockUserRepository.class);
-    }
-
-    public void updateEntry(UUID uuid, SkyBlockUser user) {
-        this.uuidSkyBlockUserMap.put(uuid, user);
     }
 
     public void loadUser(UUID uuid) {
