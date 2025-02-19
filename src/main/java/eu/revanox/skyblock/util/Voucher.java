@@ -1,11 +1,13 @@
 package eu.revanox.skyblock.util;
 
 import eu.revanox.skyblock.tag.model.Tags;
+import lombok.experimental.UtilityClass;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+@UtilityClass
 public class Voucher {
 
     public ItemStack getBalanceVoucher(double value) {
