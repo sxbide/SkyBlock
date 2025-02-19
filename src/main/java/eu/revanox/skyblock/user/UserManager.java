@@ -61,6 +61,7 @@ public class UserManager {
     public void saveUser(SkyBlockUser skyBlockUser) {
         this.repository.save(skyBlockUser);
     }
+
     public void saveUser(UUID uuid, SkyBlockUser skyBlockUser) {
         this.uuidSkyBlockUserMap.put(uuid, skyBlockUser);
         this.repository.save(skyBlockUser);

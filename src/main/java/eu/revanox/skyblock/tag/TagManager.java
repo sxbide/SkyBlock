@@ -6,6 +6,7 @@ import org.bukkit.Color;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TextDisplay;
+import org.bukkit.util.Transformation;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class TagManager {
         if (skyBlockUser.getSelectedTag() != null) {
             TextDisplay textDisplay = player.getWorld().spawn(player.getLocation(), TextDisplay.class);
             textDisplay.text(skyBlockUser.getSelectedTag().getTagText().appendNewline().appendNewline());
-            textDisplay.setBillboard(Display.Billboard.CENTER);
+            textDisplay.setBillboard(Display.Billboard.VERTICAL);
             textDisplay.setShadowed(false);
             textDisplay.setBackgroundColor(Color.fromARGB(25, 0, 0, 0));
             textDisplay.setSeeThrough(false);
