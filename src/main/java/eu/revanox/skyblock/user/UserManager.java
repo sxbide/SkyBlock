@@ -1,6 +1,7 @@
 package eu.revanox.skyblock.user;
 
 import eu.revanox.skyblock.SkyBlockPlugin;
+import eu.revanox.skyblock.log.privatemessage.PrivateMessageLog;
 import eu.revanox.skyblock.user.model.SkyBlockUser;
 import lombok.experimental.FieldDefaults;
 
@@ -30,10 +31,11 @@ public class UserManager {
         if (skyBlockUser == null) {
             skyBlockUser = new SkyBlockUser();
             skyBlockUser.setUniqueId(uuid);
-            skyBlockUser.setBalance(0);
-            skyBlockUser.setGoldPieces(0);
+            skyBlockUser.setBalance(500);
+            skyBlockUser.setGoldPieces(5);
             skyBlockUser.setSelectedTag(null);
             skyBlockUser.setTags(new ArrayList<>());
+            skyBlockUser.setPrivateMessageLog(new PrivateMessageLog(uuid));
         }
 
         this.uuidSkyBlockUserMap.put(uuid, skyBlockUser);
