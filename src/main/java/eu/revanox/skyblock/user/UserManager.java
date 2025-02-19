@@ -37,6 +37,11 @@ public class UserManager {
                 allTags.put(tag, false);
             }
             skyBlockUser.setTags(new ConcurrentHashMap<>(allTags));
+            skyBlockUser.setEnderChests(new ArrayList<>(List.of(
+                    "0".repeat(27),
+                    "0".repeat(27),
+                    "0".repeat(27)
+            )));
         }
 
         this.uuidSkyBlockUserMap.put(uuid, skyBlockUser);
@@ -66,6 +71,7 @@ public class UserManager {
     }
 
     public void saveUser(SkyBlockUser skyBlockUser) {
+        this.uuidSkyBlockUserMap.put(skyBlockUser.getUniqueId(), skyBlockUser);
         this.repository.save(skyBlockUser);
     }
 

@@ -39,10 +39,17 @@ public class ScoreboardManager {
 
         fastBoard.updateTitle(MiniMessage.miniMessage().deserialize("<gradient:#E2A574:#E0EF50><bold>BLOCKARION.DE</gradient>"));
 
-        Component tabHeader = Component.newline().append(ChatAction.getPrefixGradient().appendNewline().append(Component.text("§7§oearly access skyblock")).appendNewline());
-        Component tabFooter = Component.newline().append(MiniMessage.miniMessage()
-                        .deserialize("<gradient:#E2A574:#E0EF50>Trete unserem Discord bei: blockarion.de/discord</gradient>"))
-                .appendNewline();
+        Component tabHeader = Component.text("§1                                                      §r")
+                .appendNewline()
+                .append(ChatAction.getPrefixGradient()).append(Component.text(" §8• §7" + Bukkit.getOnlinePlayers().size() + " online"))
+                .appendNewline()
+                .appendSpace();
+        Component tabFooter = Component.newline()
+                .append(Component.text("§7Schaue dir unseren sozialen Medien an:"))
+                .appendNewline()
+                .append(MiniMessage.miniMessage().deserialize("<gradient:#E2A574:#E0EF50><bold>/ꜱᴏᴄɪᴀʟꜱ</bold></gradient>"))
+                .appendNewline()
+                .appendSpace();
 
         player.sendPlayerListHeaderAndFooter(tabHeader, tabFooter);
 

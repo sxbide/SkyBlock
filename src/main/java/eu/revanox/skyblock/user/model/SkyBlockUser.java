@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,6 +33,8 @@ public class SkyBlockUser {
 
     Map<Tags, Boolean> tags;
     Tags selectedTag;
+
+    List<String> enderChests;
 
     public void setSelectedTag(Tags tag) {
         this.selectedTag = tag;
