@@ -52,6 +52,10 @@ public class UserManager {
         return skyBlockUser;
     }
 
+    public void saveAll() {
+        this.uuidSkyBlockUserMap.forEach((uuid, skyBlockUser) -> this.saveUser(uuid));
+    }
+
     public void saveUser(UUID uuid) {
         SkyBlockUser skyBlockUser = this.uuidSkyBlockUserMap.get(uuid);
 

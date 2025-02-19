@@ -76,6 +76,7 @@ public class SkyBlockPlugin extends JavaPlugin {
     public void onDisable() {
         try {
             this.islandManager.saveAll();
+            this.userManager.saveAll();
             Thread.sleep(500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
