@@ -28,4 +28,8 @@ public enum Tags {
         return Arrays.stream(values()).sorted((tag1, tag2) -> tag2.getRarity().compareTo(tag1.getRarity())).toList().reversed();
     }
 
+    public static Tags getByDisplayName(String displayName) {
+        return Arrays.stream(values()).filter(tags -> tags.getTagText().equals(MiniMessage.miniMessage().deserialize(displayName))).findFirst().orElse(null);
+    }
+
 }
