@@ -4,6 +4,7 @@ import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.user.model.SkyBlockUser;
 import org.bukkit.Color;
 import org.bukkit.entity.Display;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TextDisplay;
 import org.bukkit.util.Transformation;
@@ -47,15 +48,30 @@ public class TagManager {
 
     }
 
+    public boolean isTag(TextDisplay textDisplay) {
+        return this.tagMap.containsValue(textDisplay);
+    }
+
+    public void deleteTag(TextDisplay textDisplay) {
+        for (TextDisplay value : this.tagMap.values()) {
+            if(value.equals(textDisplay)) {
+                value.remove();
+            }
+        }
+    }
+
     public void destroyTag(Player player) {
-//        TextDisplay textDisplay = this.tagMap.remove(player.getUniqueId());
-//        if (textDisplay != null) {
-//            textDisplay.remove();
-//        }
+        TextDisplay textDisplay = this.tagMap.remove(player.getUniqueId());
+        if (textDisplay != null) {
+            textDisplay.remove();
+        }
+        
         TextDisplay currentDisplay = (TextDisplay) player.getPassenger();
 
         if (currentDisplay != null) {
             currentDisplay.remove();
         }
+
+        player.getPassengers().forEach(Entity::remove);
     }
 }
