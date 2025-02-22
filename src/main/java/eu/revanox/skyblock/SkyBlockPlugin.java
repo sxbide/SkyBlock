@@ -71,6 +71,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerTeleportListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerResourcePackListener(), this);
 
     }
 
