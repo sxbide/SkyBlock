@@ -23,7 +23,7 @@ public class PlayerResourcePackListener implements Listener {
 
         ResourcePackRequestBuilder.create()
                 .player(player)
-                .url("https://download.mc-packs.net/pack/ab9654d76796ed80d403b0eafe81e501cf615d9c.zip")
+                .url("https://download.mc-packs.net/pack/074269c23c83c6e5f9e23d512196a7d9b5539849.zip")
                 .kickMessage(
                         MiniMessage.miniMessage().deserialize("<gradient:#E2A574:#E0EF50>Blockarion</gradient>"),
                         Component.text("Bitte akzeptiere unser Texturenpack, um spielen zu können!", NamedTextColor.RED)
