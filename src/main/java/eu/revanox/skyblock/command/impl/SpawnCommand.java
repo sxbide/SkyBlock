@@ -6,6 +6,7 @@ import eu.revanox.skyblock.perks.menu.PerkMenu;
 import eu.revanox.skyblock.user.model.SkyBlockUser;
 import eu.revanox.skyblock.util.ChatAction;
 import eu.revanox.skyblock.util.SoundAction;
+import eu.revanox.skyblock.util.Util;
 import io.papermc.paper.entity.TeleportFlag;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -21,9 +22,8 @@ public class SpawnCommand extends AbstractCommand {
     @Override
     public void run(Player player, String[] args) {
 
-        player.teleport(SkyBlockPlugin.instance().getLocationManager().getPosition("spawn").getLocation(), TeleportFlag.EntityState.RETAIN_PASSENGERS);
+        SkyBlockPlugin.instance().getTagManager().teleportPlayer(player, SkyBlockPlugin.instance().getLocationManager().getPosition("spawn").getLocation());
         player.sendMessage(ChatAction.of("§7Du wurdest zum Spawnpunkt teleportiert."));
-
         SoundAction.playGoodWork(player);
     }
 }

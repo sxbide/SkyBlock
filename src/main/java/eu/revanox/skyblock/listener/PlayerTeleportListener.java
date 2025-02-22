@@ -17,7 +17,7 @@ public class PlayerTeleportListener implements Listener {
         if (event.getFrom().getWorld() != event.getTo().getWorld()) {
             Bukkit.getLogger().info("PRE: " + player.getName() + " is about to switch worlds.");
 
-            SkyBlockPlugin.instance().getTagManager().destroyTag(player);
+            //SkyBlockPlugin.instance().getTagManager().destroyTag(player);
         }
     }
 
@@ -26,6 +26,6 @@ public class PlayerTeleportListener implements Listener {
         Player player = event.getPlayer();
         Bukkit.getLogger().info("POST: " + player.getName() + " has switched to " + player.getWorld().getName());
 
-        SkyBlockPlugin.instance().getTagManager().updateTag(player);
+        //SkyBlockPlugin.instance().getTagManager().updateTag(player);
     }
 }

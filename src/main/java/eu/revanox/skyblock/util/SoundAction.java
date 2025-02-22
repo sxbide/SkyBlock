@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 public class SoundAction {
 
     public void playInventoryOpen(Player player) {
-        player.playSound(player.getLocation(), Sound.BLOCK_BARREL_OPEN, 100, 1);
+        player.playSound(player.getLocation(), Sound.BLOCK_IRON_DOOR_OPEN, 50, 0.2F);
     }
 
     public void playGoodWork(Player player) {

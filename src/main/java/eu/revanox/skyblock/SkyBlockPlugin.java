@@ -70,7 +70,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerChatListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerTeleportListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerEntityDismountListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(), this);
 
     }
 
@@ -79,6 +79,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         try {
             this.islandManager.saveAll();
             this.userManager.saveAll();
+            this.tagManager.deleteExistingTags();
             Thread.sleep(500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

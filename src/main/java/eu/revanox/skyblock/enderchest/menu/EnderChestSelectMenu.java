@@ -4,6 +4,7 @@ import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.user.model.SkyBlockUser;
 import eu.revanox.skyblock.util.ChatAction;
 import eu.revanox.skyblock.util.ItemBuilder;
+import eu.revanox.skyblock.util.SoundAction;
 import io.github.rysefoxx.inventory.plugin.content.IntelligentItem;
 import io.github.rysefoxx.inventory.plugin.content.InventoryContents;
 import io.github.rysefoxx.inventory.plugin.content.InventoryProvider;
@@ -95,5 +96,7 @@ public class EnderChestSelectMenu implements InventoryProvider {
                 player.sendMessage(ChatAction.failure("Du hast keine Berechtigung für diese Enderkiste."));
             }));
         }
+
+        SoundAction.playInventoryOpen(player);
     }
 }

@@ -118,8 +118,7 @@ public class IslandManager {
             }
 
             Location location = new Location(Bukkit.getWorld(this.islandWorldPrefix + player.getUniqueId()), 0.5, 62, 0.5);
-            player.teleport(location, TeleportFlag.EntityState.RETAIN_PASSENGERS);
-
+            SkyBlockPlugin.instance().getTagManager().teleportPlayer(player, location);
         });
 
         SkyBlockIsland skyBlockIsland = new SkyBlockIsland();
@@ -192,13 +191,13 @@ public class IslandManager {
             CompletableFuture.supplyAsync(() -> this.loadIsland(player))
                     .thenAccept(loadedWorld -> {
                         Location location = new Location(loadedWorld, 0.5, 62, 0.5);
-                        player.teleport(location, TeleportFlag.EntityState.RETAIN_PASSENGERS);
+                        SkyBlockPlugin.instance().getTagManager().teleportPlayer(player, location);
                         player.sendMessage(ChatAction.of("§7Du wurdest auf deine Insel teleportiert."));
                     });
 
         } else if (world != null) {
             Location location = new Location(world, 0.5, 62, 0.5);
-            player.teleport(location, TeleportFlag.EntityState.RETAIN_PASSENGERS);
+            SkyBlockPlugin.instance().getTagManager().teleportPlayer(player, location);
             player.sendMessage(ChatAction.of("§7Du wurdest auf deine Insel teleportiert."));
         } else {
             createIsland(player);
@@ -226,9 +225,7 @@ public class IslandManager {
 
         if (!world.getPlayers().isEmpty()) {
             for (Player worldPlayer : world.getPlayers()) {
-                worldPlayer.teleport(
-                        SkyBlockPlugin.instance().getLocationManager().getPosition("spawn").getLocation(),
-                        TeleportFlag.EntityState.RETAIN_PASSENGERS);
+                SkyBlockPlugin.instance().getTagManager().teleportPlayer(worldPlayer, SkyBlockPlugin.instance().getLocationManager().getPosition("spawn").getLocation());
             }
             Bukkit.unloadWorld(world, false);
 

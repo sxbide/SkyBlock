@@ -3,6 +3,7 @@ package eu.revanox.skyblock.command.impl;
 import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.command.model.AbstractCommand;
 import eu.revanox.skyblock.util.ChatAction;
+import eu.revanox.skyblock.util.Util;
 import io.papermc.paper.entity.TeleportFlag;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -26,7 +27,7 @@ public class GoToCommand extends AbstractCommand {
             player.sendMessage(ChatAction.failure("Die Welt " + worldName + " existiert nicht."));
             return;
         }
-        player.teleport(world.getSpawnLocation(), TeleportFlag.EntityState.RETAIN_PASSENGERS);
+        SkyBlockPlugin.instance().getTagManager().teleportPlayer(player, world.getSpawnLocation());
         player.sendMessage(ChatAction.of("Du wurdest zur Welt " + worldName + " teleportiert."));
     }
 }

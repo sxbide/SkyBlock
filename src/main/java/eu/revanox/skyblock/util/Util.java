@@ -7,11 +7,15 @@ import io.github.rysefoxx.inventory.plugin.pagination.RyseInventory;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 @UtilityClass
 public class Util {
