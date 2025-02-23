@@ -45,7 +45,7 @@ public class ResourcePackRequestBuilder {
                 .packs(
                         ResourcePackInfo.resourcePackInfo(player.getUniqueId(), URI.create(this.url), getHashFromUrl(this.url))
                 ).callback(ResourcePackCallback.onTerminal(((uuid, audience) -> {
-            //say thanks
+            //say thanks (edit: thanks)
         }), ((uuid, audience) -> {
             this.player.kick(this.kickMessage, PlayerKickEvent.Cause.RESOURCE_PACK_REJECTION);
         }))).build();

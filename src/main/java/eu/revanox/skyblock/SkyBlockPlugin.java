@@ -17,6 +17,7 @@ import eu.revanox.skyblock.tag.TagManager;
 import eu.revanox.skyblock.user.UserManager;
 import io.github.rysefoxx.inventory.plugin.pagination.InventoryManager;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;

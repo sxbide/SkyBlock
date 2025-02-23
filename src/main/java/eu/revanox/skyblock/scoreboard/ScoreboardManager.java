@@ -5,6 +5,7 @@ import eu.revanox.skyblock.island.model.SkyBlockIsland;
 import eu.revanox.skyblock.user.model.SkyBlockUser;
 import eu.revanox.skyblock.util.ChatAction;
 import eu.revanox.skyblock.util.NumberUtil;
+import eu.revanox.skyblock.util.ResourceIcons;
 import fr.mrmicky.fastboard.adventure.FastBoard;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -59,7 +60,8 @@ public class ScoreboardManager {
                     Component.text(" §8• §c" + (skyBlockIsland.getOwnerUniqueId().equals(player.getUniqueId()) ? "§cBesitzer" : "§9Besucher")),
                     Component.empty(),
                     Component.text(" §8• §7Kontostand"),
-                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>" + NumberUtil.formatBalance(skyBlockUser.getBalance()) + " ⛃")),
+                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>" +
+                            NumberUtil.formatBalance(skyBlockUser.getBalance()) + " <reset>" + ResourceIcons.GOLD_INGOT.unicode())),
                     Component.empty(),
                     Component.text(" §8• §7Insel"),
                     Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>" + Bukkit.getOfflinePlayer(skyBlockIsland.getOwnerUniqueId()).getName())),
@@ -74,7 +76,8 @@ public class ScoreboardManager {
             fastBoard.updateLines(
                     Component.empty(),
                     Component.text(" §8• §7Kontostand"),
-                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>" + NumberUtil.formatBalance(skyBlockUser.getBalance()) + " ⛃")),
+                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>" +
+                            NumberUtil.formatBalance(skyBlockUser.getBalance()) + " <reset>" + ResourceIcons.GOLD_INGOT.unicode())),
                     Component.empty(),
                     Component.text(" §8• §7Online"),
                     Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>" + Bukkit.getOnlinePlayers().size())),
