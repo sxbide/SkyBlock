@@ -6,6 +6,8 @@ import eu.revanox.skyblock.auctions.AuctionsManager;
 import eu.revanox.skyblock.codec.ItemStackCodec;
 import eu.revanox.skyblock.codec.LocationCodec;
 import eu.revanox.skyblock.command.*;
+import eu.revanox.skyblock.configuration.Configuration;
+import eu.revanox.skyblock.configuration.impl.ResourcePackConfiguration;
 import eu.revanox.skyblock.island.IslandManager;
 import eu.revanox.skyblock.listener.*;
 import eu.revanox.skyblock.location.LocationManager;
@@ -24,6 +26,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class SkyBlockPlugin extends JavaPlugin {
 
     private static SkyBlockPlugin instance;
+
+    private ResourcePackConfiguration resourcePackConfiguration;
 
     private MongoManager mongoManager;
     private UserManager userManager;
@@ -45,6 +49,8 @@ public class SkyBlockPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+
+        this.resourcePackConfiguration = Configuration.load(getDataFolder().toPath().resolve("resourcepack.json").toString(), ResourcePackConfiguration.class);
 
         this.luckPerms = LuckPermsProvider.get();
 

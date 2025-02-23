@@ -1,5 +1,6 @@
 package eu.revanox.skyblock.listener;
 
+import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.util.builder.ResourcePackRequestBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -23,7 +24,7 @@ public class PlayerResourcePackListener implements Listener {
 
         ResourcePackRequestBuilder.create()
                 .player(player)
-                .url("https://download.mc-packs.net/pack/ab9654d76796ed80d403b0eafe81e501cf615d9c.zip")
+                .url(SkyBlockPlugin.instance().getResourcePackConfiguration().getUrl())
                 .kickMessage(
                         MiniMessage.miniMessage().deserialize("<gradient:#E2A574:#E0EF50>Blockarion</gradient>"),
                         Component.text("Bitte akzeptiere unser Texturenpack, um spielen zu können!", NamedTextColor.RED)
