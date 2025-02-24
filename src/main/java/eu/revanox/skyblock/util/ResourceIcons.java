@@ -9,6 +9,12 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true)
 public enum ResourceIcons {
 
-    GOLD_INGOT("\uE060");
+    BALANCE_TAG_SCOREBOARD("\uE060"),
+    ISLAND_TAG_SCOREBOARD("\uE061"),
+    ONLINE_TAG_SCOREBOARD("\ue062"),
+    SCOREBOARD_HEADER("\ue063"),
+    OWNER_TAG_SCOREBOARD("\ue064"),
+    VISITOR_TAG_SCOREBOARD("\ue065");
+
     private String unicode;
 }

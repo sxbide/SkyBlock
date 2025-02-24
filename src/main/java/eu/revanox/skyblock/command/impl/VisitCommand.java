@@ -51,7 +51,7 @@ public class VisitCommand extends AbstractCommand {
 
             for (Player islandPlayer : skyBlockIsland.getWarpLocation().getWorld().getPlayers()) {
                 if (islandPlayer == player) continue;
-                islandPlayer.sendMessage(ChatAction.of("§a" + player.getName() + " §7hat die Insel betreten."));
+                islandPlayer.sendMessage(ChatAction.of("§a" + player.getName() + " §7hat deine Insel betreten."));
             }
             return;
         }

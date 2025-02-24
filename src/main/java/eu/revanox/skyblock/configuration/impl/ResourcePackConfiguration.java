@@ -14,6 +14,6 @@ import lombok.experimental.FieldDefaults;
 public class ResourcePackConfiguration extends Configuration {
 
     @ConfigPath("resource-pack.url")
-    String url = "https://www.dropbox.com/s/7j7z7z7z7z7z7z7/resourcepack.zip?dl=1";
+    String url = "empty";
 
 }

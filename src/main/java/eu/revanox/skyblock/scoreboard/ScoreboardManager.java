@@ -8,12 +8,14 @@ import eu.revanox.skyblock.util.NumberUtil;
 import eu.revanox.skyblock.util.ResourceIcons;
 import fr.mrmicky.fastboard.adventure.FastBoard;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ScoreboardManager {
 
@@ -38,7 +40,7 @@ public class ScoreboardManager {
             skyBlockIsland = SkyBlockPlugin.instance().getIslandManager().getIslandByWorld(player.getWorld());
         }
 
-        fastBoard.updateTitle(MiniMessage.miniMessage().deserialize("<gradient:#E2A574:#E0EF50><bold>BLOCKARION.DE</gradient>"));
+        fastBoard.updateTitle(Component.text("§r" + ResourceIcons.SCOREBOARD_HEADER.unicode()));
 
         Component tabHeader = Component.text("§1                                                      §r")
                 .appendNewline()
@@ -57,33 +59,28 @@ public class ScoreboardManager {
         if (skyBlockIsland != null) {
             fastBoard.updateLines(
                     Component.empty(),
-                    Component.text(" §8• §c" + (skyBlockIsland.getOwnerUniqueId().equals(player.getUniqueId()) ? "§cBesitzer" : "§9Besucher")),
+                    Component.text("§r" + (skyBlockIsland.getOwnerUniqueId().equals(player.getUniqueId()) ? ResourceIcons.OWNER_TAG_SCOREBOARD.unicode() : ResourceIcons.VISITOR_TAG_SCOREBOARD.unicode())),
                     Component.empty(),
-                    Component.text(" §8• §7Kontostand"),
-                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>" +
-                            NumberUtil.formatBalance(skyBlockUser.getBalance()) + " <reset>" + ResourceIcons.GOLD_INGOT.unicode())),
                     Component.empty(),
-                    Component.text(" §8• §7Insel"),
-                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>" + Bukkit.getOfflinePlayer(skyBlockIsland.getOwnerUniqueId()).getName())),
+                    Component.text("§r" + ResourceIcons.BALANCE_TAG_SCOREBOARD.unicode()),
+                    Component.text(NumberUtil.formatBalance(skyBlockUser.getBalance()), NamedTextColor.WHITE),
                     Component.empty(),
-                    Component.text(" §8• §7Besucher"),
-                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>" + (player.getWorld().getPlayerCount() - 1))
-                            .append(Component.text(" §8» §c/list"))),
+                    Component.text("§r" + ResourceIcons.ISLAND_TAG_SCOREBOARD.unicode()),
+                    Component.text(Objects.requireNonNull(Bukkit.getOfflinePlayer(skyBlockIsland.getOwnerUniqueId()).getName()), NamedTextColor.WHITE),
                     Component.empty()
             );
         } else {
 
             fastBoard.updateLines(
                     Component.empty(),
-                    Component.text(" §8• §7Kontostand"),
-                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>" +
-                            NumberUtil.formatBalance(skyBlockUser.getBalance()) + " <reset>" + ResourceIcons.GOLD_INGOT.unicode())),
+                    Component.text("§r" + ResourceIcons.BALANCE_TAG_SCOREBOARD.unicode()),
+                    Component.text(NumberUtil.formatBalance(skyBlockUser.getBalance()), NamedTextColor.WHITE),
                     Component.empty(),
-                    Component.text(" §8• §7Online"),
-                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>" + Bukkit.getOnlinePlayers().size())),
+                    Component.text("§r" + ResourceIcons.ONLINE_TAG_SCOREBOARD.unicode()),
+                    Component.text(Bukkit.getOnlinePlayers().size(), NamedTextColor.WHITE),
                     Component.empty(),
-                    Component.text(" §8• §7Insel"),
-                    Component.text("  §8► ").append(MiniMessage.miniMessage().deserialize("<color:#C7D96B>Spawn")),
+                    Component.text("§r" + ResourceIcons.ISLAND_TAG_SCOREBOARD.unicode()),
+                    Component.text("Spawn", NamedTextColor.WHITE),
                     Component.empty()
             );
         }
