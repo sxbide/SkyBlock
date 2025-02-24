@@ -51,7 +51,7 @@ public class TagMenu implements InventoryProvider {
 
         for (Tags tag : Tags.sortByRarity()) {
             ItemBuilder itemBuilder = ItemBuilder.of(Material.NAME_TAG)
-                    .displayName(tag.getTagText().append(Component.text(" §8› §7Titel")));
+                    .displayName(tag.getFixedTag().append(Component.text(" §8› §7Titel")));
 
 
             if (skyBlockUser.getSelectedTag() != null && skyBlockUser.getSelectedTag().equals(tag)) {

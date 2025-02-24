@@ -14,7 +14,10 @@ public enum ResourceIcons {
     ONLINE_TAG_SCOREBOARD("\ue062"),
     SCOREBOARD_HEADER("\ue063"),
     OWNER_TAG_SCOREBOARD("\ue064"),
-    VISITOR_TAG_SCOREBOARD("\ue065");
+    VISITOR_TAG_SCOREBOARD("\ue065"),
+
+    // TITLES
+    SUMMER_2025_TITLE("\ue066");
 
     private String unicode;
 }

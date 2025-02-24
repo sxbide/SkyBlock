@@ -4,6 +4,7 @@ import eu.revanox.skyblock.util.ResourceIcons;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
 import java.util.Arrays;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 public enum Tags {
 
     // MiniMessage.miniMessage().deserialize("<#D6557F>I <#EA2525>❤ <#D6557F>SkyBlock")
-    I_LOVE_SKYBLOCK(Component.text("§r" + ResourceIcons.SCOREBOARD_HEADER.unicode()), TagRarity.COMMON, 10),
+    I_LOVE_SKYBLOCK(Component.text("§r" + ResourceIcons.SUMMER_2025_TITLE.unicode()), TagRarity.COMMON, 10),
     GELD_GIGANT(
             MiniMessage.miniMessage().deserialize("<gradient:#FFD900:#E9B96E> Geldgigant </gradient><reset>") ,TagRarity.EPIC, 50000),
     RAINBOW(MiniMessage.miniMessage().deserialize("<red>🔥 <rainbow>Regenbogen</rainbow> <red>🔥"), TagRarity.RARE, 25000),
@@ -25,6 +26,10 @@ public enum Tags {
     Component tagText;
     TagRarity rarity;
     double price;
+
+    public Component getFixedTag() {
+        return tagText.color(NamedTextColor.WHITE);
+    }
 
     public static List<Tags> sortByRarity() {
         return Arrays.stream(values()).sorted((tag1, tag2) -> tag2.getRarity().compareTo(tag1.getRarity())).toList().reversed();

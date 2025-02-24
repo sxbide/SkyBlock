@@ -44,9 +44,9 @@ public class ScoreboardManager {
 
         Component tabHeader = Component.text("§1                                                      §r")
                 .appendNewline()
-                .append(ChatAction.getPrefixGradient()).append(Component.text(" §8• §7" + Bukkit.getOnlinePlayers().size() + " online"))
+                .append(Component.text("§r" + ResourceIcons.SCOREBOARD_HEADER.unicode()).append(Component.text(" §8• §7" + Bukkit.getOnlinePlayers().size() + " online"))
                 .appendNewline()
-                .appendSpace();
+                .appendSpace());
         Component tabFooter = Component.newline()
                 .append(Component.text("§7Schaue dir unseren sozialen Medien an:"))
                 .appendNewline()
