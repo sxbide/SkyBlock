@@ -25,7 +25,7 @@ public class GuildManager {
     }
 
     public boolean existsGuild(String guildName) {
-        return this.repository.findFirstByGuildName(guildName.toLowerCase()) != null;
+        return this.repository.findFirstByGuildName(guildName) != null;
     }
 
     public boolean hasGuild(Player player) {
@@ -66,7 +66,7 @@ public class GuildManager {
         SkyBlockGuild skyBlockGuild = new SkyBlockGuild();
         UUID randomUUID = UUID.randomUUID();
         skyBlockGuild.setUniqueId(randomUUID);
-        skyBlockGuild.setGuildName(guildName.toLowerCase());
+        skyBlockGuild.setGuildName(guildName);
         skyBlockGuild.setLeaderUniqueId(player.getUniqueId());
         skyBlockGuild.setGuildMembers(new ArrayList<>(){{add(player.getUniqueId());}});
 

@@ -11,10 +11,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class PlayerAfkListener implements Listener {
 
@@ -23,6 +20,7 @@ public class PlayerAfkListener implements Listener {
     BukkitTask afkTask;
 
     public PlayerAfkListener() {
+        this.afkPlayers = new ArrayList<>();
         afkTask = Bukkit.getScheduler().runTaskTimer(SkyBlockPlugin.instance(), () -> {
             for (UUID uuid : lastMove.keySet()) {
                 if (System.currentTimeMillis() - lastMove.get(uuid) > Duration.ofSeconds(60).toMillis() && !afkPlayers.contains(Bukkit.getPlayer(uuid))) {

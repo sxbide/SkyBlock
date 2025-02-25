@@ -22,5 +22,8 @@ public enum ResourceIcons {
     // TABLIST
     SOCIALS_TAG_TABLIST("\ue067");
 
+
+    
+
     private String unicode;
 }
