@@ -16,7 +16,7 @@ public class ChatAction {
     private final Component prefixGradient = MiniMessage.miniMessage().deserialize("<gradient:#E2A574:#E0EF50>Blockarion</gradient>");
     private final Component failurePrefix = MiniMessage.miniMessage().deserialize("<#fb1d1d>✘ ");
     private final Component prefix = MiniMessage.miniMessage().deserialize("<#6cd414>✔ ");
-    private final Component info = MiniMessage.miniMessage().deserialize("<#c0f0fb>ℹ ");
+    private final Component info = MiniMessage.miniMessage().deserialize("<#c0f0fb>⚑ ");
 
     @Getter
     private final Component noPermission = failurePrefix.append(Component.text("Dazu hast du keine Berechtigung!", NamedTextColor.RED));

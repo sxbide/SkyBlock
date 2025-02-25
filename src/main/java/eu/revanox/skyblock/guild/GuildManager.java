@@ -25,7 +25,14 @@ public class GuildManager {
     }
 
     public boolean existsGuild(String guildName) {
-        return this.repository.findFirstByGuildName(guildName) != null;
+        boolean exists = false;
+        for (SkyBlockGuild skyblockGuild : this.guildMap.values()) {
+            if (skyblockGuild.getGuildName().equalsIgnoreCase(guildName)) {
+                exists = true;
+                break;
+            }
+        }
+        return exists;
     }
 
     public boolean hasGuild(Player player) {
@@ -68,7 +75,9 @@ public class GuildManager {
         skyBlockGuild.setUniqueId(randomUUID);
         skyBlockGuild.setGuildName(guildName);
         skyBlockGuild.setLeaderUniqueId(player.getUniqueId());
-        skyBlockGuild.setGuildMembers(new ArrayList<>(){{add(player.getUniqueId());}});
+        skyBlockGuild.setGuildMembers(new ArrayList<>(){{
+            add(player.getUniqueId());
+        }});
 
         this.guildMap.put(randomUUID, skyBlockGuild);
         this.repository.save(skyBlockGuild);
