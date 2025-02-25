@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import mc.skyblock.plugin.auctions.AuctionsManager;
 import mc.skyblock.plugin.caseopening.CaseOpeningManager;
+import mc.skyblock.plugin.caseopening.configuration.CaseConfiguration;
 import mc.skyblock.plugin.codec.ItemStackCodec;
 import mc.skyblock.plugin.codec.LocationCodec;
 import mc.skyblock.plugin.command.CommandManager;
@@ -33,6 +34,7 @@ public class SkyBlockPlugin extends JavaPlugin {
     static SkyBlockPlugin instance;
 
     ResourcePackConfiguration resourcePackConfiguration;
+    CaseConfiguration caseConfiguration;
 
     MongoManager mongoManager;
     UserManager userManager;
@@ -59,6 +61,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         instance = this;
 
         this.resourcePackConfiguration = Configuration.load(getDataFolder().toPath().resolve("resourcepack.json").toString(), ResourcePackConfiguration.class);
+        this.caseConfiguration = Configuration.load(getDataFolder().toPath().resolve("caseopening.json").toString(), CaseConfiguration.class);
 
         this.luckPerms = LuckPermsProvider.get();
 
@@ -75,6 +78,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.tagManager = new TagManager();
         this.guildManager = new GuildManager();
         this.npcManager = new NPCManager();
+        this.caseOpeningManager = new CaseOpeningManager(this.caseConfiguration);
 
         this.inventoryManager = new InventoryManager(this);
         this.inventoryManager.invoke();
