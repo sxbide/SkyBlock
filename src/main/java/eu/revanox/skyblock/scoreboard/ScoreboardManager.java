@@ -50,7 +50,7 @@ public class ScoreboardManager {
         Component tabFooter = Component.newline()
                 .append(Component.text("§7Schaue dir unseren sozialen Medien an:"))
                 .appendNewline()
-                .append(MiniMessage.miniMessage().deserialize("<gradient:#E2A574:#E0EF50><bold>/ꜱᴏᴄɪᴀʟꜱ</bold></gradient>"))
+                .append(Component.text("§r" + ResourceIcons.SOCIALS_TAG_TABLIST.unicode()))
                 .appendNewline()
                 .appendSpace();
 

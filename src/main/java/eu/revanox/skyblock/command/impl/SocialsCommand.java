@@ -2,6 +2,7 @@ package eu.revanox.skyblock.command.impl;
 
 import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.command.model.AbstractCommand;
+import eu.revanox.skyblock.util.ResourceIcons;
 import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -19,7 +20,7 @@ public class SocialsCommand extends AbstractCommand {
     @Override
     public void run(Player player, String[] args) {
         Component pageOne = Component.newline()
-                            .append(MiniMessage.miniMessage().deserialize("<b>   <gradient:#E2A574:#E0EF50>BLOCKARION.DE</gradient></b>"))
+                            .append(Component.text("§r" + ResourceIcons.SCOREBOARD_HEADER.unicode()))
                             .appendNewline()
                             .appendNewline()
                             .append(Component.text("§8→ §7§l§nDiscord§r").hoverEvent(HoverEvent.showText(Component.text("§7Klicke, um zu unserem Discord zu gelangen."))).clickEvent(ClickEvent.openUrl("https://discord.gg/blockarion")))

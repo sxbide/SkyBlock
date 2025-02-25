@@ -27,6 +27,10 @@ public enum Tags {
     TagRarity rarity;
     double price;
 
+    /**
+     * Color correction for custom tags using ResourceIcons
+     * @return fixed Component with white color
+     */
     public Component getFixedTag() {
         return tagText.color(NamedTextColor.WHITE);
     }
