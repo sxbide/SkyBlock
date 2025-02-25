@@ -21,7 +21,6 @@ public class AuctionsMenu implements InventoryProvider {
 
     RyseInventory ryseInventory;
 
-
     public AuctionsMenu() {
         this.ryseInventory = RyseInventory.builder()
                 .title("Spielerauktionen")
@@ -29,7 +28,6 @@ public class AuctionsMenu implements InventoryProvider {
                 .provider(this)
                 .build(SkyBlockPlugin.instance());
     }
-
 
     @Override
     public void init(Player player, InventoryContents contents) {
