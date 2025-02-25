@@ -15,6 +15,7 @@ public enum ResourceIcons {
     SCOREBOARD_HEADER("\ue063"),
     OWNER_TAG_SCOREBOARD("\ue064"),
     VISITOR_TAG_SCOREBOARD("\ue065"),
+    GUILD_TAG_SCOREBOARD("\ue069"),
 
     // TITLES
     SUMMER_2025_TITLE("\ue066"),
