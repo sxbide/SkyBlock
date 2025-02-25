@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.time.Duration;
@@ -33,6 +34,11 @@ public class PlayerAfkListener implements Listener {
                 }
             }
         }, 0, 20);
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        afkPlayers.remove(event.getPlayer());
     }
 
     @EventHandler

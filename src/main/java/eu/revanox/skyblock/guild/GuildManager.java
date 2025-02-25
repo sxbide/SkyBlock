@@ -35,9 +35,13 @@ public class GuildManager {
         return exists;
     }
 
+    public boolean isInGuild(Player player) {
+        return this.isMemberOfGuild(player) || this.isLeaderOfGuild(player);
+    }
+
     public boolean hasGuild(Player player) {
         for (SkyBlockGuild skyblockGuild : this.guildMap.values()) {
-            return skyblockGuild.getLeaderUniqueId().equals(player.getUniqueId());
+            return skyblockGuild.getLeaderUniqueId().equals(player.getUniqueId()) || skyblockGuild.getGuildMembers().contains(player.getUniqueId());
         }
         return false;
     }
@@ -85,6 +89,12 @@ public class GuildManager {
 
     public void kickPlayerFromGuild(Player player, SkyBlockGuild skyBlockGuild) {
         skyBlockGuild.getGuildMembers().remove(player.getUniqueId());
+        this.guildMap.put(skyBlockGuild.getUniqueId(), skyBlockGuild);
+        this.repository.save(skyBlockGuild);
+    }
+
+    public void addPlayerToGuild(Player player, SkyBlockGuild skyBlockGuild) {
+        skyBlockGuild.getGuildMembers().add(player.getUniqueId());
         this.guildMap.put(skyBlockGuild.getUniqueId(), skyBlockGuild);
         this.repository.save(skyBlockGuild);
     }

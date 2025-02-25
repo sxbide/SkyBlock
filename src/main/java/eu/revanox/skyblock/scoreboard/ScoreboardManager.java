@@ -1,6 +1,7 @@
 package eu.revanox.skyblock.scoreboard;
 
 import eu.revanox.skyblock.SkyBlockPlugin;
+import eu.revanox.skyblock.guild.model.SkyBlockGuild;
 import eu.revanox.skyblock.island.model.SkyBlockIsland;
 import eu.revanox.skyblock.user.model.SkyBlockUser;
 import eu.revanox.skyblock.util.ChatAction;
@@ -33,6 +34,9 @@ public class ScoreboardManager {
         FastBoard fastBoard = this.fastBoardMap.get(player);
 
         SkyBlockUser skyBlockUser = this.plugin.getUserManager().getUser(player.getUniqueId());
+        SkyBlockGuild skyBlockGuild = this.plugin.getGuildManager().getGuild(player);
+
+        String guildName = (skyBlockGuild != null ? skyBlockGuild.getGuildName() : "-");
 
         SkyBlockIsland skyBlockIsland = null;
 
@@ -67,6 +71,9 @@ public class ScoreboardManager {
                     Component.empty(),
                     Component.text("§r" + ResourceIcons.ISLAND_TAG_SCOREBOARD.unicode()),
                     Component.text(Objects.requireNonNull(Bukkit.getOfflinePlayer(skyBlockIsland.getOwnerUniqueId()).getName()), NamedTextColor.WHITE),
+                    Component.empty(),
+                    Component.text("§r" + ResourceIcons.GUILD_TAG_SCOREBOARD.unicode()),
+                    Component.text(guildName, NamedTextColor.WHITE),
                     Component.empty()
             );
         } else {
@@ -81,6 +88,9 @@ public class ScoreboardManager {
                     Component.empty(),
                     Component.text("§r" + ResourceIcons.ISLAND_TAG_SCOREBOARD.unicode()),
                     Component.text("Spawn", NamedTextColor.WHITE),
+                    Component.empty(),
+                    Component.text("§r" + ResourceIcons.GUILD_TAG_SCOREBOARD.unicode()),
+                    Component.text(guildName, NamedTextColor.WHITE),
                     Component.empty()
             );
         }
