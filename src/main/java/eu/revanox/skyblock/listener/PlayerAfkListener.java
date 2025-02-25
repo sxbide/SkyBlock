@@ -17,7 +17,7 @@ import java.util.*;
 public class PlayerAfkListener implements Listener {
 
     Map<UUID, Long> lastMove = new HashMap<>();
-    List<Player> afkPlayers;
+    static List<Player> afkPlayers;
     BukkitTask afkTask;
 
     public PlayerAfkListener() {
