@@ -45,7 +45,7 @@ public class GuildCommand extends AbstractCommand {
                 return;
             }
 
-            if (SkyBlockPlugin.instance().getGuildManager().existsGuild(guildName) || !guildName.matches("[A-Za-z0-9-]+") || guildName.length() > 10) {
+            if (SkyBlockPlugin.instance().getGuildManager().existsGuild(guildName) || !guildName.matches("[A-Za-z0-9-]+") || guildName.length() > 10 || guildName.length() < 2) {
                 player.sendMessage(ChatAction.failure("Dieser Name ist nicht vefügbar."));
                 return;
             }
@@ -144,7 +144,7 @@ public class GuildCommand extends AbstractCommand {
             }
 
             if(!SkyBlockPlugin.instance().getGuildManager().isLeaderOfGuild(player)) {
-                player.sendMessage(ChatAction.failure("Du kannst als Gildenmitglied keine Spieler einladen."));
+                player.sendMessage(ChatAction.failure("Du kannst als Gildenmitglied keine Spieler rauswerfen."));
                 return;
             }
 
@@ -155,14 +155,18 @@ public class GuildCommand extends AbstractCommand {
 
             SkyBlockGuild skyBlockGuild = SkyBlockPlugin.instance().getGuildManager().getGuild(player);
 
-            if(!skyBlockGuild.getGuildMembers().contains(targetPlayer)) {
+            if(skyBlockGuild.getLeaderUniqueId().equals(targetPlayer.getUniqueId())) {
+                player.sendMessage(ChatAction.failure("Dieser Spieler kann nicht aus der Gilde rausgeworfen werden."));
+                return;
+            }
+
+            if(!skyBlockGuild.getGuildMembers().contains(targetPlayer.getUniqueId())) {
                 player.sendMessage(ChatAction.failure("Dieser Spieler ist kein Gildenmitglied."));
                 return;
             }
 
-
             SkyBlockPlugin.instance().getGuildManager().kickPlayerFromGuild(targetPlayer, skyBlockGuild);
-            player.sendMessage(ChatAction.of("Du wurdest von deiner Gilde rausgeworfen."));
+            player.sendMessage(ChatAction.of(targetPlayer.getName() + " wurde aus deiner Gilde rausgeworfen."));
             return;
         }
 

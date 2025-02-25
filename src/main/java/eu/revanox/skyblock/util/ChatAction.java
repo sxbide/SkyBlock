@@ -19,9 +19,9 @@ public class ChatAction {
     private final Component info = MiniMessage.miniMessage().deserialize("<#c0f0fb>⚑ ");
 
     @Getter
-    private final Component noPermission = failurePrefix.append(Component.text("Dazu hast du keine Berechtigung!", NamedTextColor.RED));
+    private final Component noPermission = failurePrefix.append(MiniMessage.miniMessage().deserialize("<#fb1d1d>Dazu hast du keine Berechtigung."));
     @Getter
-    private final Component offline = failurePrefix.append(Component.text("Dieser Spieler wurde nicht gefunden!", NamedTextColor.RED));
+    private final Component offline = failurePrefix.append(MiniMessage.miniMessage().deserialize("<#fb1d1d>Dieser Spieler wurde nicht gefunden."));
 
     public Component of(String message) {
         return prefix.append(MiniMessage.miniMessage().deserialize("<#6cd414>" + ChatColor.stripColor(message)));

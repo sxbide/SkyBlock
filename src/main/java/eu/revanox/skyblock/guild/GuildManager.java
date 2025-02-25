@@ -36,12 +36,14 @@ public class GuildManager {
     }
 
     public boolean isInGuild(Player player) {
-        return this.isMemberOfGuild(player) || this.isLeaderOfGuild(player);
+        return hasGuild(player);
     }
 
     public boolean hasGuild(Player player) {
         for (SkyBlockGuild skyblockGuild : this.guildMap.values()) {
-            return skyblockGuild.getLeaderUniqueId().equals(player.getUniqueId()) || skyblockGuild.getGuildMembers().contains(player.getUniqueId());
+            if(skyblockGuild.getLeaderUniqueId().equals(player.getUniqueId()) || skyblockGuild.getGuildMembers().contains(player.getUniqueId())) {
+                return true;
+            }
         }
         return false;
     }

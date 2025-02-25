@@ -86,11 +86,11 @@ public class ScoreboardManager {
                     Component.text("§r" + ResourceIcons.ONLINE_TAG_SCOREBOARD.unicode()),
                     Component.text(Bukkit.getOnlinePlayers().size(), NamedTextColor.WHITE),
                     Component.empty(),
-                    Component.text("§r" + ResourceIcons.ISLAND_TAG_SCOREBOARD.unicode()),
-                    Component.text("Spawn", NamedTextColor.WHITE),
-                    Component.empty(),
                     Component.text("§r" + ResourceIcons.GUILD_TAG_SCOREBOARD.unicode()),
                     Component.text(guildName, NamedTextColor.WHITE),
+                    Component.empty(),
+                    Component.text("§r" + ResourceIcons.ISLAND_TAG_SCOREBOARD.unicode()),
+                    Component.text("Spawn", NamedTextColor.WHITE),
                     Component.empty()
             );
         }
