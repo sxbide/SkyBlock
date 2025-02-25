@@ -2,6 +2,8 @@ package mc.skyblock.plugin.configuration;
 
 import com.google.gson.*;
 import mc.skyblock.plugin.configuration.annotation.ConfigPath;
+import mc.skyblock.plugin.configuration.annotation.TypeAdapterType;
+import org.reflections.Reflections;
 
 import java.io.File;
 import java.io.FileReader;
@@ -11,9 +13,32 @@ import java.lang.reflect.Field;
 
 public class Configuration {
 
-    private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
+    private static final Gson GSON;
+
+    static {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setPrettyPrinting();
+        gsonBuilder.disableHtmlEscaping();
+
+        Reflections typeAdapterReflections = new Reflections("mc.skyblock.plugin.configuration.types");
+        typeAdapterReflections.getSubTypesOf(TypeAdapter.class).forEach(typeAdapterClass -> {
+            try {
+                TypeAdapter<?> typeAdapter = typeAdapterClass.getDeclaredConstructor().newInstance();
+                TypeAdapterType typeAdapterType = typeAdapterClass.getAnnotation(TypeAdapterType.class);
+                if (typeAdapterType == null) {
+                    throw new RuntimeException("Type adapter must have a TypeAdapterType annotation");
+                }
+                gsonBuilder.registerTypeAdapter(typeAdapterType.value(), typeAdapter);
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException("Failed to register type adapter", e);
+            }
+        });
+
+        GSON = gsonBuilder.create();
+    }
 
     public static <T> T load(String configPath, Class<T> configClass) {
+
         try {
             JsonObject jsonObject;
             File configFile = new File(configPath);
