@@ -30,7 +30,7 @@ public class ShutdownCommand extends AbstractCommand {
             }
         }
         if (seconds.get() < 10) {
-            player.sendMessage(ChatAction.failure("Bitte gebe eine Zahl größer 10 an."));
+            player.sendMessage(ChatAction.failure("Die Zeit muss mindestens 10 Sekunden betragen."));
             return;
         }
         player.sendMessage(ChatAction.of("Der Server wird in " + seconds + " Sekunden gestoppt."));
