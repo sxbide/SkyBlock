@@ -4,7 +4,9 @@ import eu.koboo.en2do.Credentials;
 import eu.koboo.en2do.MongoManager;
 import io.github.rysefoxx.inventory.plugin.pagination.InventoryManager;
 import lombok.Getter;
+import lombok.experimental.FieldDefaults;
 import mc.skyblock.plugin.auctions.AuctionsManager;
+import mc.skyblock.plugin.caseopening.CaseOpeningManager;
 import mc.skyblock.plugin.codec.ItemStackCodec;
 import mc.skyblock.plugin.codec.LocationCodec;
 import mc.skyblock.plugin.command.CommandManager;
@@ -25,25 +27,27 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class SkyBlockPlugin extends JavaPlugin {
 
-    private static SkyBlockPlugin instance;
+    static SkyBlockPlugin instance;
 
-    private ResourcePackConfiguration resourcePackConfiguration;
+    ResourcePackConfiguration resourcePackConfiguration;
 
-    private MongoManager mongoManager;
-    private UserManager userManager;
-    private ScoreboardManager scoreboardManager;
-    private IslandManager islandManager;
-    private LocationManager locationManager;
-    private AuctionsManager auctionsManager;
-    private LuckPerms luckPerms;
-    private InventoryManager inventoryManager;
-    private TablistManager tablistManager;
-    private CommandManager commandManager;
-    private TagManager tagManager;
-    private GuildManager guildManager;
-    private NPCManager npcManager;
+    MongoManager mongoManager;
+    UserManager userManager;
+    ScoreboardManager scoreboardManager;
+    IslandManager islandManager;
+    LocationManager locationManager;
+    AuctionsManager auctionsManager;
+    LuckPerms luckPerms;
+    InventoryManager inventoryManager;
+    TablistManager tablistManager;
+    CommandManager commandManager;
+    TagManager tagManager;
+    GuildManager guildManager;
+    NPCManager npcManager;
+    CaseOpeningManager caseOpeningManager;
 
 
     public static SkyBlockPlugin instance() {

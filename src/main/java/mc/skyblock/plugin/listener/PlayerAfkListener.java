@@ -2,6 +2,7 @@ package mc.skyblock.plugin.listener;
 
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.util.ChatAction;
+import mc.skyblock.plugin.util.TimeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -46,8 +47,7 @@ public class PlayerAfkListener implements Listener {
             afkPlayers.remove(event.getPlayer());
             event.getPlayer().sendMessage(ChatAction.info("Du bist nun nicht mehr AFK."));
             long afkTime = System.currentTimeMillis() - lastMove.get(event.getPlayer().getUniqueId());
-            event.getPlayer().sendMessage(ChatAction.info("Du warst AFK für " + Duration.ofMillis(afkTime).getSeconds() + " Sekunden."));
-            //TODO: Add time utils
+            event.getPlayer().sendMessage(ChatAction.info("Du warst AFK für " + TimeUtil.formatTime(afkTime, true, true) + "."));
         }
         lastMove.put(event.getPlayer().getUniqueId(), System.currentTimeMillis());
     }
