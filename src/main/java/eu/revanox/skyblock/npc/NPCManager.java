@@ -13,6 +13,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityInteractEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,11 +51,13 @@ public class NPCManager implements Listener {
         }
 
         TextDisplay textDisplay = npc.getLocation().getWorld().spawn(entity.getLocation(), TextDisplay.class);
-        textDisplay.setBillboard(Display.Billboard.HORIZONTAL);
+        textDisplay.setBillboard(Display.Billboard.CENTER);
         textDisplay.setSeeThrough(true);
         textDisplay.setGravity(false);
         textDisplay.text(holoText);
 
+        entity.setInvulnerable(true);
+        entity.setSilent(true);
         entity.addPassenger(textDisplay);
 
         this.entityMap.put(npc.getId(), entity);
@@ -102,12 +106,12 @@ public class NPCManager implements Listener {
     }
 
     @EventHandler
-    public void onEntityInteractByEntity(EntityDamageByEntityEvent event) {
-        if (this.entityMap.containsValue(event.getEntity())) {
+    public void onEntityInteractByEntity(PlayerInteractAtEntityEvent event) {
+        if (this.entityMap.containsValue(event.getRightClicked())) {
             event.setCancelled(true);
-            NPC npc = this.npcMap.values().stream().filter(n -> this.entityMap.get(n.getId()).equals(event.getEntity())).findFirst().orElse(null);
+            NPC npc = this.npcMap.values().stream().filter(n -> this.entityMap.get(n.getId()).equals(event.getRightClicked())).findFirst().orElse(null);
             if (npc != null) {
-                NpcInteractionEvent npcInteractionEvent = new NpcInteractionEvent(event.getEntity(), npc, NpcInteractionEvent.InteractionType.LEFT_CLICK, (Player) event.getDamager());
+                NpcInteractionEvent npcInteractionEvent = new NpcInteractionEvent(event.getRightClicked(), npc, NpcInteractionEvent.InteractionType.RIGHT_CLICK, event.getPlayer());
                 Bukkit.getPluginManager().callEvent(npcInteractionEvent);
             }
         }

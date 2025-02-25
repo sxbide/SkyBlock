@@ -43,8 +43,10 @@ public class PlayerChatListener implements Listener {
                     continue;
                 }
                 if (onlinePlayer.getUniqueId().equals(source.getUniqueId())) continue;
-                raw = raw.replace(onlinePlayer.getName(), "<yellow>" + onlinePlayer.getName() + "<gray>");
-                Title title = Title.title(Component.text("Du wurdest in einer Nachricht erwähnt", NamedTextColor.YELLOW), Component.text("von " + source.getName(), NamedTextColor.GRAY), Title.Times.times(Duration.ofMillis(100), Duration.ofSeconds(1), Duration.ofSeconds(100)));
+                raw = raw.replace(onlinePlayer.getName(), "<yellow>" + onlinePlayer.getName() + "<white>");
+                Title title = Title.title(Component.text("Du wurdest in einer Nachricht erwähnt", NamedTextColor.YELLOW),
+                        Component.text("von " + source.getName(), NamedTextColor.GRAY),
+                        Title.Times.times(Duration.ofMillis(100), Duration.ofSeconds(1), Duration.ofSeconds(1)));
                 onlinePlayer.showTitle(title);
                 onlinePlayer.playSound(onlinePlayer.getLocation(), org.bukkit.Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
                 if (PlayerAfkListener.afkPlayers.contains(onlinePlayer)) {

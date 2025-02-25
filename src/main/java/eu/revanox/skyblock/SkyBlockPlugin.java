@@ -86,6 +86,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerResourcePackListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerAfkListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerNpcInteractListener(), this);
 
     }
 
