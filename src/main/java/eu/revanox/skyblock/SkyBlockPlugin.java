@@ -12,6 +12,7 @@ import eu.revanox.skyblock.guild.GuildManager;
 import eu.revanox.skyblock.island.IslandManager;
 import eu.revanox.skyblock.listener.*;
 import eu.revanox.skyblock.location.LocationManager;
+import eu.revanox.skyblock.npc.NPCManager;
 import eu.revanox.skyblock.scoreboard.ScoreboardManager;
 import eu.revanox.skyblock.tablist.TablistManager;
 import eu.revanox.skyblock.tag.TagManager;
@@ -43,6 +44,7 @@ public class SkyBlockPlugin extends JavaPlugin {
     private CommandManager commandManager;
     private TagManager tagManager;
     private GuildManager guildManager;
+    private NPCManager npcManager;
 
 
     public static SkyBlockPlugin instance() {
@@ -69,6 +71,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.commandManager = new CommandManager(this);
         this.tagManager = new TagManager();
         this.guildManager = new GuildManager();
+        this.npcManager = new NPCManager();
 
         this.inventoryManager = new InventoryManager(this);
         this.inventoryManager.invoke();

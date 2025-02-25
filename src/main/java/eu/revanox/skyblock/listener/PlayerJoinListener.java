@@ -42,8 +42,7 @@ public class PlayerJoinListener implements Listener {
         SkyBlockPlugin.instance().getIslandManager().loadIsland(player);
         SkyBlockPlugin.instance().getTagManager().updateTag(player);
 
-        if (player.getClientBrandName() != null && player.getClientBrandName().contains("labymod")) {
-            SkyBlockPlugin.instance().getLogger().info("Clientbrand packet received from %s: %s".formatted(player.getName(), player.getClientBrandName()));
+        if (player.getClientBrandName() != null && player.getClientBrandName().equals("labymod")) {
             player.sendMessage(ChatAction.of("Danke, dass du LabyMod benutzt!"));
         }
 
