@@ -167,6 +167,7 @@ public class GuildCommand extends AbstractCommand {
 
             SkyBlockPlugin.instance().getGuildManager().kickPlayerFromGuild(targetPlayer, skyBlockGuild);
             player.sendMessage(ChatAction.of(targetPlayer.getName() + " wurde aus deiner Gilde rausgeworfen."));
+            targetPlayer.sendMessage(ChatAction.failure("Du wurdest aus deiner Gilde rausgeworfen."));
             return;
         }
 
