@@ -17,7 +17,10 @@ public enum ResourceIcons {
     VISITOR_TAG_SCOREBOARD("\ue065"),
 
     // TITLES
-    SUMMER_2025_TITLE("\ue066");
+    SUMMER_2025_TITLE("\ue066"),
+
+    // TABLIST
+    SOCIALS_TAG_TABLIST("\ue067");
 
     private String unicode;
 }

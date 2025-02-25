@@ -1,6 +1,7 @@
 package eu.revanox.skyblock.listener;
 
 import eu.revanox.skyblock.SkyBlockPlugin;
+import eu.revanox.skyblock.util.ResourceIcons;
 import io.papermc.paper.chat.ChatRenderer;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
@@ -21,6 +22,12 @@ public class PlayerChatListener implements Listener {
         TextComponent rawChat = ((TextComponent)event.message());
         Player player = event.getPlayer();
         Team playerTeam = SkyBlockPlugin.instance().getTablistManager().getTeamByPlayer(player);
+
+        for (ResourceIcons resourceIcon : ResourceIcons.values()) {
+            if(event.message().contains(Component.text(resourceIcon.unicode()))) {
+                event.setCancelled(true);
+            }
+        }
 
 
         event.renderer((source, component, message, viewer) -> {
