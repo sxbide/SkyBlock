@@ -1,5 +1,5 @@
 name: SkyBlock
 version: 1.0
 author: yasde & mzcy_
-main: eu.revanox.skyblock.SkyBlockPlugin
+main: mc.skyblock.plugin.SkyBlockPlugin
 api-version: '1.20'

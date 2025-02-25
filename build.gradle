@@ -4,7 +4,7 @@ plugins {
     id 'net.kyori.blossom' version '1.2.0'
 }
 
-group = 'eu.revanox.skyblock'
+group = 'mc.skyblock.plugin'
 version = '1.0-SNAPSHOT'
 
 repositories {
