@@ -23,6 +23,7 @@ public class CaseOpeningManager {
         caseItems = new ArrayList<>(caseConfiguration.getCaseItems());
     }
 
-
+    //TODO: Implement case opening logic
+    //TODO: Implement animation for case opening (e.g. spinning items, particles, block breaking, sounds, special effects, etc.)
 
 }

@@ -21,7 +21,7 @@ import java.util.List;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class CaseConfiguration extends Configuration {
 
-    @ConfigPath("case.key.item")
+    @ConfigPath("case.key")
     ItemStack caseKeyItem = ItemBuilder.of(Material.NAME_TAG).displayName(MiniMessage.miniMessage().deserialize("<rainbow>Case Key")).build();
 
     @ConfigPath("case.items")

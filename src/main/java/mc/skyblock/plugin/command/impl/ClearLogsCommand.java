@@ -18,7 +18,7 @@ public class ClearLogsCommand extends AbstractCommand {
 
     @Override
     public void run(Player player, String[] args) {
-        Path path = SkyBlockPlugin.instance().getDataFolder().toPath().getParent().getParent().resolve("logs");
+        Path path = Path.of("logs");
         int files = 0;
         int filesDeleted = 0;
         if (path.toFile().exists() && path.toFile().isDirectory()) {

@@ -20,7 +20,7 @@ public class CommandManager {
     }
 
     private void registerCommands() {
-        Reflections reflections = new Reflections("eu.revanox.skyblock.command.impl");
+        Reflections reflections = new Reflections("mc.skyblock.plugin.command.impl");
         Set<Class<? extends AbstractCommand>> commands = reflections.getSubTypesOf(AbstractCommand.class);
         commands.forEach(command -> {
             try {

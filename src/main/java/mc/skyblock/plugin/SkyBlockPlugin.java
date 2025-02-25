@@ -25,7 +25,11 @@ import mc.skyblock.plugin.user.UserManager;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.reflections.Reflections;
+
+import java.lang.reflect.InvocationTargetException;
 
 @Getter
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
@@ -84,14 +88,16 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.inventoryManager.invoke();
 
 
-        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerChatListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerResourcePackListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerAfkListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerNpcInteractListener(), this);
+        Reflections listenerReflections = new Reflections("mc.skyblock.plugin.listener");
+        listenerReflections.getSubTypesOf(Listener.class).forEach(listener -> {
+            try {
+                Bukkit.getPluginManager().registerEvents(listener.getDeclaredConstructor().newInstance(), this);
+                getLogger().info("Registered listener: " + listener.getName());
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                     NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
     }
 
