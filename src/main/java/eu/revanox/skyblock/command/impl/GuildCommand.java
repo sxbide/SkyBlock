@@ -36,7 +36,7 @@ public class GuildCommand extends AbstractCommand {
                 return;
             }
 
-            if(SkyBlockPlugin.instance().getGuildManager().existsGuild(guildName) || !guildName.matches("[A-Za-z0-9-]+")) {
+            if(SkyBlockPlugin.instance().getGuildManager().existsGuild(guildName) || !guildName.matches("[A-Za-z0-9-]+") || guildName.length() > 10) {
                 player.sendMessage(ChatAction.failure("Dieser Name ist nicht vefügbar."));
                 return;
             }
