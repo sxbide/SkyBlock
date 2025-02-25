@@ -2,6 +2,7 @@ package eu.revanox.skyblock.user.model;
 
 import eu.koboo.en2do.repository.entity.Id;
 import eu.revanox.skyblock.SkyBlockPlugin;
+import eu.revanox.skyblock.guild.model.SkyBlockGuild;
 import eu.revanox.skyblock.tag.model.Tags;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

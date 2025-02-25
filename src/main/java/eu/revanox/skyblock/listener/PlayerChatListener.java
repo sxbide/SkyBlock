@@ -1,6 +1,7 @@
 package eu.revanox.skyblock.listener;
 
 import eu.revanox.skyblock.SkyBlockPlugin;
+import eu.revanox.skyblock.guild.model.SkyBlockGuild;
 import eu.revanox.skyblock.util.ResourceIcons;
 import io.papermc.paper.chat.ChatRenderer;
 import io.papermc.paper.event.player.AsyncChatEvent;
@@ -32,6 +33,9 @@ public class PlayerChatListener implements Listener {
 
         event.renderer((source, component, message, viewer) -> {
             Component chatMessage = message;
+
+            SkyBlockGuild skyBlockGuild = SkyBlockPlugin.instance().getGuildManager().getGuild(player);
+
             message = playerTeam.prefix()
                     .append(Component.text(player.getName(), NamedTextColor.GRAY))
                     .append(Component.text(": ", NamedTextColor.DARK_GRAY))

@@ -1,6 +1,7 @@
 package eu.revanox.skyblock.user;
 
 import eu.revanox.skyblock.SkyBlockPlugin;
+import eu.revanox.skyblock.guild.model.SkyBlockGuild;
 import eu.revanox.skyblock.tag.model.Tags;
 import eu.revanox.skyblock.user.model.SkyBlockUser;
 import lombok.experimental.FieldDefaults;
@@ -42,6 +43,7 @@ public class UserManager {
 
         this.uuidSkyBlockUserMap.put(uuid, skyBlockUser);
     }
+
 
     public SkyBlockUser getUser(UUID uuid) {
         SkyBlockUser skyBlockUser = this.uuidSkyBlockUserMap.get(uuid);

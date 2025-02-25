@@ -8,6 +8,7 @@ import eu.revanox.skyblock.codec.LocationCodec;
 import eu.revanox.skyblock.command.*;
 import eu.revanox.skyblock.configuration.Configuration;
 import eu.revanox.skyblock.configuration.impl.ResourcePackConfiguration;
+import eu.revanox.skyblock.guild.GuildManager;
 import eu.revanox.skyblock.island.IslandManager;
 import eu.revanox.skyblock.listener.*;
 import eu.revanox.skyblock.location.LocationManager;
@@ -41,6 +42,7 @@ public class SkyBlockPlugin extends JavaPlugin {
     private TablistManager tablistManager;
     private CommandManager commandManager;
     private TagManager tagManager;
+    private GuildManager guildManager;
 
 
     public static SkyBlockPlugin instance() {
@@ -66,6 +68,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.tablistManager = new TablistManager();
         this.commandManager = new CommandManager(this);
         this.tagManager = new TagManager();
+        this.guildManager = new GuildManager();
 
         this.inventoryManager = new InventoryManager(this);
         this.inventoryManager.invoke();
@@ -79,6 +82,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerTeleportListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerResourcePackListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerAfkListener(), this);
 
     }
 
