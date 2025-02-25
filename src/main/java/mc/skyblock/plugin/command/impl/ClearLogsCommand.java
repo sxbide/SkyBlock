@@ -13,7 +13,7 @@ public class ClearLogsCommand extends AbstractCommand {
 
 
     public ClearLogsCommand(@NotNull SkyBlockPlugin plugin) {
-        super(plugin, "clearlogs", null, "clearlog");
+        super(plugin, "clearlogs", "skyblock.command.clearlogs", "clearlog");
     }
 
     @Override
