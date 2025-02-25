@@ -2,6 +2,7 @@ package eu.revanox.skyblock.listener;
 
 import eu.revanox.skyblock.SkyBlockPlugin;
 import eu.revanox.skyblock.location.model.Location;
+import eu.revanox.skyblock.util.ChatAction;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -40,6 +41,11 @@ public class PlayerJoinListener implements Listener {
 
         SkyBlockPlugin.instance().getIslandManager().loadIsland(player);
         SkyBlockPlugin.instance().getTagManager().updateTag(player);
+
+        if (player.getClientBrandName() != null && player.getClientBrandName().contains("labymod")) {
+            SkyBlockPlugin.instance().getLogger().info("Clientbrand packet received from %s: %s".formatted(player.getName(), player.getClientBrandName()));
+            player.sendMessage(ChatAction.of("Danke, dass du LabyMod benutzt!"));
+        }
 
     }
 }
