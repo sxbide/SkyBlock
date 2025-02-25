@@ -20,7 +20,7 @@ public class PlayerAfkListener implements Listener {
     BukkitTask afkTask;
 
     public PlayerAfkListener() {
-        this.afkPlayers = new ArrayList<>();
+        afkPlayers = new ArrayList<>();
         afkTask = Bukkit.getScheduler().runTaskTimer(SkyBlockPlugin.instance(), () -> {
             for (UUID uuid : lastMove.keySet()) {
                 if (System.currentTimeMillis() - lastMove.get(uuid) > Duration.ofSeconds(60).toMillis() && !afkPlayers.contains(Bukkit.getPlayer(uuid))) {
@@ -29,6 +29,7 @@ public class PlayerAfkListener implements Listener {
                         continue;
                     }
                     player.sendMessage(ChatAction.info("Du bist nun AFK."));
+                    afkPlayers.add(player);
                 }
             }
         }, 0, 20);
