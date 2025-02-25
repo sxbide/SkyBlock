@@ -7,12 +7,15 @@ import net.kyori.adventure.audience.Audience;
 import net.md_5.bungee.api.ChatMessageType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ShutdownCommand extends AbstractCommand {
+
+    BukkitTask task;
 
     public ShutdownCommand(@NotNull SkyBlockPlugin plugin) {
         super(plugin, "shutdown", "skyblock.command.shutdown", "stop");
@@ -33,17 +36,28 @@ public class ShutdownCommand extends AbstractCommand {
             player.sendMessage(ChatAction.failure("Die Zeit muss mindestens 10 Sekunden betragen."));
             return;
         }
-        player.sendMessage(ChatAction.of("Der Server wird in " + seconds + " Sekunden gestoppt."));
-        BukkitTask task = plugin.getServer().getScheduler().runTaskTimer(plugin, () -> {
-            seconds.getAndDecrement();
-            if (seconds.get() % 10 == 0 || seconds.get() <= 5) {
-                Audience.audience(Bukkit.getOnlinePlayers()).sendMessage(
-                        ChatAction.info("Der Server wird in " + seconds + " Sekunden gestoppt.")
-                );
+        player.sendMessage(ChatAction.of("Shutdown eingeleitet."));
+        Audience.audience(Bukkit.getOnlinePlayers()).sendMessage(
+                ChatAction.info("Der Server wird in " + seconds + " Sekunden gestoppt.")
+        );
+        task = new BukkitRunnable() {
+            @Override
+            public void run() {
+                seconds.getAndDecrement();
+                if (seconds.get() % 10 == 0 || seconds.get() <= 5) {
+                    Audience.audience(Bukkit.getOnlinePlayers()).sendMessage(
+                            ChatAction.info("Der Server wird in " + seconds + " Sekunden gestoppt.")
+                    );
+                }
+                if (seconds.get() == 0) {
+                    restartServer(task);
+                }
             }
-            if (seconds.get() == 0) {
-                Bukkit.spigot().restart();
-            }
-        }, 0L, 20L);
+        }.runTaskTimer(plugin, 0L, 20L);
+    }
+
+    private void restartServer(BukkitTask task) {
+        task.cancel();
+        Bukkit.spigot().restart();
     }
 }
