@@ -10,6 +10,8 @@ import mc.skyblock.plugin.configuration.Configuration;
 import mc.skyblock.plugin.configuration.annotation.ConfigPath;
 import mc.skyblock.plugin.util.ItemBuilder;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -20,6 +22,12 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class CaseConfiguration extends Configuration {
+
+    @ConfigPath("case.block.location")
+    Location caseBlockLocation = new Location(Bukkit.getWorlds().getFirst(), 0, 0, 0);
+
+    @ConfigPath("case.block.material")
+    Material caseBlockMaterial = Material.DROPPER;
 
     @ConfigPath("case.key")
     ItemStack caseKeyItem = ItemBuilder.of(Material.NAME_TAG).displayName(MiniMessage.miniMessage().deserialize("<rainbow>Case Key")).build();

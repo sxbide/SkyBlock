@@ -1,5 +1,7 @@
 package mc.skyblock.plugin;
 
+import com.github.fierioziy.particlenativeapi.api.ParticleNativeAPI;
+import com.github.fierioziy.particlenativeapi.core.ParticleNativeCore;
 import eu.koboo.en2do.Credentials;
 import eu.koboo.en2do.MongoManager;
 import io.github.rysefoxx.inventory.plugin.pagination.InventoryManager;
@@ -41,6 +43,8 @@ public class SkyBlockPlugin extends JavaPlugin {
 
     static SkyBlockPlugin instance;
 
+    ParticleNativeAPI particleAPI;
+
     ResourcePackConfiguration resourcePackConfiguration;
     CaseConfiguration caseConfiguration;
     WhitelistConfiguration whitelistConfiguration;
@@ -78,6 +82,8 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.punishConfiguration = Configuration.load(getDataFolder().toPath().resolve("punish.json").toString(), PunishConfiguration.class);
 
         this.luckPerms = LuckPermsProvider.get();
+
+        this.particleAPI = ParticleNativeCore.loadAPI(this);
 
         this.mongoManager = new MongoManager(Credentials.of("mongodb://keinepixel:rc8Saw8UNU4Dp+8UuWOUuVWZnJOEwp2nYhOcvqf5L@87.106.178.7:27017/", "skyblock"))
                 .registerCodec(new LocationCodec())
