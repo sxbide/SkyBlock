@@ -24,7 +24,7 @@ import java.util.List;
 public class CaseConfiguration extends Configuration {
 
     @ConfigPath("case.block.location")
-    Location caseBlockLocation = new Location(Bukkit.getWorlds().getFirst(), 0, 0, 0);
+    Location caseBlockLocation = new Location(Bukkit.getWorld("CYTOOX"), -45, 84, -104);
 
     @ConfigPath("case.block.material")
     Material caseBlockMaterial = Material.DROPPER;
@@ -36,15 +36,27 @@ public class CaseConfiguration extends Configuration {
     List<CaseItem> caseItems = List.of(
             new CaseItem(
                     ItemBuilder.of(Material.DIAMOND).displayName(MiniMessage.miniMessage().deserialize("<gradient:aqua:blue>Diamond")).build(),
-                    0.1
+                    30.0
             ),
             new CaseItem(
                     ItemBuilder.of(Material.EMERALD).displayName(MiniMessage.miniMessage().deserialize("<gradient:green:dark_green>Emerald")).build(),
-                    0.2
+                    15.0
             ),
             new CaseItem(
                     ItemBuilder.of(Material.GOLD_INGOT).displayName(MiniMessage.miniMessage().deserialize("<gradient:yellow:orange>Gold Ingot")).build(),
-                    99.7
+                    10.0
+            ),
+            new CaseItem(
+                    ItemBuilder.of(Material.IRON_INGOT).displayName(MiniMessage.miniMessage().deserialize("<gradient:white:gray>Iron Ingot")).build(),
+                    5.0
+            ),
+            new CaseItem(
+                    ItemBuilder.of(Material.COAL).displayName(MiniMessage.miniMessage().deserialize("<gradient:black:gray>Coal")).build(),
+                    0.9
+            ),
+            new CaseItem(
+                    ItemBuilder.of(Material.NETHERITE_HELMET).displayName(MiniMessage.miniMessage().deserialize("<gradient:brown:dark_red>nigga helmet")).build(),
+                    0.1
             )
     );
 
