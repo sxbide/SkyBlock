@@ -15,7 +15,7 @@ import java.util.List;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class PunishConfiguration extends Configuration {
 
-    @ConfigPath("punish.screens.ban")
+    @ConfigPath("punish.ban.screen")
     List<String> banScreen = List.of(
             "{prefix}<red>You have been banned from the server!",
             "<red>Reason: <gray>{reason}",
@@ -25,7 +25,7 @@ public class PunishConfiguration extends Configuration {
             "<red>Appeal at: <gray>discord.gg/skyblock"
     );
 
-    @ConfigPath("punish.screens.mute")
+    @ConfigPath("punish.mute.screen")
     List<String> muteScreen = List.of(
             "{prefix}<red>You have been muted from the server!",
             "<red>Reason: <gray>{reason}",
@@ -34,7 +34,34 @@ public class PunishConfiguration extends Configuration {
             "<red>Appeal at: <gray>discord.gg/skyblock"
     );
 
-    @ConfigPath("punish.screens.warn")
+    @ConfigPath("punish.mute.blocked-commands")
+    List<String> blockedCommands = List.of(
+            "tell",
+            "msg",
+            "whisper",
+            "w",
+            "r",
+            "reply",
+            "me",
+            "em",
+            "emote",
+            "minecraft:me",
+            "minecraft:em",
+            "minecraft:emote",
+            "minecraft:tell",
+            "minecraft:msg",
+            "minecraft:whisper",
+            "minecraft:w",
+            "minecraft:r",
+            "minecraft:reply",
+            "skyblock:msg",
+            "skyblock:whisper",
+            "skyblock:w",
+            "skyblock:r",
+            "skyblock:reply"
+    );
+
+    @ConfigPath("punish.warn.screen")
     List<String> warnScreen = List.of(
             "{prefix}<red>You have been warned on the server!",
             "<red>Reason: <gray>{reason}",
@@ -42,7 +69,7 @@ public class PunishConfiguration extends Configuration {
             "<red>Expire at: <gray>{expireAt}"
     );
 
-    @ConfigPath("punish.screens.kick")
+    @ConfigPath("punish.kick.screen")
     List<String> kickScreen = List.of(
             "{prefix}<red>You have been kicked from the server!",
             "<red>Reason: <gray>{reason}",

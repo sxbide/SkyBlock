@@ -12,7 +12,7 @@ import java.util.UUID;
 public class AsyncPlayerPreLoginListener implements Listener {
 
     @EventHandler
-    public void onPlayerSpawn(AsyncPlayerPreLoginEvent event) {
+    public void onAsyncPlayerPreLogin(AsyncPlayerPreLoginEvent event) {
         UUID uniqueId = event.getUniqueId();
         if (SkyBlockPlugin.instance().getWhitelistManager().isEnabled() && !SkyBlockPlugin.instance().getWhitelistManager().isWhitelisted(uniqueId)) {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_WHITELIST, SkyBlockPlugin.instance().getWhitelistManager().getKickMessage());
