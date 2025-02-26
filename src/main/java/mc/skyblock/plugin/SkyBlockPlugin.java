@@ -22,6 +22,8 @@ import mc.skyblock.plugin.scoreboard.ScoreboardManager;
 import mc.skyblock.plugin.tablist.TablistManager;
 import mc.skyblock.plugin.tag.TagManager;
 import mc.skyblock.plugin.user.UserManager;
+import mc.skyblock.plugin.whitelist.WhitelistManager;
+import mc.skyblock.plugin.whitelist.configuration.WhitelistConfiguration;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
@@ -39,6 +41,7 @@ public class SkyBlockPlugin extends JavaPlugin {
 
     ResourcePackConfiguration resourcePackConfiguration;
     CaseConfiguration caseConfiguration;
+    WhitelistConfiguration whitelistConfiguration;
 
     MongoManager mongoManager;
     UserManager userManager;
@@ -54,6 +57,7 @@ public class SkyBlockPlugin extends JavaPlugin {
     GuildManager guildManager;
     NPCManager npcManager;
     CaseOpeningManager caseOpeningManager;
+    WhitelistManager whitelistManager;
 
 
     public static SkyBlockPlugin instance() {
@@ -66,6 +70,7 @@ public class SkyBlockPlugin extends JavaPlugin {
 
         this.resourcePackConfiguration = Configuration.load(getDataFolder().toPath().resolve("resourcepack.json").toString(), ResourcePackConfiguration.class);
         this.caseConfiguration = Configuration.load(getDataFolder().toPath().resolve("caseopening.json").toString(), CaseConfiguration.class);
+        this.whitelistConfiguration = Configuration.load(getDataFolder().toPath().resolve("whitelist.json").toString(), WhitelistConfiguration.class);
 
         this.luckPerms = LuckPermsProvider.get();
 
@@ -83,6 +88,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.guildManager = new GuildManager();
         this.npcManager = new NPCManager();
         this.caseOpeningManager = new CaseOpeningManager(this.caseConfiguration);
+        this.whitelistManager = new WhitelistManager(this.whitelistConfiguration);
 
         this.inventoryManager = new InventoryManager(this);
         this.inventoryManager.invoke();

@@ -58,6 +58,9 @@ public class ShutdownCommand extends AbstractCommand {
 
     private void restartServer(BukkitTask task) {
         task.cancel();
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            player.kick(ChatAction.failure("Der Server wird neugestartet. Bitte warte einen Augenblick.").appendNewline().appendNewline().append(ChatAction.of("Discord: discord.gg/skyblocknigga123")));
+        });
         Bukkit.spigot().restart();
     }
 }
