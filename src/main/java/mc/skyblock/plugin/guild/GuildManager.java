@@ -80,6 +80,8 @@ public class GuildManager {
         UUID randomUUID = UUID.randomUUID();
         skyBlockGuild.setUniqueId(randomUUID);
         skyBlockGuild.setGuildName(guildName);
+        skyBlockGuild.setCreatedAt(System.currentTimeMillis());
+        skyBlockGuild.setMaxMembers(5);
         skyBlockGuild.setLeaderUniqueId(player.getUniqueId());
         skyBlockGuild.setGuildMembers(new ArrayList<>() {{
             add(player.getUniqueId());

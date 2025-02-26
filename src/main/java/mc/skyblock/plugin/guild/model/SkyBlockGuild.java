@@ -21,6 +21,8 @@ public class SkyBlockGuild {
     UUID uniqueId;
 
     String guildName;
+    long createdAt;
+    int maxMembers;
 
     UUID leaderUniqueId;
     List<UUID> guildMembers;

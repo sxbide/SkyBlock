@@ -10,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -33,6 +34,27 @@ public class GuildCommand extends AbstractCommand {
             player.sendMessage(ChatAction.of("/Gilde deny"));
             player.sendMessage(ChatAction.of("/Gilde delete"));
             player.sendMessage(ChatAction.of("/Gilde leave"));
+            return;
+        }
+
+        if(args.length == 1 && args[0].equalsIgnoreCase("info")) {
+
+            if (!SkyBlockPlugin.instance().getGuildManager().hasGuild(player)) {
+                player.sendMessage(ChatAction.failure("Du besitzt oder befindest dich in keiner Gilde!"));
+                return;
+            }
+
+            SkyBlockGuild skyBlockGuild = SkyBlockPlugin.instance().getGuildManager().getGuild(player);
+
+            player.sendMessage(ChatAction.of("Gilden-Information " + skyBlockGuild.getGuildName()));
+            player.sendMessage(ChatAction.of("Erstellt am: " + new SimpleDateFormat("dd.MM.yyyy").format(skyBlockGuild.getCreatedAt())));
+            player.sendMessage(ChatAction.of("Mitglieder (" + skyBlockGuild.getGuildMembers().size() + skyBlockGuild.getMaxMembers() + "):"));
+
+            for (UUID guildMember : skyBlockGuild.getGuildMembers()) {
+                player.sendMessage(ChatAction.of(Bukkit.getOfflinePlayer(guildMember).getName() +
+                        (skyBlockGuild.getLeaderUniqueId().equals(guildMember) ? "(Gründer): " : ": ") + (Bukkit.getOfflinePlayer(guildMember).isOnline() ? "§aOnline" : "§cOffline")));
+            }
+
             return;
         }
 
