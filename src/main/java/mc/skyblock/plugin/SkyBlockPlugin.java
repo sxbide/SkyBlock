@@ -18,6 +18,8 @@ import mc.skyblock.plugin.island.IslandManager;
 import mc.skyblock.plugin.listener.*;
 import mc.skyblock.plugin.location.LocationManager;
 import mc.skyblock.plugin.npc.NPCManager;
+import mc.skyblock.plugin.punish.PunishManager;
+import mc.skyblock.plugin.punish.configuration.PunishConfiguration;
 import mc.skyblock.plugin.scoreboard.ScoreboardManager;
 import mc.skyblock.plugin.tablist.TablistManager;
 import mc.skyblock.plugin.tag.TagManager;
@@ -42,6 +44,7 @@ public class SkyBlockPlugin extends JavaPlugin {
     ResourcePackConfiguration resourcePackConfiguration;
     CaseConfiguration caseConfiguration;
     WhitelistConfiguration whitelistConfiguration;
+    PunishConfiguration punishConfiguration;
 
     MongoManager mongoManager;
     UserManager userManager;
@@ -58,6 +61,7 @@ public class SkyBlockPlugin extends JavaPlugin {
     NPCManager npcManager;
     CaseOpeningManager caseOpeningManager;
     WhitelistManager whitelistManager;
+    PunishManager punishManager;
 
 
     public static SkyBlockPlugin instance() {
@@ -71,6 +75,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.resourcePackConfiguration = Configuration.load(getDataFolder().toPath().resolve("resourcepack.json").toString(), ResourcePackConfiguration.class);
         this.caseConfiguration = Configuration.load(getDataFolder().toPath().resolve("caseopening.json").toString(), CaseConfiguration.class);
         this.whitelistConfiguration = Configuration.load(getDataFolder().toPath().resolve("whitelist.json").toString(), WhitelistConfiguration.class);
+        this.punishConfiguration = Configuration.load(getDataFolder().toPath().resolve("punish.json").toString(), PunishConfiguration.class);
 
         this.luckPerms = LuckPermsProvider.get();
 
@@ -89,6 +94,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.npcManager = new NPCManager();
         this.caseOpeningManager = new CaseOpeningManager(this.caseConfiguration);
         this.whitelistManager = new WhitelistManager(this.whitelistConfiguration);
+        this.punishManager = new PunishManager(this.punishConfiguration);
 
         this.inventoryManager = new InventoryManager(this);
         this.inventoryManager.invoke();
