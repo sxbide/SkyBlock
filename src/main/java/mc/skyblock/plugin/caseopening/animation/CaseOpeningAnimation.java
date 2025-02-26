@@ -7,6 +7,7 @@ import mc.skyblock.plugin.util.Rarity;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.*;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.*;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class CaseOpeningAnimation {
 
     Player player;
+    BlockData caseBlockData;
 
     public CaseOpeningAnimation(Player player) {
 
@@ -28,6 +30,7 @@ public class CaseOpeningAnimation {
     public void start() {
         Location blockLocation = SkyBlockPlugin.instance().getCaseConfiguration().getCaseBlockLocation();
         World world = blockLocation.getWorld();
+        this.caseBlockData = world.getBlockAt(blockLocation).getBlockData().clone();
 
         CompletableFuture<Void> mainBlockFuture = CompletableFuture.runAsync(() -> {
             world.getBlockAt(blockLocation).breakNaturally(false, false);
@@ -117,6 +120,7 @@ public class CaseOpeningAnimation {
 
                         //Place blocks back
                         world.getBlockAt(blockLocation).setType(SkyBlockPlugin.instance().getCaseConfiguration().getCaseBlockMaterial());
+                        world.getBlockAt(blockLocation).setBlockData(caseBlockData);
                         for (int i = 0, x = -1; x <= 1; x++) {
                             for (int z = -1; z <= 1; z++, i++) {
                                 Location glassBlockLocation = blockLocation.clone().add(x, -1, z);
