@@ -8,30 +8,33 @@ import java.time.Duration;
 public class TimeUtil {
 
     public String formatTime(Duration duration, boolean shortString, boolean withSeconds) {
-        long millis = duration.toMillis();
-        long seconds = millis / 1000;
-        long minutes = seconds / 60;
-        long hours = minutes / 60;
-        long days = hours / 24;
+        long seconds = duration.getSeconds();
+        long days = seconds / 86400;
+        long hours = (seconds % 86400) / 3600;
+        long minutes = (seconds % 3600) / 60;
+        long secs = seconds % 60;
 
         StringBuilder response = new StringBuilder();
 
         if (days > 0) {
-            response.append(days).append(shortString ? "d" : " Tag").append(days > 1 ? "e" : "").append(", ");
+            response.append(days).append(shortString ? "d" : " Tag").append(days > 1 && !shortString ? "e" : "").append(", ");
         }
-
         if (hours > 0) {
-            response.append(hours % 24).append(shortString ? "h" : " Stunde").append(hours % 24 > 1 ? "n" : "").append(", ");
+            response.append(hours).append(shortString ? "h" : " Stunde").append(hours > 1 && !shortString ? "n" : "").append(", ");
         }
-
         if (minutes > 0) {
-            response.append(minutes % 60).append(shortString ? "m" : " Minute").append(minutes % 60 > 1 ? "n" : "").append(", ");
+            response.append(minutes).append(shortString ? "m" : " Minute").append(minutes > 1 && !shortString ? "n" : "").append(", ");
         }
-
         if (withSeconds) {
-            response.append(seconds % 60).append(shortString ? "s" : " Sekunde").append(seconds % 60 > 1 ? "n" : "");
+            response.append(secs).append(shortString ? "s" : " Sekunde").append(secs > 1 && !shortString ? "n" : "");
         }
 
+        if (response.toString().isEmpty()) {
+            return "0" + (shortString ? "s" : " Sekunden");
+        }
+        if (response.toString().endsWith(", ")) {
+            return response.substring(0, response.length() - 2);
+        }
         return response.toString();
     }
 
