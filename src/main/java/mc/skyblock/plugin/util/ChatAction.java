@@ -20,10 +20,14 @@ public class ChatAction {
     @Getter
     private final Component noPermission = failurePrefix.append(MiniMessage.miniMessage().deserialize("<#fb1d1d>Dazu hast du keine Berechtigung."));
     @Getter
-    private final Component offline = failurePrefix.append(MiniMessage.miniMessage().deserialize("<#fb1d1d>Dieser Spieler wurde nicht gefunden."));
+    private final Component offline = failurePrefix.append(MiniMessage.miniMessage().deserialize("<#fb1d1d>Dieser Spieler wurde nicht am Server gefunden."));
 
     public Component of(String message) {
         return prefix.append(MiniMessage.miniMessage().deserialize("<#6cd414>" + ChatColor.stripColor(message)));
+    }
+
+    public Component gray(String message) {
+        return MiniMessage.miniMessage().deserialize("<#a6a19d> › " + ChatColor.stripColor(message));
     }
 
     public Component failure(String message) {
@@ -31,7 +35,7 @@ public class ChatAction {
     }
 
     public Component info(String message) {
-        return info.append(MiniMessage.miniMessage().deserialize("<#c0f0fb>" + ChatColor.stripColor(message)));
+        return info.append(MiniMessage.miniMessage().deserialize("<#a6a19d>" + ChatColor.stripColor(message)));
     }
 
 }

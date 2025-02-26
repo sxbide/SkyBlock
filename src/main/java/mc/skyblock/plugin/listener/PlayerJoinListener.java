@@ -1,5 +1,6 @@
 package mc.skyblock.plugin.listener;
 
+import lombok.val;
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.location.model.Location;
 import mc.skyblock.plugin.util.ChatAction;

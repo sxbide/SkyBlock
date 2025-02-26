@@ -24,17 +24,16 @@ import java.util.logging.Logger;
 public class CaseOpeningAnimation {
 
     Player player;
+    World world;
     BlockData caseBlockData;
 
     public CaseOpeningAnimation(Player player) {
-
         this.player = player;
-
     }
 
     public void start() {
         Location blockLocation = SkyBlockPlugin.instance().getCaseConfiguration().getCaseBlockLocation();
-        World world = Bukkit.getWorld("CYTOOX");
+        world = Bukkit.getWorld("CYTOOX");
         blockLocation.setWorld(world);
         this.caseBlockData = world.getBlockAt(blockLocation).getBlockData().clone();
 
@@ -152,7 +151,7 @@ public class CaseOpeningAnimation {
             double z = from.getZ() + (to.getZ() - from.getZ()) * (i / particles);
             SkyBlockPlugin.instance().getParticleAPI().LIST_1_13.DUST_COLOR_TRANSITION
                     .color(rarity.getColor(), rarity.getColor(), 1.0D)
-                    .packet(true, x, y, z, 2)
+                    .packet(true, new Location(world, x,y,z), 2)
                     .sendTo(Bukkit.getOnlinePlayers());
         }
     }

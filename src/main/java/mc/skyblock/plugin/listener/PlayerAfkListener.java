@@ -24,12 +24,12 @@ public class PlayerAfkListener implements Listener {
         afkPlayers = new ArrayList<>();
         afkTask = Bukkit.getScheduler().runTaskTimer(SkyBlockPlugin.instance(), () -> {
             for (UUID uuid : lastMove.keySet()) {
-                if (System.currentTimeMillis() - lastMove.get(uuid) > Duration.ofSeconds(60).toMillis() && !afkPlayers.contains(Bukkit.getPlayer(uuid))) {
+                if (System.currentTimeMillis() - lastMove.get(uuid) > Duration.ofSeconds(180).toMillis() && !afkPlayers.contains(Bukkit.getPlayer(uuid))) {
                     Player player = Bukkit.getPlayer(uuid);
                     if (player == null) {
                         continue;
                     }
-                    player.sendMessage(ChatAction.info("Du bist nun AFK."));
+                    player.sendMessage(ChatAction.info("Du wurdest als abwesend markiert!"));
                     afkPlayers.add(player);
                 }
             }
@@ -46,9 +46,9 @@ public class PlayerAfkListener implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         if (afkPlayers.contains(event.getPlayer())) {
             afkPlayers.remove(event.getPlayer());
-            event.getPlayer().sendMessage(ChatAction.info("Du bist nun nicht mehr AFK."));
+            event.getPlayer().sendMessage(ChatAction.info("Du bist nun nicht mehr abwesend!"));
             long afkTime = System.currentTimeMillis() - lastMove.get(event.getPlayer().getUniqueId());
-            event.getPlayer().sendMessage(ChatAction.info("Du warst AFK für " + TimeUtil.formatTime(afkTime, true, true) + "."));
+            event.getPlayer().sendMessage(ChatAction.info("Du warst für " + TimeUtil.formatTime(afkTime, true, true) + " abwesend."));
         }
         lastMove.put(event.getPlayer().getUniqueId(), System.currentTimeMillis());
     }

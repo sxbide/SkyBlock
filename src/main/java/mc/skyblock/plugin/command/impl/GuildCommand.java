@@ -4,6 +4,7 @@ import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.command.model.AbstractCommand;
 import mc.skyblock.plugin.guild.model.SkyBlockGuild;
 import mc.skyblock.plugin.util.ChatAction;
+import mc.skyblock.plugin.util.TimeUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import org.bukkit.Bukkit;
@@ -47,13 +48,17 @@ public class GuildCommand extends AbstractCommand {
 
             SkyBlockGuild skyBlockGuild = SkyBlockPlugin.instance().getGuildManager().getGuild(player);
 
-            player.sendMessage(ChatAction.of("Gilden-Information " + skyBlockGuild.getGuildName()));
-            player.sendMessage(ChatAction.of("Erstellt am: " + new SimpleDateFormat("dd.MM.yyyy").format(skyBlockGuild.getCreatedAt())));
-            player.sendMessage(ChatAction.of("Mitglieder (" + skyBlockGuild.getGuildMembers().size() + skyBlockGuild.getMaxMembers() + "):"));
+            player.sendMessage(ChatAction.gray("Gilden-Information <green>" + skyBlockGuild.getGuildName()));
+            player.sendMessage(ChatAction.gray("Erstellt am: <green>" + new SimpleDateFormat("dd.MM.yyyy").format(skyBlockGuild.getCreatedAt())));
+            player.sendMessage(ChatAction.gray("Mitglieder (<green>" + skyBlockGuild.getGuildMembers().size() + "<#a6a19d>/<red>" + skyBlockGuild.getMaxMembers() + "<#a6a19d>):"));
 
             for (UUID guildMember : skyBlockGuild.getGuildMembers()) {
-                player.sendMessage(ChatAction.of(Bukkit.getOfflinePlayer(guildMember).getName() +
-                        (skyBlockGuild.getLeaderUniqueId().equals(guildMember) ? "(Gründer): " : ": ") + (Bukkit.getOfflinePlayer(guildMember).isOnline() ? "§aOnline" : "§cOffline")));
+                player.sendMessage(ChatAction.gray("<green>" + Bukkit.getOfflinePlayer(guildMember).getName() +
+                        (skyBlockGuild.getLeaderUniqueId().equals(guildMember) ? " <#a6a19d>(Gründer): " : ": ") +
+                        (Bukkit.getOfflinePlayer(guildMember).isOnline() ? "<green>Online" : "<red>Offline"))
+
+                        .hoverEvent(Component.text(Bukkit.getOfflinePlayer(guildMember).isOnline() ? "§aAktuell auf SkyBlock" : "§cOffline seit " +
+                                (TimeUtil.formatTime(System.currentTimeMillis()-Bukkit.getOfflinePlayer(guildMember).getLastSeen())))));
             }
 
             return;

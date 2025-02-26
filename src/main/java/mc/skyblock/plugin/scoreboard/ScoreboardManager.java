@@ -9,6 +9,7 @@ import mc.skyblock.plugin.util.NumberUtil;
 import mc.skyblock.plugin.util.ResourceIcons;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -34,7 +35,9 @@ public class ScoreboardManager {
         SkyBlockUser skyBlockUser = this.plugin.getUserManager().getUser(player.getUniqueId());
         SkyBlockGuild skyBlockGuild = this.plugin.getGuildManager().getGuild(player);
 
-        String guildName = (skyBlockGuild != null ? skyBlockGuild.getGuildName() : "-");
+        String guildOnlineMembers = (skyBlockGuild != null ? "<#818181>(<green>" + skyBlockGuild.getGuildMembers()
+                .stream().filter(uuid -> Bukkit.getOfflinePlayer(uuid).isOnline()).count() + "<#818181>/<red>" + skyBlockGuild.getGuildMembers().size() + "<#818181>)" : "-");
+        Component guildName = (skyBlockGuild != null ? MiniMessage.miniMessage().deserialize(skyBlockGuild.getGuildName() + " " + guildOnlineMembers) : Component.text("-", NamedTextColor.WHITE));
 
         SkyBlockIsland skyBlockIsland = null;
 
@@ -71,7 +74,7 @@ public class ScoreboardManager {
                     Component.text(Objects.requireNonNull(Bukkit.getOfflinePlayer(skyBlockIsland.getOwnerUniqueId()).getName()), NamedTextColor.WHITE),
                     Component.empty(),
                     Component.text("§r" + ResourceIcons.GUILD_TAG_SCOREBOARD.unicode()),
-                    Component.text(guildName, NamedTextColor.WHITE),
+                    guildName,
                     Component.empty()
             );
         } else {
@@ -85,7 +88,7 @@ public class ScoreboardManager {
                     Component.text(Bukkit.getOnlinePlayers().size(), NamedTextColor.WHITE),
                     Component.empty(),
                     Component.text("§r" + ResourceIcons.GUILD_TAG_SCOREBOARD.unicode()),
-                    Component.text(guildName, NamedTextColor.WHITE),
+                    guildName,
                     Component.empty(),
                     Component.text("§r" + ResourceIcons.ISLAND_TAG_SCOREBOARD.unicode()),
                     Component.text("Spawn", NamedTextColor.WHITE),
