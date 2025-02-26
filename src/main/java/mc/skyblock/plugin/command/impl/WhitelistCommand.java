@@ -34,6 +34,7 @@ public class WhitelistCommand extends AbstractCommand {
                     onlinePlayer.kick(SkyBlockPlugin.instance().getWhitelistManager().getKickMessage(), PlayerKickEvent.Cause.WHITELIST);
                 }
             });
+            return;
         }
         if (args[0].equalsIgnoreCase("off")) {
             SkyBlockPlugin.instance().getWhitelistManager().status(false);
@@ -45,6 +46,10 @@ public class WhitelistCommand extends AbstractCommand {
                 player.sendMessage(ChatAction.of("/Whitelist add <Spielername>"));
                 return;
             }
+            if (SkyBlockPlugin.instance().getWhitelistManager().isWhitelisted(Bukkit.getOfflinePlayer(args[1]).getUniqueId())) {
+                player.sendMessage(ChatAction.failure("Der Spieler " + args[1] + " ist bereits auf der Whitelist."));
+                return;
+            }
             SkyBlockPlugin.instance().getWhitelistManager().whitelist(Bukkit.getOfflinePlayer(args[1]).getUniqueId());
             player.sendMessage(ChatAction.of("Der Spieler " + args[1] + " wurde hinzugefügt."));
             return;
@@ -52,6 +57,10 @@ public class WhitelistCommand extends AbstractCommand {
         if (args[0].equalsIgnoreCase("remove")) {
             if (args.length == 1) {
                 player.sendMessage(ChatAction.of("/Whitelist remove <Spielername>"));
+                return;
+            }
+            if (!SkyBlockPlugin.instance().getWhitelistManager().isWhitelisted(Bukkit.getOfflinePlayer(args[1]).getUniqueId())) {
+                player.sendMessage(ChatAction.failure("Der Spieler " + args[1] + " ist nicht auf der Whitelist."));
                 return;
             }
             SkyBlockPlugin.instance().getWhitelistManager().unwhitelist(Bukkit.getOfflinePlayer(args[1]).getUniqueId());
