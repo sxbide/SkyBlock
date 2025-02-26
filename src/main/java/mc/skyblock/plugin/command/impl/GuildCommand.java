@@ -33,6 +33,7 @@ public class GuildCommand extends AbstractCommand {
             player.sendMessage(ChatAction.of("/Gilde accept"));
             player.sendMessage(ChatAction.of("/Gilde deny"));
             player.sendMessage(ChatAction.of("/Gilde delete"));
+            player.sendMessage(ChatAction.of("/Gilde info"));
             player.sendMessage(ChatAction.of("/Gilde leave"));
             return;
         }
