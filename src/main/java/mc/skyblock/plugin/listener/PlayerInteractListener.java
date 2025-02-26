@@ -1,11 +1,15 @@
 package mc.skyblock.plugin.listener;
 
+import mc.skyblock.plugin.SkyBlockPlugin;
+import mc.skyblock.plugin.caseopening.animation.CaseOpeningAnimation;
 import mc.skyblock.plugin.enderchest.menu.EnderChestSelectMenu;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 public class PlayerInteractListener implements Listener {
 
@@ -14,10 +18,14 @@ public class PlayerInteractListener implements Listener {
 
         Player player = event.getPlayer();
 
-        if (event.getClickedBlock() != null) {
+        if (event.getClickedBlock() != null && event.getHand() != null && event.getHand().equals(EquipmentSlot.HAND)) {
             if (event.getClickedBlock().getType().equals(Material.ENDER_CHEST)) {
                 event.setCancelled(true);
                 new EnderChestSelectMenu().getRyseInventory().open(player);
+            }
+            if (event.getClickedBlock().getType().equals(Material.DROPPER)) {
+                    CaseOpeningAnimation caseOpeningAnimation = new CaseOpeningAnimation(player);
+                    caseOpeningAnimation.start();
             }
         }
     }

@@ -1,5 +1,6 @@
 package mc.skyblock.plugin.caseopening.configuration;
 
+import com.google.gson.reflect.TypeToken;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 @Getter
@@ -43,7 +45,7 @@ public class CaseConfiguration extends Configuration {
                     15.0
             ),
             new CaseItem(
-                    ItemBuilder.of(Material.GOLD_INGOT).displayName(MiniMessage.miniMessage().deserialize("<gradient:yellow:orange>Gold Ingot")).build(),
+                    ItemBuilder.of(Material.GOLD_INGOT).displayName(MiniMessage.miniMessage().deserialize("<gradient:yellow:gold>Gold Ingot")).build(),
                     10.0
             ),
             new CaseItem(
@@ -55,9 +57,14 @@ public class CaseConfiguration extends Configuration {
                     0.9
             ),
             new CaseItem(
-                    ItemBuilder.of(Material.NETHERITE_HELMET).displayName(MiniMessage.miniMessage().deserialize("<gradient:brown:dark_red>nigga helmet")).build(),
+                    ItemBuilder.of(Material.NETHERITE_HELMET).displayName(MiniMessage.miniMessage().deserialize("<gradient:#ffffff:#000000>nigga helmet")).build(),
                     0.1
             )
     );
+
+    public List<CaseItem> getCaseItems() {
+        Type listType = new TypeToken<List<CaseItem>>() {}.getType();
+        return GSON.fromJson(GSON.toJson(caseItems), listType);
+    }
 
 }

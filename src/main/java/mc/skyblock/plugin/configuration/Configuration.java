@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
 
 public class Configuration {
 
-    private static final Gson GSON;
+    protected static final Gson GSON;
 
     static {
         GsonBuilder gsonBuilder = new GsonBuilder();

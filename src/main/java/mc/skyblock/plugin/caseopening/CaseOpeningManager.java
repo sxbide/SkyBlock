@@ -37,7 +37,7 @@ public class CaseOpeningManager {
     }
 
     public CaseItem getRandomCaseItem() {
-        return caseItems.get((int) (Math.random() * caseItems.size()));
+        return new ArrayList<>(caseItems).get((int) (Math.random() * caseItems.size()));
     }
 
     public CaseItem getRandomCaseItem(Rarity... excludedRarities) {
