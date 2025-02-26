@@ -120,12 +120,12 @@ public class SkyBlockPlugin extends JavaPlugin {
             }
         });
 
-        Bukkit.getScheduler().runTaskTimer(this, () -> {
-            if (Bukkit.getWorld("CYTOOX") == null) return;
-            Objects.requireNonNull(Bukkit.getWorld("CYTOOX")).getPlayers().forEach(player -> {
-                CustomSound.BACKGROUND_ECLIPSE.playSound(player, 0.3F, 1.0F, this.locationManager.getPosition("spawn").getLocation());
-            });
-        }, 0L, 20*30L);
+//        Bukkit.getScheduler().runTaskTimer(this, () -> {
+//            if (Bukkit.getWorld("CYTOOX") == null) return;
+//            Objects.requireNonNull(Bukkit.getWorld("CYTOOX")).getPlayers().forEach(player -> {
+//                CustomSound.BACKGROUND_ECLIPSE.playSound(player, 0.1F, 1.0F, this.locationManager.getPosition("spawn").getLocation());
+//            });
+//        }, 0L, 20*30L);
 
     }
 

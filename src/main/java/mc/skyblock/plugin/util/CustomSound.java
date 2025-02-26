@@ -19,6 +19,8 @@ public enum CustomSound {
 
     BACKGROUND_ECLIPSE(Key.key(Key.MINECRAFT_NAMESPACE, "skyblock.background.eclipse")),
     ERROR(Key.key(Key.MINECRAFT_NAMESPACE, "skyblock.error")),
+    WINNING(Key.key(Key.MINECRAFT_NAMESPACE, "skyblock.winning")),
+    CASHIER(Key.key(Key.MINECRAFT_NAMESPACE, "skyblock.cashier")),
     ;
 
     Key key;
