@@ -39,6 +39,8 @@ dependencies {
 
     implementation 'org.reflections:reflections:0.10.2'
 
+    implementation 'com.github.fierioziy.particlenativeapi:ParticleNativeAPI-core:4.4.0'
+
 
 }
 
@@ -53,4 +55,8 @@ compileJava {
     options.incremental = true
     options.encoding = 'UTF-8'
     options.release.set(23)
+}
+
+shadowJar {
+    relocate('com.github.fierioziy.particlenativeapi', 'mc.skyblock.plugin.libs.particlenativeapi')
 }
