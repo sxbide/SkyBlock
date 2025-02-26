@@ -204,7 +204,7 @@ public class PunishManager {
     }
 
     @ApiStatus.Internal
-    private Component getBanScreen(Ban ban) {
+    public Component getBanScreen(Ban ban) {
         return createScreen(this.configuration.getBanScreen(), Map.of(
                 "{id}", ban.getBanId().toString(),
                 "{reason}", ban.getReason().getName(),
@@ -215,7 +215,7 @@ public class PunishManager {
     }
 
     @ApiStatus.Internal
-    private Component getMuteScreen(Mute mute) {
+    public Component getMuteScreen(Mute mute) {
         return createScreen(this.configuration.getMuteScreen(), Map.of(
                 "{id}", mute.getMuteId().toString(),
                 "{reason}", mute.getReason().getName(),
@@ -226,7 +226,7 @@ public class PunishManager {
     }
 
     @ApiStatus.Internal
-    private Component getWarnScreen(Warn warn) {
+    public Component getWarnScreen(Warn warn) {
         return createScreen(this.configuration.getWarnScreen(), Map.of(
                 "{id}", warn.getWarnId().toString(),
                 "{reason}", warn.getReason(),
@@ -237,7 +237,7 @@ public class PunishManager {
     }
 
     @ApiStatus.Internal
-    private Component getKickScreen(UUID kickedPlayer, UUID kickedBy, String reason) {
+    public Component getKickScreen(UUID kickedPlayer, UUID kickedBy, String reason) {
         return createScreen(this.configuration.getKickScreen(), Map.of(
                 "{reason}", reason,
                 "{kickedBy}", Bukkit.getOfflinePlayer(kickedBy).getName()

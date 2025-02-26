@@ -3,6 +3,7 @@ package mc.skyblock.plugin.listener;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.guild.model.SkyBlockGuild;
+import mc.skyblock.plugin.punish.model.mute.Mute;
 import mc.skyblock.plugin.util.ChatAction;
 import mc.skyblock.plugin.util.ResourceIcons;
 import net.kyori.adventure.text.Component;
@@ -16,6 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.scoreboard.Team;
 
 import java.time.Duration;
+import java.util.Comparator;
 
 public class PlayerChatListener implements Listener {
 
@@ -29,6 +31,15 @@ public class PlayerChatListener implements Listener {
         for (ResourceIcons resourceIcon : ResourceIcons.values()) {
             if (event.message().contains(Component.text(resourceIcon.unicode()))) {
                 event.setCancelled(true);
+            }
+        }
+
+        if (SkyBlockPlugin.instance().getPunishManager().hasActiveMutes(player.getUniqueId())) {
+            Mute latestMute = SkyBlockPlugin.instance().getPunishManager().getMutes(player.getUniqueId()).stream().max(Comparator.comparing(Mute::getMutedAt)).orElse(null);
+            if (latestMute != null) {
+                player.sendMessage(SkyBlockPlugin.instance().getPunishManager().getMuteScreen(latestMute));
+                event.setCancelled(true);
+                return;
             }
         }
 
