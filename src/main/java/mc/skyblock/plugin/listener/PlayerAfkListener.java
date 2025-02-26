@@ -39,6 +39,7 @@ public class PlayerAfkListener implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         afkPlayers.remove(event.getPlayer());
+        lastMove.remove(event.getPlayer().getUniqueId());
     }
 
     @EventHandler

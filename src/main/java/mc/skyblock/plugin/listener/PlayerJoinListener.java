@@ -30,6 +30,8 @@ public class PlayerJoinListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
+        PlayerAfkListener.afkPlayers.remove(player);
+
         event.joinMessage(Component.empty());
         SkyBlockPlugin.instance().getUserManager().loadUser(player.getUniqueId());
         SkyBlockPlugin.instance().getScoreboardManager().createScoreboard(player);
