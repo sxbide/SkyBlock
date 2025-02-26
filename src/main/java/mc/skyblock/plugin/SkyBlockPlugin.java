@@ -26,16 +26,19 @@ import mc.skyblock.plugin.scoreboard.ScoreboardManager;
 import mc.skyblock.plugin.tablist.TablistManager;
 import mc.skyblock.plugin.tag.TagManager;
 import mc.skyblock.plugin.user.UserManager;
+import mc.skyblock.plugin.util.CustomSound;
 import mc.skyblock.plugin.whitelist.WhitelistManager;
 import mc.skyblock.plugin.whitelist.configuration.WhitelistConfiguration;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
 
 @Getter
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
@@ -116,6 +119,13 @@ public class SkyBlockPlugin extends JavaPlugin {
                 throw new RuntimeException(e);
             }
         });
+
+        Bukkit.getScheduler().runTaskTimer(this, () -> {
+            if (Bukkit.getWorld("CYTOOX") == null) return;
+            Objects.requireNonNull(Bukkit.getWorld("CYTOOX")).getPlayers().forEach(player -> {
+                CustomSound.BACKGROUND_ECLIPSE.playSound(player, 0.3F, 1.0F, this.locationManager.getPosition("spawn").getLocation());
+            });
+        }, 0L, 20*30L);
 
     }
 
