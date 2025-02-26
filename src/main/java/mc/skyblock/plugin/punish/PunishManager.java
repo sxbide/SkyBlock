@@ -9,8 +9,14 @@ import mc.skyblock.plugin.punish.model.warn.Warn;
 import mc.skyblock.plugin.punish.repository.ban.BanRepository;
 import mc.skyblock.plugin.punish.repository.mute.MuteRepository;
 import mc.skyblock.plugin.punish.repository.warn.WarnRepository;
+import mc.skyblock.plugin.util.TimeUtil;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.ApiStatus;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +87,7 @@ public class PunishManager {
 
         Player player = SkyBlockPlugin.instance().getServer().getPlayer(bannedPlayer);
         if (player != null) {
-            //TODO: Ban screen
+            player.kick(this.getBanScreen(ban));
         }
     }
 
@@ -100,7 +106,7 @@ public class PunishManager {
 
         Player player = SkyBlockPlugin.instance().getServer().getPlayer(mutedPlayer);
         if (player != null) {
-            //TODO: Mute screen
+            player.sendMessage(this.getMuteScreen(mute));
         }
     }
 
@@ -118,12 +124,23 @@ public class PunishManager {
 
         Player player = SkyBlockPlugin.instance().getServer().getPlayer(warnedPlayer);
         if (player != null) {
-            //TODO: Warn screen
+            player.sendMessage(this.getWarnScreen(warn));
         }
     }
 
     public void warn(UUID warnedPlayer, UUID warnedBy, String reason) {
         this.warn(warnedPlayer, warnedBy, reason, null);
+    }
+
+    public void kick(UUID kickedPlayer, UUID kickedBy, String reason) {
+        Player player = SkyBlockPlugin.instance().getServer().getPlayer(kickedPlayer);
+        if (player != null) {
+            player.kick(this.getKickScreen(kickedPlayer, kickedBy, reason));
+        }
+    }
+
+    public void warn(UUID warnedPlayer, UUID warnedBy, LocalDateTime expireAt) {
+        this.warn(warnedPlayer, warnedBy, "No reason given", expireAt);
     }
 
     public void removeWarn(UUID warnId) {
@@ -184,6 +201,62 @@ public class PunishManager {
         this.removeWarns(player);
         this.removeMutes(player);
         this.removeBans(player);
+    }
+
+    @ApiStatus.Internal
+    private Component getBanScreen(Ban ban) {
+        return createScreen(this.configuration.getBanScreen(), Map.of(
+                "{id}", ban.getBanId().toString(),
+                "{reason}", ban.getReason().getName(),
+                "{bannedBy}", Bukkit.getOfflinePlayer(ban.getBannedBy()).getName(),
+                "{bannedAt}", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(ban.getBannedAt()),
+                "{expireAt}", ban.isPermanent() ? "Permanent" : TimeUtil.formatTime(LocalDateTime.now(), ban.getExpireAt(), true)
+        ));
+    }
+
+    @ApiStatus.Internal
+    private Component getMuteScreen(Mute mute) {
+        return createScreen(this.configuration.getMuteScreen(), Map.of(
+                "{id}", mute.getMuteId().toString(),
+                "{reason}", mute.getReason().getName(),
+                "{mutedBy}", Bukkit.getOfflinePlayer(mute.getMutedBy()).getName(),
+                "{mutedAt}", new SimpleDateFormat("dd.MM.yyyy, HH:mm").format(mute.getMutedAt()),
+                "{expireAt}", mute.isPermanent() ? "Permanent" : TimeUtil.formatTime(LocalDateTime.now(), mute.getExpireAt(), true)
+        ));
+    }
+
+    @ApiStatus.Internal
+    private Component getWarnScreen(Warn warn) {
+        return createScreen(this.configuration.getWarnScreen(), Map.of(
+                "{id}", warn.getWarnId().toString(),
+                "{reason}", warn.getReason(),
+                "{warnedBy}", Bukkit.getOfflinePlayer(warn.getWarnedBy()).getName(),
+                "{warnedAt}", new SimpleDateFormat("dd.MM.yyyy, HH:mm").format(warn.getWarnedAt()),
+                "{expireAt}", warn.isPermanent() ? "Permanent" : TimeUtil.formatTime(LocalDateTime.now(), warn.getExpireAt(), true)
+        ));
+    }
+
+    @ApiStatus.Internal
+    private Component getKickScreen(UUID kickedPlayer, UUID kickedBy, String reason) {
+        return createScreen(this.configuration.getKickScreen(), Map.of(
+                "{reason}", reason,
+                "{kickedBy}", Bukkit.getOfflinePlayer(kickedBy).getName()
+        ));
+    }
+
+    private Component createScreen(List<String> template, Map<String, String> replacements) {
+        List<String> replaced = template.stream()
+                .map(s -> {
+                    for (Map.Entry<String, String> entry : replacements.entrySet()) {
+                        s = s.replace(entry.getKey(), entry.getValue());
+                    }
+                    return s;
+                })
+                .toList();
+        return replaced.stream()
+                .map(MiniMessage.miniMessage()::deserialize)
+                .reduce((s1, s2) -> s1.appendNewline().append(s2))
+                .orElse(Component.empty());
     }
 
 }

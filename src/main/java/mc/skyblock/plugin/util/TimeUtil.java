@@ -3,6 +3,7 @@ package mc.skyblock.plugin.util;
 import lombok.experimental.UtilityClass;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 @UtilityClass
 public class TimeUtil {
@@ -56,6 +57,18 @@ public class TimeUtil {
 
     public String formatTime(long millis) {
         return formatTime(Duration.ofMillis(millis), false, true);
+    }
+
+    public String formatTime(LocalDateTime start, LocalDateTime end, boolean shortString, boolean withSeconds) {
+        return formatTime(Duration.between(start, end), shortString, withSeconds);
+    }
+
+    public String formatTime(LocalDateTime start, LocalDateTime end, boolean shortString) {
+        return formatTime(Duration.between(start, end), shortString);
+    }
+
+    public String formatTime(LocalDateTime start, LocalDateTime end) {
+        return formatTime(Duration.between(start, end));
     }
 
 }
