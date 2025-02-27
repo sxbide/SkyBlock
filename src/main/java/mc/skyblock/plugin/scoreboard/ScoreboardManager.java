@@ -6,7 +6,7 @@ import mc.skyblock.plugin.guild.model.SkyBlockGuild;
 import mc.skyblock.plugin.island.model.SkyBlockIsland;
 import mc.skyblock.plugin.user.model.SkyBlockUser;
 import mc.skyblock.plugin.util.NumberUtil;
-import mc.skyblock.plugin.util.ResourceIcons;
+import mc.skyblock.plugin.util.custom.ResourceIcons;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;

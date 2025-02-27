@@ -1,14 +1,10 @@
 package mc.skyblock.plugin.listener;
 
-import lombok.val;
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.location.model.Location;
 import mc.skyblock.plugin.util.ChatAction;
-import mc.skyblock.plugin.util.CustomSounds;
-import mc.skyblock.plugin.util.SoundAction;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

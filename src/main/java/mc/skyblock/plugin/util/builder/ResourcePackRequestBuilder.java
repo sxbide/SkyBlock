@@ -1,6 +1,6 @@
 package mc.skyblock.plugin.util.builder;
 
-import mc.skyblock.plugin.util.CustomSounds;
+import mc.skyblock.plugin.util.custom.CustomSounds;
 import net.kyori.adventure.resource.ResourcePackCallback;
 import net.kyori.adventure.resource.ResourcePackInfo;
 import net.kyori.adventure.resource.ResourcePackRequest;

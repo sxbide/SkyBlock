@@ -3,7 +3,7 @@ package mc.skyblock.plugin.tag.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import mc.skyblock.plugin.util.Rarity;
-import mc.skyblock.plugin.util.ResourceIcons;
+import mc.skyblock.plugin.util.custom.ResourceIcons;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;

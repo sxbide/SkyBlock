@@ -1,4 +1,4 @@
-package mc.skyblock.plugin.util;
+package mc.skyblock.plugin.util.custom;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

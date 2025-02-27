@@ -3,7 +3,7 @@ package mc.skyblock.plugin.caseopening.animation;
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.caseopening.model.CaseItem;
 import mc.skyblock.plugin.util.ChatAction;
-import mc.skyblock.plugin.util.CustomSounds;
+import mc.skyblock.plugin.util.custom.CustomSounds;
 import mc.skyblock.plugin.util.Rarity;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;

@@ -10,6 +10,7 @@ import lombok.Getter;
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.user.model.SkyBlockUser;
 import mc.skyblock.plugin.util.*;
+import mc.skyblock.plugin.util.custom.CustomSounds;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

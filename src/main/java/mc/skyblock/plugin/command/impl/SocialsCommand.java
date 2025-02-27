@@ -2,7 +2,7 @@ package mc.skyblock.plugin.command.impl;
 
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.command.model.AbstractCommand;
-import mc.skyblock.plugin.util.ResourceIcons;
+import mc.skyblock.plugin.util.custom.ResourceIcons;
 import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;

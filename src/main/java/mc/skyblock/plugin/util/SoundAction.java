@@ -1,6 +1,7 @@
 package mc.skyblock.plugin.util;
 
 import lombok.experimental.UtilityClass;
+import mc.skyblock.plugin.util.custom.CustomSounds;
 import org.bukkit.entity.Player;
 
 @UtilityClass

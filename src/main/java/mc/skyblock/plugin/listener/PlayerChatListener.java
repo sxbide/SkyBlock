@@ -5,7 +5,7 @@ import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.guild.model.SkyBlockGuild;
 import mc.skyblock.plugin.punish.model.mute.Mute;
 import mc.skyblock.plugin.util.ChatAction;
-import mc.skyblock.plugin.util.ResourceIcons;
+import mc.skyblock.plugin.util.custom.ResourceIcons;
 import mc.skyblock.plugin.util.SoundAction;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
