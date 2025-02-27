@@ -24,6 +24,7 @@ public class VisitCommand extends AbstractCommand {
 
             if (targetPlayer == player) {
                 player.sendMessage(ChatAction.failure("§cDu kannst deine eigene Insel nicht besuchen."));
+                SoundAction.playTaskFailed(player);
                 return;
             }
 
@@ -36,17 +37,19 @@ public class VisitCommand extends AbstractCommand {
 
             if (skyBlockIsland == null) {
                 player.sendMessage(ChatAction.failure("§cDieser Spieler besitzt keine Insel."));
+                SoundAction.playTaskFailed(player);
                 return;
             }
 
             if (skyBlockIsland.getWarpLocation() == null) {
                 player.sendMessage(ChatAction.failure("§cDieser Spieler besitzt keinen Insel Warp."));
+                SoundAction.playTaskFailed(player);
                 return;
             }
 
             player.teleportAsync(skyBlockIsland.getWarpLocation());
             player.sendMessage(ChatAction.of("§aDu hast die Insel von " + targetPlayer.getName() + " betreten."));
-            SoundAction.playGoodWork(player);
+            SoundAction.playNotification(player);
 
             for (Player islandPlayer : skyBlockIsland.getWarpLocation().getWorld().getPlayers()) {
                 if (islandPlayer == player) continue;

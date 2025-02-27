@@ -19,6 +19,6 @@ public class SpawnCommand extends AbstractCommand {
 
         SkyBlockPlugin.instance().getTagManager().teleportPlayer(player, SkyBlockPlugin.instance().getLocationManager().getPosition("spawn").getLocation());
         player.sendMessage(ChatAction.of("§7Du wurdest zum Spawnpunkt teleportiert."));
-        SoundAction.playGoodWork(player);
+        SoundAction.playNotification(player);
     }
 }

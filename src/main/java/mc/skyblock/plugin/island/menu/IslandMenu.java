@@ -117,7 +117,7 @@ public class IslandMenu implements InventoryProvider {
                         skyBlockIsland.setBoughtWarpLocation(location);
 
                         skyBlockUser.removeBalance(5000);
-                        SoundAction.playGoodWork(player);
+                        SoundAction.playNotification(player);
                         player.sendMessage(ChatAction.of("§aDein Kauf wurde erfolgreich abgeschlossen!"));
                         player.closeInventory();
                         return;
@@ -128,7 +128,7 @@ public class IslandMenu implements InventoryProvider {
                     if (event.getClick() == ClickType.SHIFT_RIGHT) {
                         skyBlockIsland.setBoughtWarpLocation(null);
 
-                        SoundAction.playGoodWork(player);
+                        SoundAction.playNotification(player);
                         player.sendMessage(ChatAction.of("§aDie Aktion wurde erfolgreich abgeschlossen!"));
                         player.closeInventory();
                         return;

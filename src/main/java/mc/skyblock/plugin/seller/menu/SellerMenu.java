@@ -127,7 +127,7 @@ public class SellerMenu implements InventoryProvider {
 
             if (anySold) SoundAction.playTaskComplete(player);
             if (anyFailed) {
-
+                SoundAction.playTaskFailed(player);
                 if (event.getInventory().getContents().length > 1) {
                     player.sendMessage(ChatAction.failure("§cEinige Items konnten nicht verkauft werden."));
                 }

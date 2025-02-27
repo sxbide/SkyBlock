@@ -63,6 +63,7 @@ public class AuctionsMenu implements InventoryProvider {
 
                 if (auctionItem.getSellerUniqueId().equals(player.getUniqueId())) {
                     player.sendMessage(ChatAction.failure("§cDu kannst deine eigene Auktion nicht kaufen."));
+                    SoundAction.playTaskFailed(player);
                     return;
                 }
 
@@ -70,11 +71,13 @@ public class AuctionsMenu implements InventoryProvider {
 
                 if (!SkyBlockPlugin.instance().getAuctionsManager().isItemAvailable(id)) {
                     player.sendMessage(ChatAction.failure("§cDieses Item wurde bereits verkauft."));
+                    SoundAction.playTaskFailed(player);
                     return;
                 }
 
                 if (skyBlockUser.getBalance() < auctionItem.getPrice()) {
                     player.sendMessage(ChatAction.failure("§cDazu ist dein Kontostand zu niedrig."));
+                    SoundAction.playTaskFailed(player);
                     return;
                 }
 
