@@ -7,6 +7,7 @@ import mc.skyblock.plugin.util.SoundAction;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,7 +25,9 @@ public class RenameCommand extends AbstractCommand {
             return;
         }
         String name = String.join(" ", args);
-        player.getInventory().getItemInMainHand().getItemMeta().displayName(MiniMessage.miniMessage().deserialize(name).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
+        ItemStack item = player.getInventory().getItemInMainHand();
+        item.editMeta(meta -> meta.displayName(MiniMessage.miniMessage().deserialize(name).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE)));
+        player.getInventory().setItemInMainHand(item);
         player.sendMessage(ChatAction.of("Du hast das Item umbenannt!"));
         SoundAction.playTaskComplete(player);
     }

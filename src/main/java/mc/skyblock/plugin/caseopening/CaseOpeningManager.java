@@ -1,6 +1,7 @@
 package mc.skyblock.plugin.caseopening;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import mc.skyblock.plugin.SkyBlockPlugin;
@@ -27,6 +28,7 @@ public class CaseOpeningManager {
     ItemStack caseKeyItem;
     List<CaseItem> caseItems;
 
+    @Setter
     @NonFinal
     Case aCase;
     @NonFinal

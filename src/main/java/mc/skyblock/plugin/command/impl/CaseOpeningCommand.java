@@ -1,6 +1,7 @@
 package mc.skyblock.plugin.command.impl;
 
 import mc.skyblock.plugin.SkyBlockPlugin;
+import mc.skyblock.plugin.caseopening.mongo.model.Case;
 import mc.skyblock.plugin.command.model.AbstractCommand;
 import mc.skyblock.plugin.configuration.Configuration;
 import mc.skyblock.plugin.util.ChatAction;
@@ -74,8 +75,9 @@ public class CaseOpeningCommand extends AbstractCommand {
             sendSyntax(player);
             return;
         }
-        plugin.getCaseOpeningManager().getACase().setKeyItem(player.getInventory().getItemInMainHand().clone());
-        plugin.getCaseOpeningManager().getRepository().save(plugin.getCaseOpeningManager().getACase());
+        Case aCase = plugin.getCaseOpeningManager().getACase();
+        aCase.setKeyItem(player.getInventory().getItemInMainHand().clone());
+        plugin.getCaseOpeningManager().getRepository().save(aCase);
         player.sendMessage(ChatAction.of("Der Schlüssel wurde gesetzt."));
         SoundAction.playTaskComplete(player);
     }
@@ -86,6 +88,7 @@ public class CaseOpeningCommand extends AbstractCommand {
             return;
         }
         plugin.getCaseOpeningManager().getACase().addCaseItem(player.getInventory().getItemInMainHand().clone(), Double.parseDouble(args[1]));
+        plugin.getCaseOpeningManager().getCaseItems().add(plugin.getCaseOpeningManager().getCaseItem(player.getInventory().getItemInMainHand()));
         plugin.getCaseOpeningManager().getRepository().save(plugin.getCaseOpeningManager().getACase());
         player.sendMessage(ChatAction.of("Das Item wurde hinzugefügt."));
         SoundAction.playTaskComplete(player);
@@ -97,6 +100,7 @@ public class CaseOpeningCommand extends AbstractCommand {
             return;
         }
         plugin.getCaseOpeningManager().getACase().removeCaseItem(player.getInventory().getItemInMainHand());
+        plugin.getCaseOpeningManager().getCaseItems().remove(plugin.getCaseOpeningManager().getCaseItem(player.getInventory().getItemInMainHand()));
         plugin.getCaseOpeningManager().getRepository().save(plugin.getCaseOpeningManager().getACase());
         player.sendMessage(ChatAction.of("Das Item wurde entfernt."));
         SoundAction.playTaskComplete(player);
@@ -131,7 +135,17 @@ public class CaseOpeningCommand extends AbstractCommand {
             return;
         }
         int amount = args.length == 3 ? Integer.parseInt(args[2]) : 1;
-        target.getInventory().addItem(plugin.getCaseOpeningManager().getACase().getKeyItem().clone());
+        if (amount < 1) {
+            player.sendMessage(ChatAction.failure("Ungültige Anzahl."));
+            SoundAction.playTaskFailed(player);
+            return;
+        }
+        if (amount > 64) {
+            player.sendMessage(ChatAction.failure("Maximale Anzahl: 64"));
+            SoundAction.playTaskFailed(player);
+            return;
+        }
+        target.getInventory().addItem(plugin.getCaseOpeningManager().getACase().getKeyItem().clone().asQuantity(amount));
         player.sendMessage(ChatAction.of("Der Spieler hat den Schlüssel erhalten."));
         target.sendMessage(ChatAction.of("Du hast " + amount + "x Schlüssel für die Antike Kiste erhalten."));
         SoundAction.playTaskComplete(player);
@@ -143,6 +157,16 @@ public class CaseOpeningCommand extends AbstractCommand {
             return;
         }
         int amount = args.length == 2 ? Integer.parseInt(args[1]) : 1;
+        if (amount < 1) {
+            player.sendMessage(ChatAction.failure("Ungültige Anzahl."));
+            SoundAction.playTaskFailed(player);
+            return;
+        }
+        if (amount > 64) {
+            player.sendMessage(ChatAction.failure("Maximale Anzahl: 64"));
+            SoundAction.playTaskFailed(player);
+            return;
+        }
         plugin.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
             onlinePlayer.getInventory().addItem(plugin.getCaseOpeningManager().getACase().getKeyItem().clone());
             onlinePlayer.sendMessage(ChatAction.of("Du hast " + amount + "x Schlüssel für die Antike Kiste erhalten."));
