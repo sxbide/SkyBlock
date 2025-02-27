@@ -29,7 +29,6 @@ public class CaseOpeningCommand extends AbstractCommand {
         for (String command : commands) {
             player.sendMessage(ChatAction.of(command));
         }
-        SoundAction.playTaskFailed(player);
     }
 
     @Override

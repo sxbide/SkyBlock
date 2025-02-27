@@ -24,6 +24,7 @@ public class PlayerInteractListener implements Listener {
                 new EnderChestSelectMenu().getRyseInventory().open(player);
             }
             if (event.getClickedBlock().getType().equals(Material.DROPPER)) {
+                event.setCancelled(true);
                 SkyBlockPlugin.instance().getCaseOpeningManager().open(player);
             }
         }
