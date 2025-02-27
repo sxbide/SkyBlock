@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import mc.skyblock.plugin.auctions.AuctionsManager;
 import mc.skyblock.plugin.caseopening.CaseOpeningManager;
-import mc.skyblock.plugin.caseopening.configuration.CaseConfiguration;
 import mc.skyblock.plugin.codec.ItemStackCodec;
 import mc.skyblock.plugin.codec.LocationCodec;
 import mc.skyblock.plugin.command.CommandManager;
@@ -45,7 +44,6 @@ public class SkyBlockPlugin extends JavaPlugin {
     ParticleNativeAPI particleAPI;
 
     ResourcePackConfiguration resourcePackConfiguration;
-    CaseConfiguration caseConfiguration;
     WhitelistConfiguration whitelistConfiguration;
     PunishConfiguration punishConfiguration;
 
@@ -76,7 +74,6 @@ public class SkyBlockPlugin extends JavaPlugin {
         instance = this;
 
         this.resourcePackConfiguration = Configuration.load(getDataFolder().toPath().resolve("resourcepack.json").toString(), ResourcePackConfiguration.class);
-        this.caseConfiguration = Configuration.load(getDataFolder().toPath().resolve("caseopening.json").toString(), CaseConfiguration.class);
         this.whitelistConfiguration = Configuration.load(getDataFolder().toPath().resolve("whitelist.json").toString(), WhitelistConfiguration.class);
         this.punishConfiguration = Configuration.load(getDataFolder().toPath().resolve("punish.json").toString(), PunishConfiguration.class);
 
@@ -97,7 +94,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.tagManager = new TagManager();
         this.guildManager = new GuildManager();
         this.npcManager = new NPCManager();
-        this.caseOpeningManager = new CaseOpeningManager(this.caseConfiguration);
+        this.caseOpeningManager = new CaseOpeningManager();
         this.whitelistManager = new WhitelistManager(this.whitelistConfiguration);
         this.punishManager = new PunishManager(this.punishConfiguration);
 

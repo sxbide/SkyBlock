@@ -3,12 +3,16 @@ package mc.skyblock.plugin.caseopening;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.caseopening.animation.CaseOpeningAnimation;
-import mc.skyblock.plugin.caseopening.configuration.CaseConfiguration;
-import mc.skyblock.plugin.caseopening.model.CaseItem;
+import mc.skyblock.plugin.caseopening.mongo.model.Case;
+import mc.skyblock.plugin.caseopening.mongo.model.item.CaseItem;
+import mc.skyblock.plugin.caseopening.mongo.repository.CaseRepository;
 import mc.skyblock.plugin.util.ChatAction;
 import mc.skyblock.plugin.util.Rarity;
 import mc.skyblock.plugin.util.SoundAction;
+import mc.skyblock.plugin.util.custom.CustomItems;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -19,17 +23,27 @@ import java.util.List;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 public class CaseOpeningManager {
 
-    CaseConfiguration caseConfiguration;
+    CaseRepository repository;
     ItemStack caseKeyItem;
     List<CaseItem> caseItems;
 
     @NonFinal
+    Case aCase;
+    @NonFinal
     boolean opening;
 
-    public CaseOpeningManager(CaseConfiguration caseConfiguration) {
-        this.caseConfiguration = caseConfiguration;
-        caseKeyItem = caseConfiguration.getCaseKeyItem();
-        caseItems = new ArrayList<>(caseConfiguration.getCaseItems());
+    public CaseOpeningManager() {
+        this.repository = SkyBlockPlugin.instance().getMongoManager().create(CaseRepository.class);
+        this.aCase = this.repository.findAll().getFirst();
+        if (this.aCase == null) {
+            this.aCase = new Case();
+            this.aCase.setCaseBlockMaterial(Material.DROPPER);
+            this.aCase.setKeyItem(CustomItems.ANTIQUE_KEY.itemStack());
+            this.aCase.setItems(new ArrayList<>());
+            this.repository.save(this.aCase);
+        }
+        caseKeyItem = aCase.getKeyItem();
+        caseItems = new ArrayList<>(aCase.getItems());
     }
 
     public void open(Player player) {
@@ -44,6 +58,11 @@ public class CaseOpeningManager {
             SoundAction.playTaskFailed(player);
             return;
         }
+        if (this.aCase.getItems().isEmpty()) {
+            player.sendMessage(ChatAction.failure("Es sind keine Items in der Kiste."));
+            SoundAction.playTaskFailed(player);
+            return;
+        }
         if (itemInHand.getAmount() > 1) {
             itemInHand.setAmount(itemInHand.getAmount() - 1);
         } else {
@@ -55,7 +74,7 @@ public class CaseOpeningManager {
 
     public CaseItem getCaseItem(ItemStack itemStack) {
         for (CaseItem caseItem : caseItems) {
-            if (caseItem.getItemStack().isSimilar(itemStack)) {
+            if (caseItem.getItemStack().equals(itemStack)) {
                 return caseItem;
             }
         }
@@ -64,14 +83,6 @@ public class CaseOpeningManager {
 
     public CaseItem getRandomCaseItem() {
         return new ArrayList<>(caseItems).get((int) (Math.random() * caseItems.size()));
-    }
-
-    public CaseItem getRandomCaseItem(Rarity... excludedRarities) {
-        List<CaseItem> filteredItems = new ArrayList<>(caseItems);
-        for (Rarity rarity : excludedRarities) {
-            filteredItems.removeIf(caseItem -> caseItem.getRarity() == rarity);
-        }
-        return filteredItems.get((int) (Math.random() * filteredItems.size()));
     }
 
 }

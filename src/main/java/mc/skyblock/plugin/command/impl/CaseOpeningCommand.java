@@ -74,8 +74,8 @@ public class CaseOpeningCommand extends AbstractCommand {
             sendSyntax(player);
             return;
         }
-        plugin.getCaseConfiguration().setCaseKeyItem(player.getInventory().getItemInMainHand());
-        Configuration.save(plugin.getDataFolder().toPath().resolve("caseopening.json").toString(), plugin.getCaseConfiguration());
+        plugin.getCaseOpeningManager().getACase().setKeyItem(player.getInventory().getItemInMainHand().clone());
+        plugin.getCaseOpeningManager().getRepository().save(plugin.getCaseOpeningManager().getACase());
         player.sendMessage(ChatAction.of("Der Schlüssel wurde gesetzt."));
         SoundAction.playTaskComplete(player);
     }
@@ -85,8 +85,8 @@ public class CaseOpeningCommand extends AbstractCommand {
             sendSyntax(player);
             return;
         }
-        plugin.getCaseConfiguration().addCaseItem(player.getInventory().getItemInMainHand(), Double.parseDouble(args[1]));
-        Configuration.save(plugin.getDataFolder().toPath().resolve("caseopening.json").toString(), plugin.getCaseConfiguration());
+        plugin.getCaseOpeningManager().getACase().addCaseItem(player.getInventory().getItemInMainHand().clone(), Double.parseDouble(args[1]));
+        plugin.getCaseOpeningManager().getRepository().save(plugin.getCaseOpeningManager().getACase());
         player.sendMessage(ChatAction.of("Das Item wurde hinzugefügt."));
         SoundAction.playTaskComplete(player);
     }
@@ -96,8 +96,8 @@ public class CaseOpeningCommand extends AbstractCommand {
             sendSyntax(player);
             return;
         }
-        plugin.getCaseConfiguration().removeCaseItem(player.getInventory().getItemInMainHand());
-        Configuration.save(plugin.getDataFolder().toPath().resolve("caseopening.json").toString(), plugin.getCaseConfiguration());
+        plugin.getCaseOpeningManager().getACase().removeCaseItem(player.getInventory().getItemInMainHand());
+        plugin.getCaseOpeningManager().getRepository().save(plugin.getCaseOpeningManager().getACase());
         player.sendMessage(ChatAction.of("Das Item wurde entfernt."));
         SoundAction.playTaskComplete(player);
     }
@@ -131,7 +131,7 @@ public class CaseOpeningCommand extends AbstractCommand {
             return;
         }
         int amount = args.length == 3 ? Integer.parseInt(args[2]) : 1;
-        target.getInventory().addItem(plugin.getCaseConfiguration().getCaseKeyItem().clone());
+        target.getInventory().addItem(plugin.getCaseOpeningManager().getACase().getKeyItem().clone());
         player.sendMessage(ChatAction.of("Der Spieler hat den Schlüssel erhalten."));
         target.sendMessage(ChatAction.of("Du hast " + amount + "x Schlüssel für die Antike Kiste erhalten."));
         SoundAction.playTaskComplete(player);
@@ -144,7 +144,7 @@ public class CaseOpeningCommand extends AbstractCommand {
         }
         int amount = args.length == 2 ? Integer.parseInt(args[1]) : 1;
         plugin.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
-            onlinePlayer.getInventory().addItem(plugin.getCaseConfiguration().getCaseKeyItem().clone());
+            onlinePlayer.getInventory().addItem(plugin.getCaseOpeningManager().getACase().getKeyItem().clone());
             onlinePlayer.sendMessage(ChatAction.of("Du hast " + amount + "x Schlüssel für die Antike Kiste erhalten."));
         });
         player.sendMessage(ChatAction.of("Alle Spieler haben den Schlüssel erhalten."));

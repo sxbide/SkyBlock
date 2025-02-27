@@ -1,7 +1,7 @@
 package mc.skyblock.plugin.caseopening.animation;
 
 import mc.skyblock.plugin.SkyBlockPlugin;
-import mc.skyblock.plugin.caseopening.model.CaseItem;
+import mc.skyblock.plugin.caseopening.mongo.model.item.CaseItem;
 import mc.skyblock.plugin.util.ChatAction;
 import mc.skyblock.plugin.util.custom.CustomSounds;
 import mc.skyblock.plugin.util.Rarity;
@@ -18,7 +18,6 @@ import org.bukkit.util.Vector;
 
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 public class CaseOpeningAnimation {
@@ -127,7 +126,7 @@ public class CaseOpeningAnimation {
                             item.remove();
 
                             //Place blocks back
-                            world.getBlockAt(blockLocation).setType(SkyBlockPlugin.instance().getCaseConfiguration().getCaseBlockMaterial());
+                            world.getBlockAt(blockLocation).setType(SkyBlockPlugin.instance().getCaseOpeningManager().getACase().getCaseBlockMaterial());
                             world.getBlockAt(blockLocation).setBlockData(caseBlockData);
                             for (int i = 0, x = -1; x <= 1; x++) {
                                 for (int z = -1; z <= 1; z++, i++) {

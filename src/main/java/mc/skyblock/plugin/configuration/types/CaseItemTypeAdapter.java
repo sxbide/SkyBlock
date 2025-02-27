@@ -3,7 +3,7 @@ package mc.skyblock.plugin.configuration.types;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import mc.skyblock.plugin.caseopening.model.CaseItem;
+import mc.skyblock.plugin.caseopening.mongo.model.item.CaseItem;
 import mc.skyblock.plugin.configuration.annotation.TypeAdapterType;
 import mc.skyblock.plugin.util.ItemStackConverter;
 import org.bukkit.inventory.ItemStack;

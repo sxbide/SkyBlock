@@ -1,5 +1,6 @@
-package mc.skyblock.plugin.caseopening.model;
+package mc.skyblock.plugin.caseopening.mongo.model.item;
 
+import eu.koboo.en2do.repository.entity.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class CaseItem {
     ItemStack itemStack;
     double chance;
 
+    @Transient
     public Rarity getRarity() {
         double maxExclusiveChance = 0.2;
         if (chance < maxExclusiveChance) {
