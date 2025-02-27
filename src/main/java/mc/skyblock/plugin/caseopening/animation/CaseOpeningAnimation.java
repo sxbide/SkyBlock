@@ -18,6 +18,7 @@ import org.bukkit.util.Vector;
 
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 public class CaseOpeningAnimation {
@@ -30,7 +31,7 @@ public class CaseOpeningAnimation {
         this.player = player;
     }
 
-    public void start() {
+    public void start(Runnable callback) {
         Location blockLocation = SkyBlockPlugin.instance().getCaseConfiguration().getCaseBlockLocation();
         world = Bukkit.getWorld("CYTOOX");
         blockLocation.setWorld(world);
@@ -135,6 +136,7 @@ public class CaseOpeningAnimation {
                                     world.getBlockAt(glassBlockLocation).setType(Material.BLUE_STAINED_GLASS);
                                 }
                             }
+                            callback.run();
                         }, 20L);
                     }, 140L);
                 }, 60L);

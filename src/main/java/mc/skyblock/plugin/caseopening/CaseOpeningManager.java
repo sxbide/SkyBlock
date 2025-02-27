@@ -2,9 +2,14 @@ package mc.skyblock.plugin.caseopening;
 
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
+import mc.skyblock.plugin.caseopening.animation.CaseOpeningAnimation;
 import mc.skyblock.plugin.caseopening.configuration.CaseConfiguration;
 import mc.skyblock.plugin.caseopening.model.CaseItem;
+import mc.skyblock.plugin.util.ChatAction;
 import mc.skyblock.plugin.util.Rarity;
+import mc.skyblock.plugin.util.SoundAction;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -18,14 +23,35 @@ public class CaseOpeningManager {
     ItemStack caseKeyItem;
     List<CaseItem> caseItems;
 
+    @NonFinal
+    boolean opening;
+
     public CaseOpeningManager(CaseConfiguration caseConfiguration) {
         this.caseConfiguration = caseConfiguration;
         caseKeyItem = caseConfiguration.getCaseKeyItem();
         caseItems = new ArrayList<>(caseConfiguration.getCaseItems());
     }
 
-    //TODO: Implement case opening logic
-    //TODO: Implement animation for case opening (e.g. spinning items, particles, block breaking, sounds, special effects, etc.)
+    public void open(Player player) {
+        ItemStack itemInHand = player.getInventory().getItemInMainHand();
+        if (!caseKeyItem.isSimilar(itemInHand)) {
+            player.sendMessage(ChatAction.failure("Du benötigst einen Schlüssel, um die Kiste zu öffnen."));
+            SoundAction.playTaskFailed(player);
+            return;
+        }
+        if (opening) {
+            player.sendMessage(ChatAction.failure("Es wird bereits eine Kiste geöffnet."));
+            SoundAction.playTaskFailed(player);
+            return;
+        }
+        if (itemInHand.getAmount() > 1) {
+            itemInHand.setAmount(itemInHand.getAmount() - 1);
+        } else {
+            player.getInventory().setItemInMainHand(ItemStack.empty());
+        }
+        opening = true;
+        new CaseOpeningAnimation(player).start(() -> opening = false);
+    }
 
     public CaseItem getCaseItem(ItemStack itemStack) {
         for (CaseItem caseItem : caseItems) {

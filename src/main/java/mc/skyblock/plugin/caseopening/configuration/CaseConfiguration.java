@@ -15,10 +15,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Type;
 import java.util.List;
 
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -67,4 +69,11 @@ public class CaseConfiguration extends Configuration {
         return GSON.fromJson(GSON.toJson(caseItems), listType);
     }
 
+    public void addCaseItem(@NotNull ItemStack item, double chance) {
+        caseItems.add(new CaseItem(item.clone(), chance));
+    }
+
+    public void removeCaseItem(@NotNull ItemStack itemStack) {
+        caseItems.removeIf(caseItem -> caseItem.getItemStack().isSimilar(itemStack));
+    }
 }
