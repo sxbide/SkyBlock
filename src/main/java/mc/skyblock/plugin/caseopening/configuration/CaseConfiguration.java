@@ -27,9 +27,6 @@ import java.util.List;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class CaseConfiguration extends Configuration {
 
-    @ConfigPath("case.block.location")
-    Location caseBlockLocation = new Location(Bukkit.getWorld("CYTOOX"), -45, 84, -104);
-
     @ConfigPath("case.block.material")
     Material caseBlockMaterial = Material.DROPPER;
 

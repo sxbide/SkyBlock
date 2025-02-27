@@ -32,9 +32,8 @@ public class CaseOpeningAnimation {
     }
 
     public void start(Runnable callback) {
-        Location blockLocation = SkyBlockPlugin.instance().getCaseConfiguration().getCaseBlockLocation();
-        world = Bukkit.getWorld("CYTOOX");
-        blockLocation.setWorld(world);
+        Location blockLocation = new Location(Bukkit.getWorld("CYTOOX"), -45, 84, -104);
+        world = blockLocation.getWorld();
         this.caseBlockData = world.getBlockAt(blockLocation).getBlockData().clone();
 
         Bukkit.getScheduler().runTaskLater(SkyBlockPlugin.instance(), () -> {
