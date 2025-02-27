@@ -4,6 +4,7 @@ import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.auctions.menu.AuctionsMenu;
 import mc.skyblock.plugin.command.model.AbstractCommand;
 import mc.skyblock.plugin.util.ChatAction;
+import mc.skyblock.plugin.util.NumberUtil;
 import mc.skyblock.plugin.util.SoundAction;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -48,7 +49,7 @@ public class AuctionsCommand extends AbstractCommand {
 //                        }
 
                     SkyBlockPlugin.instance().getAuctionsManager().createAuction(player.getUniqueId(), itemStack, price);
-                    player.sendMessage(ChatAction.of("§aAuktion für dein Item wurde für " + price + " ⛃ gelistet."));
+                    player.sendMessage(ChatAction.of("§aAuktion für dein Item wurde für " + NumberUtil.formatBalance(price) + " ⛃ gelistet."));
                     player.getInventory().setItemInMainHand(ItemStack.empty());
                 } else {
                     player.sendMessage(ChatAction.failure("§cBitte halte ein gültiges Item in der Hand."));

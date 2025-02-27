@@ -6,6 +6,7 @@ import mc.skyblock.plugin.guild.model.SkyBlockGuild;
 import mc.skyblock.plugin.punish.model.mute.Mute;
 import mc.skyblock.plugin.util.ChatAction;
 import mc.skyblock.plugin.util.ResourceIcons;
+import mc.skyblock.plugin.util.SoundAction;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -56,9 +57,9 @@ public class PlayerChatListener implements Listener {
                         Component.text("von " + source.getName(), NamedTextColor.GRAY),
                         Title.Times.times(Duration.ofMillis(100), Duration.ofSeconds(1), Duration.ofMillis(500)));
                 onlinePlayer.showTitle(title);
-                onlinePlayer.playSound(onlinePlayer.getLocation(), org.bukkit.Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
+                SoundAction.playNotification(onlinePlayer);
                 if (PlayerAfkListener.afkPlayers.contains(onlinePlayer)) {
-                    player.sendMessage(ChatAction.info(onlinePlayer.getName() + " ist AFK. Er wird möglicherweise nicht antworten."));
+                    player.sendMessage(ChatAction.info(onlinePlayer.getName() + " ist abwesend. Er wird möglicherweise nicht antworten."));
                 }
             }
 
