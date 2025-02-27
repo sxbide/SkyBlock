@@ -34,7 +34,7 @@ public class CaseOpeningManager {
 
     public CaseOpeningManager() {
         this.repository = SkyBlockPlugin.instance().getMongoManager().create(CaseRepository.class);
-        this.aCase = this.repository.findAll().getFirst();
+        this.aCase = this.repository.countAll() == 0 ? null : this.repository.findAll().getFirst();
         if (this.aCase == null) {
             this.aCase = new Case();
             this.aCase.setCaseBlockMaterial(Material.DROPPER);
