@@ -3,7 +3,6 @@ package mc.skyblock.plugin.command.impl;
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.caseopening.mongo.model.Case;
 import mc.skyblock.plugin.command.model.AbstractCommand;
-import mc.skyblock.plugin.configuration.Configuration;
 import mc.skyblock.plugin.util.ChatAction;
 import mc.skyblock.plugin.util.SoundAction;
 import net.kyori.adventure.text.Component;
@@ -169,8 +168,8 @@ public class CaseOpeningCommand extends AbstractCommand {
         plugin.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
             onlinePlayer.getInventory().addItem(plugin.getCaseOpeningManager().getACase().getKeyItem().clone());
             onlinePlayer.sendMessage(ChatAction.of("Du hast " + amount + "x Schlüssel für die Antike Kiste erhalten."));
+            SoundAction.playTaskComplete(onlinePlayer);
         });
         player.sendMessage(ChatAction.of("Alle Spieler haben den Schlüssel erhalten."));
-        SoundAction.playTaskComplete(player);
     }
 }
