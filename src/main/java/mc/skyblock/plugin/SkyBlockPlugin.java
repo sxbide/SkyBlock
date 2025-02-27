@@ -17,7 +17,6 @@ import mc.skyblock.plugin.configuration.Configuration;
 import mc.skyblock.plugin.configuration.impl.ResourcePackConfiguration;
 import mc.skyblock.plugin.guild.GuildManager;
 import mc.skyblock.plugin.island.IslandManager;
-import mc.skyblock.plugin.listener.*;
 import mc.skyblock.plugin.location.LocationManager;
 import mc.skyblock.plugin.npc.NPCManager;
 import mc.skyblock.plugin.punish.PunishManager;
@@ -26,19 +25,16 @@ import mc.skyblock.plugin.scoreboard.ScoreboardManager;
 import mc.skyblock.plugin.tablist.TablistManager;
 import mc.skyblock.plugin.tag.TagManager;
 import mc.skyblock.plugin.user.UserManager;
-import mc.skyblock.plugin.util.CustomSound;
 import mc.skyblock.plugin.whitelist.WhitelistManager;
 import mc.skyblock.plugin.whitelist.configuration.WhitelistConfiguration;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Objects;
 
 @Getter
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)

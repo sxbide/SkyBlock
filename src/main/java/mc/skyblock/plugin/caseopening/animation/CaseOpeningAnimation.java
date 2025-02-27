@@ -3,9 +3,8 @@ package mc.skyblock.plugin.caseopening.animation;
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.caseopening.model.CaseItem;
 import mc.skyblock.plugin.util.ChatAction;
-import mc.skyblock.plugin.util.CustomSound;
+import mc.skyblock.plugin.util.CustomSounds;
 import mc.skyblock.plugin.util.Rarity;
-import mc.skyblock.plugin.util.SoundAction;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.*;
@@ -18,8 +17,6 @@ import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
 
@@ -110,7 +107,7 @@ public class CaseOpeningAnimation {
                     if (winningItem.getRarity().getWeight() >= 5) {
                         Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
                             onlinePlayer.sendMessage(ChatAction.of("§7" + player.getName() + " hat " + winningItem.getItemStack().getAmount() + "x ").append(winningItem.getItemStack().getItemMeta().hasDisplayName() ? Objects.requireNonNull(winningItem.getItemStack().getItemMeta().displayName()) : Component.text(winningItem.getItemStack().getType().name())).append(MiniMessage.miniMessage().deserialize(" <#6cd414>aus der Kiste erhalten!")));
-                            CustomSound.WINNING.playSound(onlinePlayer, 0.2F, 1F, onlinePlayer.getLocation());
+                            CustomSounds.WINNING.playSound(onlinePlayer, 0.2F, 1F, onlinePlayer.getLocation());
                             if (onlinePlayer.getUniqueId().equals(player.getUniqueId())) return;
                             //onlinePlayer.playSound(onlinePlayer.getLocation(), Sound.ENTITY_ENDER_DRAGON_DEATH, 1.0F, 2.0F);
                         });

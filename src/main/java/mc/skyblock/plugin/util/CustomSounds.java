@@ -15,12 +15,14 @@ import java.util.Collection;
 @AllArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 @Accessors(fluent = true)
-public enum CustomSound {
+public enum CustomSounds {
 
     BACKGROUND_ECLIPSE(Key.key(Key.MINECRAFT_NAMESPACE, "skyblock.background.eclipse")),
     ERROR(Key.key(Key.MINECRAFT_NAMESPACE, "skyblock.error")),
+    LEVEL_UP(Key.key(Key.MINECRAFT_NAMESPACE, "skyblock.level_up")),
     WINNING(Key.key(Key.MINECRAFT_NAMESPACE, "skyblock.winning")),
     CASHIER(Key.key(Key.MINECRAFT_NAMESPACE, "skyblock.cashier")),
+    NOTIFICATION(Key.key(Key.MINECRAFT_NAMESPACE, "skyblock.notification")),
     ;
 
     Key key;

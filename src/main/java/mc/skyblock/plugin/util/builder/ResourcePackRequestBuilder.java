@@ -1,5 +1,6 @@
 package mc.skyblock.plugin.util.builder;
 
+import mc.skyblock.plugin.util.CustomSounds;
 import net.kyori.adventure.resource.ResourcePackCallback;
 import net.kyori.adventure.resource.ResourcePackInfo;
 import net.kyori.adventure.resource.ResourcePackRequest;
@@ -15,6 +16,7 @@ public class ResourcePackRequestBuilder {
     String url;
     Component kickMessage;
     Player player;
+
 
     private ResourcePackRequestBuilder() {
 
@@ -45,7 +47,7 @@ public class ResourcePackRequestBuilder {
                 .packs(
                         ResourcePackInfo.resourcePackInfo(player.getUniqueId(), URI.create(this.url), getHashFromUrl(this.url))
                 ).callback(ResourcePackCallback.onTerminal(((uuid, audience) -> {
-                    //say thanks (edit: thanks)
+                    CustomSounds.LEVEL_UP.playSound(player, 100, 1, player.getLocation());
                 }), ((uuid, audience) -> {
                     this.player.kick(this.kickMessage, PlayerKickEvent.Cause.RESOURCE_PACK_REJECTION);
                 }))).build();

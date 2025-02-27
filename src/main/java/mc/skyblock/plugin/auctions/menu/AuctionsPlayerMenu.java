@@ -9,10 +9,7 @@ import io.github.rysefoxx.inventory.plugin.pagination.SlotIterator;
 import lombok.Getter;
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.auctions.model.AuctionItem;
-import mc.skyblock.plugin.util.ChatAction;
-import mc.skyblock.plugin.util.ItemBuilder;
-import mc.skyblock.plugin.util.NumberUtil;
-import mc.skyblock.plugin.util.Util;
+import mc.skyblock.plugin.util.*;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -95,9 +92,8 @@ public class AuctionsPlayerMenu implements InventoryProvider {
 
                     event.getInventory().setItem(event.getSlot(), Util.placeholderItem());
                     player.sendMessage(ChatAction.of("§aDeine Auktion wurde erfolgreich entfernt."));
-
                     player.getInventory().addItem(integerAuctionItemEntry.getValue().getItemStack());
-                    //skyBlockUser.addBalance(integerAuctionItemEntry.getValue().getPrice());
+                    SoundAction.playTaskComplete(player);
 
                     SkyBlockPlugin.instance().getAuctionsManager().deleteAuction(integerAuctionItemEntry.getKey());
                 }

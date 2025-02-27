@@ -88,9 +88,10 @@ public class AuctionsMenu implements InventoryProvider {
 
                 sellerUser.addBalance(auctionItem.getPrice());
 
+
                 if (sellerPlayer != null) {
                     //SoundAction.playTaskComplete(sellerPlayer);
-                    CustomSound.CASHIER.playSound(sellerPlayer, 1F, 1F, sellerPlayer.getLocation());
+                    CustomSounds.CASHIER.playSound(sellerPlayer, 0.6F, 1F, sellerPlayer.getLocation());
                     sellerPlayer.sendMessage(ChatAction.of("§aDeine Auktion wurde von " + player.getName() + " gekauft. (+" + NumberUtil.formatBalance(auctionItem.getPrice()) + " ⛃)"));
                 }
 

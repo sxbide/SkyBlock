@@ -4,6 +4,8 @@ import lombok.val;
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.location.model.Location;
 import mc.skyblock.plugin.util.ChatAction;
+import mc.skyblock.plugin.util.CustomSounds;
+import mc.skyblock.plugin.util.SoundAction;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -38,14 +40,11 @@ public class PlayerJoinListener implements Listener {
         SkyBlockPlugin.instance().getScoreboardManager().createScoreboard(player);
         SkyBlockPlugin.instance().getTablistManager().setTablist(player);
 
-        player.playSound(player.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 100, 0.7F);
-
         SkyBlockPlugin.instance().getIslandManager().loadIsland(player);
         SkyBlockPlugin.instance().getTagManager().updateTag(player);
 
         if (player.getClientBrandName() != null && player.getClientBrandName().equals("labymod")) {
             player.sendMessage(ChatAction.of("Danke, dass du LabyMod benutzt!"));
         }
-
     }
 }
