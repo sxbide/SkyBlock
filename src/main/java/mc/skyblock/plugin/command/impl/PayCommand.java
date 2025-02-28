@@ -33,7 +33,7 @@ public class PayCommand extends AbstractCommand {
             try {
                 double amount = Double.parseDouble(args[1]);
 
-                if (amount < 1.0) {
+                if (amount < 1.0 || args[1].startsWith("0.0")) {
                     player.sendMessage(ChatAction.failure("§cDer Betrag darf nicht kleiner als 1 ⛃ sein."));
                     return;
                 }

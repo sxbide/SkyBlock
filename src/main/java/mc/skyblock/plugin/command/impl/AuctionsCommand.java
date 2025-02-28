@@ -28,7 +28,7 @@ public class AuctionsCommand extends AbstractCommand {
             try {
                 double price = Double.parseDouble(args[1]);
 
-                if (price < 1.0) {
+                if (price < 1.0 || args[1].startsWith("0.0")) {
                     player.sendMessage(ChatAction.failure("§cDer Preis darf nicht kleiner als 1 ⛃ sein."));
                     return;
                 }
