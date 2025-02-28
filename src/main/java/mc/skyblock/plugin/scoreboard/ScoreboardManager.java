@@ -26,7 +26,7 @@ public class ScoreboardManager {
     public ScoreboardManager(SkyBlockPlugin plugin) {
         this.fastBoardMap = new HashMap<>();
         this.plugin = plugin;
-        Bukkit.getServer().getScheduler().runTaskTimer(plugin, () -> Bukkit.getOnlinePlayers().forEach(this::updateScoreboard), 0L, 20L);
+        Bukkit.getServer().getScheduler().runTaskTimer(plugin, () -> Bukkit.getOnlinePlayers().forEach(this::updateScoreboard), 0L, 1L);
     }
 
     private void updateScoreboard(Player player) {
