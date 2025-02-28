@@ -4,11 +4,9 @@ import lombok.experimental.FieldDefaults;
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.tag.model.Tags;
 import mc.skyblock.plugin.user.model.SkyBlockUser;
+import mc.skyblock.plugin.user.model.setting.Setting;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @FieldDefaults(makeFinal = true)
@@ -41,6 +39,8 @@ public class UserManager {
                     "0".repeat(27),
                     "0".repeat(27)
             )));
+            skyBlockUser.setBoughtWarps(new ArrayList<>());
+            skyBlockUser.setSettings(new ConcurrentHashMap<>(Arrays.stream(Setting.values()).collect(ConcurrentHashMap::new, (map, setting) -> map.put(setting, setting.getDefaultValue()), ConcurrentHashMap::putAll)));
         }
 
         this.uuidSkyBlockUserMap.put(uuid, skyBlockUser);

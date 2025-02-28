@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.tag.model.Tags;
+import mc.skyblock.plugin.user.model.setting.Setting;
 
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,8 @@ public class SkyBlockUser {
     List<String> enderChests;
 
     List<String> boughtWarps;
+
+    Map<Setting, Integer> settings;
 
     public void setSelectedTag(Tags tag) {
         this.selectedTag = tag;
@@ -96,6 +99,22 @@ public class SkyBlockUser {
 
     public boolean hasWarp(String warpName) {
         return this.boughtWarps.contains(warpName);
+    }
+
+    public void setSetting(Setting setting, int value) {
+        this.settings.put(setting, value);
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+    }
+
+    public int getSetting(Setting setting) {
+        return this.settings.computeIfAbsent(setting, Setting::getDefaultValue);
+    }
+
+    public void toggleSetting(Setting setting) {
+        int currentValue = this.settings.computeIfAbsent(setting, Setting::getDefaultValue);
+        int nextValue = (currentValue + 1) % setting.getValues().size();
+        this.settings.put(setting, nextValue);
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
     }
 
 //    public void sendPrivateMessage(UUID sender, String message) {
