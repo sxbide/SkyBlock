@@ -56,8 +56,9 @@ public class NPCManager implements Listener {
         textDisplay.setGravity(false);
         textDisplay.text(holoText);
 
-        entity.setInvulnerable(true);
         entity.setSilent(true);
+        entity.setInvulnerable(true);
+
         entity.addPassenger(textDisplay);
 
         this.entityMap.put(npc.getId(), entity);

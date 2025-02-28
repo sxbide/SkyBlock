@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Random;
 
 public class GoldPiecesCommand extends AbstractCommand {
 
@@ -28,7 +29,7 @@ public class GoldPiecesCommand extends AbstractCommand {
         npc.setDisplayName("Nigger");
         npc.setLocation(player.getLocation());
         npc.setEntityType(EntityType.VILLAGER);
-        npc.setId(1);
+        npc.setId(new Random().nextInt(0,100));
         npc.setHologramLines(List.of("Niggers stinken", "nach kacke"));
 
         SkyBlockPlugin.instance().getNpcManager().save(npc);
