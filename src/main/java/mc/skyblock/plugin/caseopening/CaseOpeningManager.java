@@ -10,23 +10,27 @@ import mc.skyblock.plugin.caseopening.mongo.model.Case;
 import mc.skyblock.plugin.caseopening.mongo.model.item.CaseItem;
 import mc.skyblock.plugin.caseopening.mongo.repository.CaseRepository;
 import mc.skyblock.plugin.util.ChatAction;
+import mc.skyblock.plugin.util.ItemBuilder;
 import mc.skyblock.plugin.util.Rarity;
 import mc.skyblock.plugin.util.SoundAction;
 import mc.skyblock.plugin.util.custom.CustomItems;
 import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Getter
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 public class CaseOpeningManager {
 
     CaseRepository repository;
-    ItemStack caseKeyItem;
-    List<CaseItem> caseItems;
 
     @Setter
     @NonFinal
@@ -44,13 +48,19 @@ public class CaseOpeningManager {
             this.aCase.setItems(new ArrayList<>());
             this.repository.save(this.aCase);
         }
-        caseKeyItem = aCase.getKeyItem();
-        caseItems = new ArrayList<>(aCase.getItems());
+    }
+
+    public ItemStack getCaseKeyItem() {
+        return this.aCase.getKeyItem();
+    }
+
+    public List<CaseItem> getCaseItems() {
+        return this.aCase.getItems();
     }
 
     public void open(Player player) {
         ItemStack itemInHand = player.getInventory().getItemInMainHand();
-        if (!caseKeyItem.isSimilar(itemInHand)) {
+        if (!getCaseKeyItem().isSimilar(itemInHand)) {
             player.sendMessage(ChatAction.failure("Du benötigst einen Schlüssel, um die Kiste zu öffnen."));
             SoundAction.playTaskFailed(player);
             return;
@@ -75,7 +85,7 @@ public class CaseOpeningManager {
     }
 
     public CaseItem getCaseItem(ItemStack itemStack) {
-        for (CaseItem caseItem : caseItems) {
+        for (CaseItem caseItem : getCaseItems()) {
             if (caseItem.getItemStack().equals(itemStack)) {
                 return caseItem;
             }
@@ -84,7 +94,28 @@ public class CaseOpeningManager {
     }
 
     public CaseItem getRandomCaseItem() {
-        return new ArrayList<>(caseItems).get((int) (Math.random() * caseItems.size()));
+        if (getCaseItems() == null || getCaseItems().isEmpty()) {
+            throw new IllegalArgumentException("The case items list cannot be empty.");
+        }
+
+        // Calculate the total sum of all chances
+        double totalChance = getCaseItems().stream().mapToDouble(CaseItem::getChance).sum();
+
+        // Generate a random number between 0 and totalChance
+        double randomValue = new Random().nextDouble() * totalChance;
+
+        // Iterate over the list and select an item based on the random value
+        double cumulativeChance = 0.0;
+        for (CaseItem caseItem : getCaseItems()) {
+            cumulativeChance += caseItem.getChance();
+            if (randomValue <= cumulativeChance) {
+                return caseItem;
+            }
+        }
+
+        // Fallback (should never happen if chances are set correctly)
+        return getCaseItems().getLast();
     }
+
 
 }

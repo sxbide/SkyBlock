@@ -31,6 +31,8 @@ public class SkyBlockUser {
 
     List<String> enderChests;
 
+    List<String> boughtWarps;
+
     public void setSelectedTag(Tags tag) {
         this.selectedTag = tag;
         SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
@@ -65,7 +67,35 @@ public class SkyBlockUser {
     public void removeBalance(double amount) {
         this.balance -= amount;
         SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+    }
 
+    public void setGoldPieces(long amount) {
+        this.goldPieces = amount;
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+    }
+
+    public void addGoldPieces(long amount) {
+        this.goldPieces += amount;
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+    }
+
+    public void removeGoldPieces(long amount) {
+        this.goldPieces -= amount;
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+    }
+
+    public void buyWarp(String warpName) {
+        this.boughtWarps.add(warpName);
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+    }
+
+    public void removeWarp(String warpName) {
+        this.boughtWarps.remove(warpName);
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+    }
+
+    public boolean hasWarp(String warpName) {
+        return this.boughtWarps.contains(warpName);
     }
 
 //    public void sendPrivateMessage(UUID sender, String message) {

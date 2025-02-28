@@ -87,7 +87,6 @@ public class CaseOpeningCommand extends AbstractCommand {
             return;
         }
         plugin.getCaseOpeningManager().getACase().addCaseItem(player.getInventory().getItemInMainHand().clone(), Double.parseDouble(args[1]));
-        plugin.getCaseOpeningManager().getCaseItems().add(plugin.getCaseOpeningManager().getCaseItem(player.getInventory().getItemInMainHand()));
         plugin.getCaseOpeningManager().getRepository().save(plugin.getCaseOpeningManager().getACase());
         player.sendMessage(ChatAction.of("Das Item wurde hinzugefügt."));
         SoundAction.playTaskComplete(player);
@@ -99,7 +98,6 @@ public class CaseOpeningCommand extends AbstractCommand {
             return;
         }
         plugin.getCaseOpeningManager().getACase().removeCaseItem(player.getInventory().getItemInMainHand());
-        plugin.getCaseOpeningManager().getCaseItems().remove(plugin.getCaseOpeningManager().getCaseItem(player.getInventory().getItemInMainHand()));
         plugin.getCaseOpeningManager().getRepository().save(plugin.getCaseOpeningManager().getACase());
         player.sendMessage(ChatAction.of("Das Item wurde entfernt."));
         SoundAction.playTaskComplete(player);

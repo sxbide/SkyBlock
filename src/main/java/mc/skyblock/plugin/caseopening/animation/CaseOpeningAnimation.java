@@ -3,10 +3,12 @@ package mc.skyblock.plugin.caseopening.animation;
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.caseopening.mongo.model.item.CaseItem;
 import mc.skyblock.plugin.util.ChatAction;
+import mc.skyblock.plugin.util.SoundAction;
 import mc.skyblock.plugin.util.custom.CustomSounds;
 import mc.skyblock.plugin.util.Rarity;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.*;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Display;
@@ -37,20 +39,23 @@ public class CaseOpeningAnimation {
 
         Bukkit.getScheduler().runTaskLater(SkyBlockPlugin.instance(), () -> {
             world.getBlockAt(blockLocation).setType(Material.AIR);
-            player.playSound(blockLocation, Sound.BLOCK_GLASS_BREAK, 1.0F, 0.5F);
+            blockLocation.getWorld().getNearbyPlayers(blockLocation, 15).forEach(players -> {
+                players.playSound(blockLocation, Sound.BLOCK_STONE_BREAK, 1.0F, 0.5F);
+            });
 
             for (int i = 0, x = -1; x <= 1; x++) {
                 for (int z = -1; z <= 1; z++, i++) {
                     Location glassBlockLocation = blockLocation.clone().add(x, -1, z);
                     Bukkit.getScheduler().runTaskLater(SkyBlockPlugin.instance(), () -> {
-                        world.getBlockAt(glassBlockLocation).setType(Material.AIR);
-                        player.playSound(glassBlockLocation, Sound.BLOCK_GLASS_BREAK, 1.0F, 0.5F);
+                        world.getBlockAt(glassBlockLocation).setType(Material.BARRIER);
+                        blockLocation.getWorld().getNearbyPlayers(blockLocation, 15).forEach(players -> {
+                            players.playSound(glassBlockLocation, Sound.BLOCK_GLASS_BREAK, 1.0F, 0.5F);
+                        });
                     }, 2L * ((x + 1) * 3L + (z + 1)));
                 }
             }
 
             Bukkit.getScheduler().runTaskLater(SkyBlockPlugin.instance(), () -> {
-                Logger.getAnonymousLogger().info("All blocks broken");
                 Location[] corners = {
                         new Location(world, -43, 84, -102),
                         new Location(world, -43, 84, -105),
@@ -65,7 +70,7 @@ public class CaseOpeningAnimation {
                         int finalJ = j;
                         Bukkit.getScheduler().runTaskLater(SkyBlockPlugin.instance(), () -> {
                             sendParticleLine(randomRarity, corners[finalJ], corners[(finalJ + 1) % corners.length]);
-                            player.playSound(blockLocation, Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, pitch.get());
+                            CustomSounds.NOTIFICATION.playSound(blockLocation.getWorld().getNearbyPlayers(blockLocation, 15), 0.2F, 1F, player.getLocation());
                         }, 20L * i);
                     }
                     pitch.updateAndGet(v -> v + 1.0F);
@@ -99,8 +104,9 @@ public class CaseOpeningAnimation {
                     textDisplay.spawnAt(itemLocation.clone().add(0, 1, 0));
                     item.addPassenger(textDisplay);
 
-                    player.playSound(itemLocation, Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 0.1F);
-                    player.getInventory().addItem(winningItem.getItemStack().clone());
+                    if (winningItem.getRarity().getWeight() < 5) CustomSounds.LEVEL_UP.playSound(player, 0.2F, 1F, player.getLocation());
+                    String displayName = PlainTextComponentSerializer.plainText().serialize(winningItem.getItemStack().displayName());
+                    if (!displayName.equals("§cKein Item gefunden.")) player.getInventory().addItem(winningItem.getItemStack().clone());
                     player.sendMessage(ChatAction.of("Du hast " + winningItem.getItemStack().getAmount() + "x ").append(winningItem.getItemStack().getItemMeta().hasDisplayName() ? Objects.requireNonNull(winningItem.getItemStack().getItemMeta().displayName()) : Component.text(winningItem.getItemStack().getType().name())).append(MiniMessage.miniMessage().deserialize("<#6cd414> aus der Kiste erhalten!")));
 
                     if (winningItem.getRarity().getWeight() >= 5) {

@@ -15,17 +15,21 @@ import mc.skyblock.plugin.command.CommandManager;
 import mc.skyblock.plugin.configuration.Configuration;
 import mc.skyblock.plugin.configuration.impl.ResourcePackConfiguration;
 import mc.skyblock.plugin.guild.GuildManager;
+import mc.skyblock.plugin.hologram.HologramManager;
 import mc.skyblock.plugin.island.IslandManager;
 import mc.skyblock.plugin.location.LocationManager;
 import mc.skyblock.plugin.npc.NPCManager;
 import mc.skyblock.plugin.punish.PunishManager;
 import mc.skyblock.plugin.punish.configuration.PunishConfiguration;
 import mc.skyblock.plugin.scoreboard.ScoreboardManager;
+import mc.skyblock.plugin.shop.ShopManager;
 import mc.skyblock.plugin.tablist.TablistManager;
 import mc.skyblock.plugin.tag.TagManager;
 import mc.skyblock.plugin.user.UserManager;
+import mc.skyblock.plugin.warps.WarpManager;
 import mc.skyblock.plugin.whitelist.WhitelistManager;
 import mc.skyblock.plugin.whitelist.configuration.WhitelistConfiguration;
+import net.kyori.adventure.text.Component;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
@@ -62,7 +66,10 @@ public class SkyBlockPlugin extends JavaPlugin {
     NPCManager npcManager;
     CaseOpeningManager caseOpeningManager;
     WhitelistManager whitelistManager;
+    HologramManager hologramManager;
     PunishManager punishManager;
+    WarpManager warpManager;
+    ShopManager shopManager;
 
 
     public static SkyBlockPlugin instance() {
@@ -81,9 +88,7 @@ public class SkyBlockPlugin extends JavaPlugin {
 
         this.particleAPI = ParticleNativeCore.loadAPI(this);
 
-        this.mongoManager = new MongoManager(Credentials.of("mongodb://keinepixel:rc8Saw8UNU4Dp+8UuWOUuVWZnJOEwp2nYhOcvqf5L@87.106.178.7:27017/", "skyblock"))
-                .registerCodec(new LocationCodec())
-                .registerCodec(new ItemStackCodec());
+        this.mongoManager = new MongoManager(Credentials.of("mongodb://keinepixel:rc8Saw8UNU4Dp+8UuWOUuVWZnJOEwp2nYhOcvqf5L@87.106.178.7:27017/", "skyblock")).registerCodec(new LocationCodec()).registerCodec(new ItemStackCodec());
         this.userManager = new UserManager();
         this.scoreboardManager = new ScoreboardManager(this);
         this.islandManager = new IslandManager();
@@ -97,6 +102,9 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.caseOpeningManager = new CaseOpeningManager();
         this.whitelistManager = new WhitelistManager(this.whitelistConfiguration);
         this.punishManager = new PunishManager(this.punishConfiguration);
+        this.hologramManager = new HologramManager();
+        this.warpManager = new WarpManager();
+        this.shopManager = new ShopManager();
 
         this.inventoryManager = new InventoryManager(this);
         this.inventoryManager.invoke();
@@ -125,8 +133,12 @@ public class SkyBlockPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         try {
+            Bukkit.getScheduler().cancelTasks(this);
+            Bukkit.getOnlinePlayers().forEach(player -> player.kick(Component.text("Server is restarting"))); //TODO: Change message
             this.islandManager.saveAll();
+            this.warpManager.saveAll();
             this.userManager.saveAll();
+            this.shopManager.saveAll();
             this.tagManager.deleteExistingTags();
             Thread.sleep(500);
         } catch (InterruptedException e) {
