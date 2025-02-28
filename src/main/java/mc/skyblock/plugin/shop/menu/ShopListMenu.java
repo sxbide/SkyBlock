@@ -12,10 +12,7 @@ import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.shop.model.Shop;
 import mc.skyblock.plugin.shop.model.item.ShopItem;
 import mc.skyblock.plugin.user.model.SkyBlockUser;
-import mc.skyblock.plugin.util.ChatAction;
-import mc.skyblock.plugin.util.ItemBuilder;
-import mc.skyblock.plugin.util.NumberUtil;
-import mc.skyblock.plugin.util.Util;
+import mc.skyblock.plugin.util.*;
 import mc.skyblock.plugin.util.custom.CustomSounds;
 import mc.skyblock.plugin.util.data.BlockData;
 import net.kyori.adventure.text.Component;
@@ -87,6 +84,8 @@ public class ShopListMenu implements InventoryProvider {
         contents.set(43, Util.nextButton(pagination));
         contents.set(40, Util.exitButton());
         contents.set(37, Util.backButton(pagination));
+
+        SoundAction.playInventoryOpen(player);
 
     }
 }
