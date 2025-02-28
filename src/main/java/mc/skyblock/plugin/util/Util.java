@@ -6,6 +6,7 @@ import io.github.rysefoxx.inventory.plugin.pagination.Pagination;
 import io.github.rysefoxx.inventory.plugin.pagination.RyseInventory;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
+import mc.skyblock.plugin.util.custom.CustomSounds;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -68,7 +69,7 @@ public class Util {
 
             RyseInventory currentInventory = pagination.inventory();
             currentInventory.open(player, pagination.next().page());
-            player.playSound(player.getLocation(), Sound.ITEM_ARMOR_EQUIP_TURTLE, 100, 1);
+            CustomSounds.NOTIFICATION.playSound(player, 100, 2, player.getLocation());
         });
     }
 
@@ -100,7 +101,7 @@ public class Util {
 
             RyseInventory currentInventory = pagination.inventory();
             currentInventory.open(player, pagination.previous().page());
-            player.playSound(player.getLocation(), Sound.ITEM_ARMOR_EQUIP_TURTLE, 100, 1);
+            CustomSounds.NOTIFICATION.playSound(player, 100, 2, player.getLocation());
         });
     }
 
