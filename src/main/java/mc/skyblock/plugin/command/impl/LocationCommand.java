@@ -55,9 +55,9 @@ public class LocationCommand extends AbstractCommand {
             player.sendMessage(ChatAction.of("§aDer Locationpunkt " + locationName + " wurde gelöscht."));
             return;
         }
-        player.sendMessage(ChatAction.failure("Verwende dazu: /location set <name>"));
-        player.sendMessage(ChatAction.failure("Verwende dazu: /location tp <name>"));
-        player.sendMessage(ChatAction.failure("Verwende dazu: /location del <name>"));
+        player.sendMessage(ChatAction.failure("/location set <name>"));
+        player.sendMessage(ChatAction.failure("/location tp <name>"));
+        player.sendMessage(ChatAction.failure("/location del <name>"));
         return;
     }
 }

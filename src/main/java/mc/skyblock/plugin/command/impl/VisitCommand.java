@@ -57,7 +57,7 @@ public class VisitCommand extends AbstractCommand {
             }
             return;
         }
-        player.sendMessage(ChatAction.failure("Verwende dazu: /visit <spielername>"));
+        player.sendMessage(ChatAction.failure("/visit <spielername>"));
         return;
     }
 }

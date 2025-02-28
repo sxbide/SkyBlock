@@ -48,7 +48,7 @@ public class KickCommand extends AbstractCommand {
             player.sendMessage(ChatAction.of("Der Spieler " + targetPlayer.getName() + " wurde vom Server geworfen."));
             return;
         }
-        player.sendMessage(ChatAction.failure("Verwende dazu: /Kick <Spielername> <Optionaler Grund>"));
+        player.sendMessage(ChatAction.failure("/Kick <Spielername> <Optionaler Grund>"));
 
     }
 }

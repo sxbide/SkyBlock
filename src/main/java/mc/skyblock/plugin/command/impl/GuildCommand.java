@@ -28,14 +28,14 @@ public class GuildCommand extends AbstractCommand {
     public void run(Player player, String[] args) {
 
         if (args.length == 0) {
-            player.sendMessage(ChatAction.of("/Gilde create <Name>"));
-            player.sendMessage(ChatAction.of("/Gilde invite <Spielername>"));
-            player.sendMessage(ChatAction.of("/Gilde kick <Spielername>"));
-            player.sendMessage(ChatAction.of("/Gilde accept"));
-            player.sendMessage(ChatAction.of("/Gilde deny"));
-            player.sendMessage(ChatAction.of("/Gilde delete"));
-            player.sendMessage(ChatAction.of("/Gilde info"));
-            player.sendMessage(ChatAction.of("/Gilde leave"));
+            player.sendMessage(ChatAction.of("/gilde create <name>"));
+            player.sendMessage(ChatAction.of("/gilde invite <spielername>"));
+            player.sendMessage(ChatAction.of("/gilde kick <spielername>"));
+            player.sendMessage(ChatAction.of("/gilde accept"));
+            player.sendMessage(ChatAction.of("/gilde deny"));
+            player.sendMessage(ChatAction.of("/gilde delete"));
+            player.sendMessage(ChatAction.of("/gilde info"));
+            player.sendMessage(ChatAction.of("/gilde leave"));
             return;
         }
 

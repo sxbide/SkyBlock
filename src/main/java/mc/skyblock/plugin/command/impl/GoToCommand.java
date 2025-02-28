@@ -16,7 +16,7 @@ public class GoToCommand extends AbstractCommand {
     @Override
     public void run(Player player, String[] args) {
         if (args.length == 0) {
-            player.sendMessage(ChatAction.failure("Verwende dazu: /goto <world>"));
+            player.sendMessage(ChatAction.failure("/goto <world>"));
             return;
         }
         String worldName = args[0];

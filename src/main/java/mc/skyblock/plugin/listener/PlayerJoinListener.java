@@ -18,6 +18,7 @@ public class PlayerJoinListener implements Listener {
         Location location = SkyBlockPlugin.instance().getLocationManager().getPosition("spawn");
         Player player = event.getPlayer();
 
+
         if (location != null) {
             event.setSpawnLocation(location.getLocation());
         } else {
@@ -42,5 +43,8 @@ public class PlayerJoinListener implements Listener {
         if (player.getClientBrandName() != null && player.getClientBrandName().equals("labymod")) {
             player.sendMessage(ChatAction.of("Danke, dass du LabyMod benutzt!"));
         }
+
+        player.getLocation().getWorld().setThundering(false);
+        player.getLocation().getWorld().setTime(0);
     }
 }
