@@ -4,7 +4,6 @@ import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.command.model.AbstractCommand;
 import mc.skyblock.plugin.util.ChatAction;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.jetbrains.annotations.NotNull;

@@ -10,21 +10,15 @@ import mc.skyblock.plugin.caseopening.mongo.model.Case;
 import mc.skyblock.plugin.caseopening.mongo.model.item.CaseItem;
 import mc.skyblock.plugin.caseopening.mongo.repository.CaseRepository;
 import mc.skyblock.plugin.util.ChatAction;
-import mc.skyblock.plugin.util.ItemBuilder;
-import mc.skyblock.plugin.util.Rarity;
 import mc.skyblock.plugin.util.SoundAction;
 import mc.skyblock.plugin.util.custom.CustomItems;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @Getter
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)

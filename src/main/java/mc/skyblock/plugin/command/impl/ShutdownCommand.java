@@ -4,7 +4,6 @@ import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.command.model.AbstractCommand;
 import mc.skyblock.plugin.util.ChatAction;
 import net.kyori.adventure.audience.Audience;
-import net.md_5.bungee.api.ChatMessageType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;

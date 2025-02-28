@@ -3,9 +3,8 @@ package mc.skyblock.plugin.caseopening.animation;
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.caseopening.mongo.model.item.CaseItem;
 import mc.skyblock.plugin.util.ChatAction;
-import mc.skyblock.plugin.util.SoundAction;
-import mc.skyblock.plugin.util.custom.CustomSounds;
 import mc.skyblock.plugin.util.Rarity;
+import mc.skyblock.plugin.util.custom.CustomSounds;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -20,7 +19,6 @@ import org.bukkit.util.Vector;
 
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.logging.Logger;
 
 public class CaseOpeningAnimation {
 
@@ -104,9 +102,11 @@ public class CaseOpeningAnimation {
                     textDisplay.spawnAt(itemLocation.clone().add(0, 1, 0));
                     item.addPassenger(textDisplay);
 
-                    if (winningItem.getRarity().getWeight() < 5) CustomSounds.LEVEL_UP.playSound(player, 0.2F, 1F, player.getLocation());
+                    if (winningItem.getRarity().getWeight() < 5)
+                        CustomSounds.LEVEL_UP.playSound(player, 0.2F, 1F, player.getLocation());
                     String displayName = PlainTextComponentSerializer.plainText().serialize(winningItem.getItemStack().displayName());
-                    if (!displayName.equals("§cKein Item gefunden.")) player.getInventory().addItem(winningItem.getItemStack().clone());
+                    if (!displayName.equals("§cKein Item gefunden."))
+                        player.getInventory().addItem(winningItem.getItemStack().clone());
                     player.sendMessage(ChatAction.of("Du hast " + winningItem.getItemStack().getAmount() + "x ").append(winningItem.getItemStack().getItemMeta().hasDisplayName() ? Objects.requireNonNull(winningItem.getItemStack().getItemMeta().displayName()) : Component.text(winningItem.getItemStack().getType().name())).append(MiniMessage.miniMessage().deserialize("<#6cd414> aus der Kiste erhalten!")));
 
                     if (winningItem.getRarity().getWeight() >= 5) {
@@ -157,7 +157,7 @@ public class CaseOpeningAnimation {
             double z = from.getZ() + (to.getZ() - from.getZ()) * (i / particles);
             SkyBlockPlugin.instance().getParticleAPI().LIST_1_13.DUST_COLOR_TRANSITION
                     .color(rarity.getColor(), rarity.getColor(), 1.0D)
-                    .packet(true, new Location(world, x,y,z), 2)
+                    .packet(true, new Location(world, x, y, z), 2)
                     .sendTo(Bukkit.getOnlinePlayers());
         }
     }

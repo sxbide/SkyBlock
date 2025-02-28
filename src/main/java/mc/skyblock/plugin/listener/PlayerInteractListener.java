@@ -1,9 +1,7 @@
 package mc.skyblock.plugin.listener;
 
 import mc.skyblock.plugin.SkyBlockPlugin;
-import mc.skyblock.plugin.caseopening.animation.CaseOpeningAnimation;
 import mc.skyblock.plugin.enderchest.menu.EnderChestSelectMenu;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

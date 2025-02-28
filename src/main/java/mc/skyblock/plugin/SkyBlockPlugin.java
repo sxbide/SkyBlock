@@ -18,7 +18,6 @@ import mc.skyblock.plugin.guild.GuildManager;
 import mc.skyblock.plugin.hologram.HologramManager;
 import mc.skyblock.plugin.island.IslandManager;
 import mc.skyblock.plugin.location.LocationManager;
-import mc.skyblock.plugin.npc.NPCManager;
 import mc.skyblock.plugin.punish.PunishManager;
 import mc.skyblock.plugin.punish.configuration.PunishConfiguration;
 import mc.skyblock.plugin.scoreboard.ScoreboardManager;
@@ -63,7 +62,6 @@ public class SkyBlockPlugin extends JavaPlugin {
     CommandManager commandManager;
     TagManager tagManager;
     GuildManager guildManager;
-    NPCManager npcManager;
     CaseOpeningManager caseOpeningManager;
     WhitelistManager whitelistManager;
     HologramManager hologramManager;
@@ -98,7 +96,6 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.commandManager = new CommandManager(this);
         this.tagManager = new TagManager();
         this.guildManager = new GuildManager();
-        this.npcManager = new NPCManager();
         this.caseOpeningManager = new CaseOpeningManager();
         this.whitelistManager = new WhitelistManager(this.whitelistConfiguration);
         this.punishManager = new PunishManager(this.punishConfiguration);

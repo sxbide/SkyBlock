@@ -6,10 +6,12 @@ import mc.skyblock.plugin.hologram.repository.HologramRepository;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Color;
 import org.bukkit.Location;
-import org.bukkit.entity.Display;
 import org.bukkit.entity.TextDisplay;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;

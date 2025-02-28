@@ -39,7 +39,7 @@ public class GuildCommand extends AbstractCommand {
             return;
         }
 
-        if(args.length == 1 && args[0].equalsIgnoreCase("info")) {
+        if (args.length == 1 && args[0].equalsIgnoreCase("info")) {
 
             if (!SkyBlockPlugin.instance().getGuildManager().hasGuild(player)) {
                 player.sendMessage(ChatAction.failure("Du besitzt oder befindest dich in keiner Gilde!"));
@@ -54,11 +54,11 @@ public class GuildCommand extends AbstractCommand {
 
             for (UUID guildMember : skyBlockGuild.getGuildMembers()) {
                 player.sendMessage(ChatAction.gray("<green>" + Bukkit.getOfflinePlayer(guildMember).getName() +
-                        (skyBlockGuild.getLeaderUniqueId().equals(guildMember) ? " <#a6a19d>(Gründer): " : ": ") +
-                        (Bukkit.getOfflinePlayer(guildMember).isOnline() ? "<green>Online" : "<red>Offline"))
+                                (skyBlockGuild.getLeaderUniqueId().equals(guildMember) ? " <#a6a19d>(Gründer): " : ": ") +
+                                (Bukkit.getOfflinePlayer(guildMember).isOnline() ? "<green>Online" : "<red>Offline"))
 
                         .hoverEvent(Component.text(Bukkit.getOfflinePlayer(guildMember).isOnline() ? "§aAktuell auf SkyBlock" : "§cOffline seit " +
-                                (TimeUtil.formatTime(System.currentTimeMillis()-Bukkit.getOfflinePlayer(guildMember).getLastSeen())))));
+                                (TimeUtil.formatTime(System.currentTimeMillis() - Bukkit.getOfflinePlayer(guildMember).getLastSeen())))));
             }
 
             return;

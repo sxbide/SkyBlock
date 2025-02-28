@@ -5,7 +5,6 @@ import mc.skyblock.plugin.auctions.menu.AuctionsMenu;
 import mc.skyblock.plugin.command.model.AbstractCommand;
 import mc.skyblock.plugin.util.ChatAction;
 import mc.skyblock.plugin.util.NumberUtil;
-import mc.skyblock.plugin.util.SoundAction;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

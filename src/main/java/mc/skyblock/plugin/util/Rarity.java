@@ -23,15 +23,13 @@ public enum Rarity {
     EPIC("Episch", MiniMessage.miniMessage().deserialize("<#7621CC>ᴇᴘɪꜱᴄʜ</#7621CC>"), 4, Color.fromRGB(118, 33, 204)),
     LEGENDARY("Legendär", MiniMessage.miniMessage().deserialize("<#FFD800>ʟᴇɢᴇɴᴅäʀ</#FFD800>"), 5, Color.fromRGB(255, 216, 0)),
     MYTHIC("Mythisch", MiniMessage.miniMessage().deserialize("<gradient:#ff0036:red>ᴍʏᴛʜɪꜱᴄʜ</gradient>"), 6, Color.fromRGB(255, 0, 54)),
-    EXCLUSIVE("Exklusiv", MiniMessage.miniMessage().deserialize("<rainbow>ᴇxᴋʟᴜꜱɪᴠ</rainbow>"), 7, Color.RED)
-    ;
+    EXCLUSIVE("Exklusiv", MiniMessage.miniMessage().deserialize("<rainbow>ᴇxᴋʟᴜꜱɪᴠ</rainbow>"), 7, Color.RED);
 
+    public static final Rarity[] VALUES = values();
     String name;
     Component displayName;
     int weight;
     Color color;
-
-    public static final Rarity[] VALUES = values();
 
     public static Rarity getRarityByWeight(int weight) {
         for (Rarity rarity : VALUES) {

@@ -48,7 +48,7 @@ public class SellerMenu implements InventoryProvider {
 
     @Override
     public void close(Player player, RyseInventory inventory) {
-        if(inventory.getInventory() != null) {
+        if (inventory.getInventory() != null) {
             if (inventory.getInventory().getItem(0) != null) {
                 for (int i = 0; i < 44; i++) {
                     ItemStack itemStack = inventory.getInventory().getItem(i);

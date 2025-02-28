@@ -21,7 +21,7 @@ public class KickCommand extends AbstractCommand {
         if (args.length == 1) {
             Player targetPlayer = Bukkit.getPlayer(args[0]);
 
-            if(targetPlayer == null) {
+            if (targetPlayer == null) {
                 player.sendMessage(ChatAction.getOffline());
                 return;
             }
@@ -31,11 +31,11 @@ public class KickCommand extends AbstractCommand {
             return;
         }
 
-        if(args.length > 1) {
+        if (args.length > 1) {
             Player targetPlayer = Bukkit.getPlayer(args[0]);
             StringBuilder reason = new StringBuilder();
 
-            if(targetPlayer == null) {
+            if (targetPlayer == null) {
                 player.sendMessage(ChatAction.getOffline());
                 return;
             }
