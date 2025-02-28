@@ -63,7 +63,7 @@ public class Util {
 
             if (pagination.isLast()) {
                 player.sendMessage(ChatAction.failure("Du befindest dich bereits auf der letzten Seite"));
-                player.playSound(player.getLocation(), Sound.BLOCK_LANTERN_STEP, 100, 1);
+                CustomSounds.ERROR.playSound(player, 100, 1, player.getLocation());
                 return;
             }
 
@@ -95,7 +95,7 @@ public class Util {
 
             if (pagination.isFirst()) {
                 player.sendMessage(ChatAction.failure("Du befindest dich bereits auf der ersten Seite"));
-                player.playSound(player.getLocation(), Sound.BLOCK_LANTERN_STEP, 100, 1);
+                CustomSounds.ERROR.playSound(player, 100, 1, player.getLocation());
                 return;
             }
 
