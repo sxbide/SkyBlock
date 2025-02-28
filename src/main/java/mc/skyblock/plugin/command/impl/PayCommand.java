@@ -34,7 +34,7 @@ public class PayCommand extends AbstractCommand {
                 double amount = Double.parseDouble(args[1]);
 
                 if (args[1].startsWith("0.0") || amount < 0) {
-                    player.sendMessage(ChatAction.failure("§cDer Betrag darf nicht kleiner als 1 ⛃ sein."));
+                    player.sendMessage(ChatAction.failure("§cDer Betrag darf nicht kleiner als 0.0 ⛃ sein."));
                     return;
                 }
                 SkyBlockUser skyBlockUser = SkyBlockPlugin.instance().getUserManager().getUser(player.getUniqueId());

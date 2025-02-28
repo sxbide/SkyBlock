@@ -84,8 +84,5 @@ public class ShopListMenu implements InventoryProvider {
         contents.set(43, Util.nextButton(pagination));
         contents.set(40, Util.exitButton());
         contents.set(37, Util.backButton(pagination));
-
-        SoundAction.playInventoryOpen(player);
-
     }
 }
