@@ -22,8 +22,8 @@ public class CaseOpeningCommand extends AbstractCommand {
                 "/caseopening removeitem",
                 "/caseopening listitems",
                 "/caseopening open",
-                "/caseopening givekey <player> [amount]",
-                "/caseopening givekeyall [amount]"
+                "/caseopening givekey <spielername> <anzahl>",
+                "/caseopening givekeyall <anzahl>"
         };
         for (String command : commands) {
             player.sendMessage(ChatAction.of(command));
