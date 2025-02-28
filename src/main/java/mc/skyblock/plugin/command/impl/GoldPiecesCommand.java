@@ -26,10 +26,9 @@ public class GoldPiecesCommand extends AbstractCommand {
 
 
         NPC npc = new NPC();
-        npc.setDisplayName("Nigger");
+
         npc.setLocation(player.getLocation());
         npc.setEntityType(EntityType.VILLAGER);
-        npc.setId(new Random().nextInt(0,100));
         npc.setHologramLines(List.of("Niggers stinken", "nach kacke"));
 
         SkyBlockPlugin.instance().getNpcManager().save(npc);

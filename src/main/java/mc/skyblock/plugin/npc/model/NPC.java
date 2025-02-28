@@ -21,7 +21,6 @@ public class NPC {
     int id;
 
     Location location;
-    String displayName;
     EntityType entityType;
     Skin skin;
     List<String> hologramLines;

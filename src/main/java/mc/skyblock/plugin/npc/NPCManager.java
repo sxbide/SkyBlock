@@ -38,6 +38,10 @@ public class NPCManager implements Listener {
     }
 
     private void spawn(NPC npc) {
+        if (npc.getId() == 0) {
+            npc.setId(this.getNextAvailableId());
+            npcMap.put(npc.getId(), npc);
+        }
         EntityType entityType = npc.getEntityType();
         Entity entity = npc.getLocation().getWorld().spawnEntity(npc.getLocation(), entityType);
         Component holoText = Component.empty();
@@ -120,6 +124,10 @@ public class NPCManager implements Listener {
 
     public NPC getNPCById(int id) {
         return this.npcMap.get(id);
+    }
+
+    public int getNextAvailableId() {
+        return this.npcMap.keySet().stream().max(Integer::compareTo).orElse(0) + 1;
     }
 
 }
