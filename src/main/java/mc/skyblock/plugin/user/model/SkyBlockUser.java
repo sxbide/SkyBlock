@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import mc.skyblock.plugin.SkyBlockPlugin;
+import mc.skyblock.plugin.shop.model.currency.ShopCurrencyFormat;
 import mc.skyblock.plugin.tag.model.Tags;
 import mc.skyblock.plugin.user.model.setting.Setting;
 
@@ -69,6 +70,37 @@ public class SkyBlockUser {
 
     public void removeBalance(double amount) {
         this.balance -= amount;
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+    }
+
+    public Number getBalance(ShopCurrencyFormat currencyFormat) {
+        return currencyFormat == ShopCurrencyFormat.GOLD_PIECES ? goldPieces : balance;
+    }
+
+    public void setBalance(ShopCurrencyFormat currencyFormat, Number amount) {
+        if (currencyFormat == ShopCurrencyFormat.GOLD_PIECES) {
+            this.goldPieces = amount.intValue();
+        } else {
+            this.balance = amount.doubleValue();
+        }
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+    }
+
+    public void addBalance(ShopCurrencyFormat currencyFormat, Number amount) {
+        if (currencyFormat == ShopCurrencyFormat.GOLD_PIECES) {
+            this.goldPieces += amount.intValue();
+        } else {
+            this.balance += amount.doubleValue();
+        }
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+    }
+
+    public void removeBalance(ShopCurrencyFormat currencyFormat, Number amount) {
+        if (currencyFormat == ShopCurrencyFormat.GOLD_PIECES) {
+            this.goldPieces -= amount.intValue();
+        } else {
+            this.balance -= amount.doubleValue();
+        }
         SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
     }
 

@@ -31,6 +31,7 @@ import mc.skyblock.plugin.whitelist.configuration.WhitelistConfiguration;
 import net.kyori.adventure.text.Component;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
+import org.bson.codecs.Codec;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -86,7 +87,18 @@ public class SkyBlockPlugin extends JavaPlugin {
 
         this.particleAPI = ParticleNativeCore.loadAPI(this);
 
-        this.mongoManager = new MongoManager(Credentials.of("mongodb://keinepixel:rc8Saw8UNU4Dp+8UuWOUuVWZnJOEwp2nYhOcvqf5L@87.106.178.7:27017/", "skyblock")).registerCodec(new LocationCodec()).registerCodec(new ItemStackCodec());
+        this.mongoManager = new MongoManager(Credentials.of("mongodb://keinepixel:rc8Saw8UNU4Dp+8UuWOUuVWZnJOEwp2nYhOcvqf5L@87.106.178.7:27017/", "skyblock"));
+
+        Reflections codecReflections = new Reflections("mc.skyblock.plugin.codec");
+        codecReflections.getSubTypesOf(Codec.class).forEach(codec -> {
+            try {
+                this.mongoManager.registerCodec(codec.getDeclaredConstructor().newInstance());
+                getLogger().info("Registered codec: " + codec.getName());
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         this.userManager = new UserManager();
         this.scoreboardManager = new ScoreboardManager(this);
         this.islandManager = new IslandManager();

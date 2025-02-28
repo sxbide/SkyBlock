@@ -139,7 +139,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder displayName(@NotNull Component displayName) {
-        this.displayName = displayName.decoration(TextDecoration.ITALIC, false);
+        this.displayName = displayName.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
         return this;
     }
 
@@ -152,7 +152,7 @@ public class ItemBuilder {
         if (this.displayName == null)
             this.displayName = Component.empty();
 
-        this.displayName = this.displayName.append(displayName.decoration(TextDecoration.ITALIC, false));
+        this.displayName = this.displayName.append(displayName.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
         return this;
     }
 
@@ -195,9 +195,33 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder appendLore(@NotNull Component line) {
+        this.lore.add(line.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
+        return this;
+    }
+
+    public ItemBuilder appendLore(@NotNull String line) {
+        this.lore.add(Component.text(line).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
+        return this;
+    }
+
+    public ItemBuilder appendLore(@NotNull Component... lines) {
+        for (Component line : lines) {
+            this.lore.add(line.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
+        }
+        return this;
+    }
+
+    public ItemBuilder appendLore(@NotNull String... lines) {
+        for (String line : lines) {
+            this.lore.add(Component.text(line).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
+        }
+        return this;
+    }
+
     public ItemBuilder lore(Component @NotNull ... lines) {
         for (int i = 0; i < lines.length; i++) {
-            lines[i] = lines[i].decoration(TextDecoration.ITALIC, false);
+            lines[i] = lines[i].decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
         }
 
         this.lore.addAll(Arrays.asList(lines));
@@ -208,10 +232,10 @@ public class ItemBuilder {
         if (list == null) return this;
 
         try {
-            list.replaceAll(component -> component.decoration(TextDecoration.ITALIC, false));
+            list.replaceAll(component -> component.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
         } catch (UnsupportedOperationException e) {
             list = new ArrayList<>(list);
-            list.replaceAll(component -> component.decoration(TextDecoration.ITALIC, false));
+            list.replaceAll(component -> component.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
         }
         this.lore.addAll(list);
         return this;

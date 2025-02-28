@@ -105,9 +105,9 @@ public class Util {
         });
     }
 
-    public @NotNull IntelligentItem exitButton(@NonNull RyseInventory inventory) {
+    public @NotNull IntelligentItem exitButton() {
         return IntelligentItem.of(ItemBuilder.of(Material.BARRIER)
                 .displayName("§cZurück")
-                .lore("§7Klicke, um dieses Menü zu schließen.").build(), event -> inventory.close((Player) event.getWhoClicked()));
+                .lore("§7Klicke, um dieses Menü zu schließen.").build(), event -> ((Player) event.getWhoClicked()).closeInventory());
     }
 }

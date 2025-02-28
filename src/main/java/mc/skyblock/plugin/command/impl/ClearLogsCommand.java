@@ -41,9 +41,12 @@ public class ClearLogsCommand extends AbstractCommand {
                     }
                 }
             }
-
+            if (filesDeleted == 0) {
+                player.sendMessage(ChatAction.of("Es gibt keine Logs zum löschen. (*.log.gz)"));
+                return;
+            }
             player.sendMessage(ChatAction.of("Die Logs wurden gelöscht. (*.log.gz)"));
-            player.sendMessage(ChatAction.of("Es wurden " + filesDeleted + " von " + files + " Logs gelöscht."));
+            player.sendMessage(ChatAction.of("Es wurden " + filesDeleted + " von " + (files-1) + " Logs gelöscht."));
         } else {
             player.sendMessage(ChatAction.failure("Die Logs konnten nicht gefunden werden. (*.log.gz)"));
             player.sendMessage(ChatAction.failure("Bitte kontaktiere einen Administrator."));

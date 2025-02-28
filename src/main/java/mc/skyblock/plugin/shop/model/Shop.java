@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import mc.skyblock.plugin.shop.model.currency.ShopCurrencyFormat;
 import mc.skyblock.plugin.shop.model.item.ShopItem;
 import org.bukkit.inventory.ItemStack;
 
@@ -21,7 +22,9 @@ public class Shop {
 
     @Id
     String name;
-    int npcId;
+    String npcId;
+
+    ShopCurrencyFormat currencyFormat;
 
     List<ShopItem> items;
 

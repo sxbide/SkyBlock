@@ -6,6 +6,7 @@ import mc.skyblock.plugin.shop.repository.ShopRepository;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -23,7 +24,7 @@ public class ShopManager {
     public Shop createShop(String name) {
         Shop shop = new Shop();
         shop.setName(name);
-        shop.setNpcId(0);
+        shop.setNpcId(null);
         shop.setItems(new ArrayList<>());
         shop.setDiscount(false);
         shop.setDiscountPercentage(0);
@@ -46,6 +47,10 @@ public class ShopManager {
 
     public Shop getShop(String name) {
         return shopMap.get(name);
+    }
+
+    public Optional<Shop> getShopByNpcId(String npcId) {
+        return shopMap.values().stream().filter(shop -> shop.getNpcId().equals(npcId)).findFirst();
     }
 
     public void saveAll() {
