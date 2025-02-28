@@ -15,6 +15,7 @@ repositories {
     maven { url 'https://jitpack.io' }
     maven { url 'https://reposilite.koboo.eu/releases' }
     maven { url 'https://s01.oss.sonatype.org/content/groups/public/' }
+    maven { url 'https://repo.fancyplugins.de/releases' }
 
 }
 
@@ -36,6 +37,8 @@ dependencies {
     implementation 'io.github.rysefoxx.inventory:RyseInventory-Plugin:1.6.5'
 
     compileOnly 'net.luckperms:api:5.4'
+
+    compileOnly 'de.oliver:FancyNpcs:2.4.2'
 
     implementation 'org.reflections:reflections:0.10.2'
 
