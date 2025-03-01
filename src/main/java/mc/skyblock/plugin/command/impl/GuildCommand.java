@@ -8,6 +8,7 @@ import mc.skyblock.plugin.util.TimeUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -164,7 +165,7 @@ public class GuildCommand extends AbstractCommand {
 
         if (args.length == 2 && args[0].equalsIgnoreCase("kick")) {
 
-            Player targetPlayer = Bukkit.getPlayer(args[1]);
+            OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(args[1]);
 
             if (!SkyBlockPlugin.instance().getGuildManager().hasGuild(player)) {
                 player.sendMessage(ChatAction.failure("Du besitzt oder befindest dich in keiner Gilde!"));
@@ -176,7 +177,7 @@ public class GuildCommand extends AbstractCommand {
                 return;
             }
 
-            if (targetPlayer == null) {
+            if (!targetPlayer.hasPlayedBefore()) {
                 player.sendMessage(ChatAction.getOffline());
                 return;
             }
@@ -193,9 +194,13 @@ public class GuildCommand extends AbstractCommand {
                 return;
             }
 
-            SkyBlockPlugin.instance().getGuildManager().kickPlayerFromGuild(targetPlayer, skyBlockGuild);
+            SkyBlockPlugin.instance().getGuildManager().kickPlayerFromGuild(targetPlayer.getUniqueId(), skyBlockGuild);
             player.sendMessage(ChatAction.of(targetPlayer.getName() + " wurde aus deiner Gilde rausgeworfen."));
-            targetPlayer.sendMessage(ChatAction.failure("Du wurdest aus deiner Gilde rausgeworfen."));
+
+            Player targetOnlinePlayer = Bukkit.getPlayer(targetPlayer.getUniqueId());
+            if(targetOnlinePlayer != null) {
+                targetOnlinePlayer.sendMessage(ChatAction.failure("Du wurdest aus deiner Gilde rausgeworfen."));
+            }
             return;
         }
 
@@ -266,7 +271,7 @@ public class GuildCommand extends AbstractCommand {
             }
 
             SkyBlockGuild skyBlockGuild = SkyBlockPlugin.instance().getGuildManager().getGuild(player);
-            SkyBlockPlugin.instance().getGuildManager().kickPlayerFromGuild(player, skyBlockGuild);
+            SkyBlockPlugin.instance().getGuildManager().kickPlayerFromGuild(player.getUniqueId(), skyBlockGuild);
             player.sendMessage(ChatAction.of("Du hast die Gilde erfolgreich verlassen."));
 
             for (UUID guildMember : skyBlockGuild.getGuildMembers()) {

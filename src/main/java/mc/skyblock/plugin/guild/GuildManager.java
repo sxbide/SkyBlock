@@ -91,8 +91,8 @@ public class GuildManager {
         this.repository.save(skyBlockGuild);
     }
 
-    public void kickPlayerFromGuild(Player player, SkyBlockGuild skyBlockGuild) {
-        skyBlockGuild.getGuildMembers().remove(player.getUniqueId());
+    public void kickPlayerFromGuild(UUID uniqueId, SkyBlockGuild skyBlockGuild) {
+        skyBlockGuild.getGuildMembers().remove(uniqueId);
         this.guildMap.put(skyBlockGuild.getUniqueId(), skyBlockGuild);
         this.repository.save(skyBlockGuild);
     }
