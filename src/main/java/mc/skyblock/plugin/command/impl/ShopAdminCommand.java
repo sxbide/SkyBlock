@@ -2,6 +2,7 @@ package mc.skyblock.plugin.command.impl;
 
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.command.model.AbstractCommand;
+import mc.skyblock.plugin.shop.menu.ShopEditMenu;
 import mc.skyblock.plugin.shop.model.currency.ShopCurrencyFormat;
 import mc.skyblock.plugin.shop.model.item.ShopItem;
 import mc.skyblock.plugin.util.ChatAction;
@@ -108,7 +109,7 @@ public class ShopAdminCommand extends AbstractCommand {
                     SoundAction.playTaskFailed(player);
                     return;
                 }
-                //TODO: Open edit inventory
+                new ShopEditMenu(SkyBlockPlugin.instance().getShopManager().getShop(args[1])).getRyseInventory().open(player);
                 SoundAction.playInventoryOpen(player);
                 break;
             case "additem":
