@@ -172,7 +172,9 @@ public class GuildCommand extends AbstractCommand {
                 return;
             }
 
-            if (!SkyBlockPlugin.instance().getGuildManager().isLeaderOfGuild(player)) {
+            SkyBlockGuild skyBlockGuild = SkyBlockPlugin.instance().getGuildManager().getGuild(player);
+
+            if (!skyBlockGuild.getLeaderUniqueId().equals(player.getUniqueId())) {
                 player.sendMessage(ChatAction.failure("Du kannst als Gildenmitglied keine Spieler rauswerfen."));
                 return;
             }
@@ -182,7 +184,6 @@ public class GuildCommand extends AbstractCommand {
                 return;
             }
 
-            SkyBlockGuild skyBlockGuild = SkyBlockPlugin.instance().getGuildManager().getGuild(player);
 
             if (skyBlockGuild.getLeaderUniqueId().equals(targetPlayer.getUniqueId())) {
                 player.sendMessage(ChatAction.failure("Dieser Spieler kann nicht aus der Gilde rausgeworfen werden."));

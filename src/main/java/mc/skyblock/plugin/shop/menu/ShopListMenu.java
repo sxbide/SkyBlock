@@ -70,7 +70,7 @@ public class ShopListMenu implements InventoryProvider {
                 SkyBlockUser skyBlockUser = SkyBlockPlugin.instance().getUserManager().getUser(player.getUniqueId());
                 Number balance = skyBlockUser.getBalance(shop.getCurrencyFormat());
                 if (balance.doubleValue() < item.getPrice()) {
-                    player.sendMessage(ChatAction.failure("Du hast nicht genügend " + shop.getCurrencyFormat().getDisplayName() + " um dieses Item zu kaufen."));
+                    player.sendMessage(ChatAction.failure("§cDazu ist dein Kontostand zu niedrig."));
                     return;
                 }
                 skyBlockUser.removeBalance(shop.getCurrencyFormat(), item.getPrice());
