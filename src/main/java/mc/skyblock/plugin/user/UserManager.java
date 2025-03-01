@@ -2,6 +2,8 @@ package mc.skyblock.plugin.user;
 
 import lombok.experimental.FieldDefaults;
 import mc.skyblock.plugin.SkyBlockPlugin;
+import mc.skyblock.plugin.cosmetic.Cosmetics;
+import mc.skyblock.plugin.cosmetic.model.Cosmetic;
 import mc.skyblock.plugin.tag.model.Tags;
 import mc.skyblock.plugin.user.model.SkyBlockUser;
 import mc.skyblock.plugin.user.model.setting.Setting;
@@ -39,6 +41,13 @@ public class UserManager {
                     "0".repeat(27),
                     "0".repeat(27)
             )));
+
+            Map<Cosmetic, Boolean> allCosmetics = new ConcurrentHashMap<>();
+            for (Cosmetics cosmetic : Cosmetics.values()) {
+                allCosmetics.put(cosmetic.getCosmetic(), false);
+            }
+            skyBlockUser.setCosmetics(allCosmetics);
+            skyBlockUser.setSelectedCosmetic(new ArrayList<>());
             skyBlockUser.setBoughtWarps(new ArrayList<>());
             skyBlockUser.setSettings(new ConcurrentHashMap<>(Arrays.stream(Setting.values()).collect(ConcurrentHashMap::new, (map, setting) -> map.put(setting, setting.getDefaultValue()), ConcurrentHashMap::putAll)));
         }

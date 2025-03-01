@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import mc.skyblock.plugin.SkyBlockPlugin;
+import mc.skyblock.plugin.cosmetic.Cosmetics;
+import mc.skyblock.plugin.cosmetic.model.Cosmetic;
 import mc.skyblock.plugin.shop.model.currency.ShopCurrencyFormat;
 import mc.skyblock.plugin.tag.model.Tags;
 import mc.skyblock.plugin.user.model.setting.Setting;
@@ -36,6 +38,19 @@ public class SkyBlockUser {
     List<String> boughtWarps;
 
     Map<Setting, Integer> settings;
+
+    Map<Cosmetic, Boolean> cosmetics;
+    List<Cosmetic> selectedCosmetic;
+
+    public void addCosmetic(Cosmetic cosmetic) {
+        this.cosmetics.put(cosmetic, true);
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+    }
+
+    public void addSelectedCosmetic(Cosmetic cosmetic) {
+        this.selectedCosmetic.add(cosmetic);
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+    }
 
     public void setSelectedTag(Tags tag) {
         this.selectedTag = tag;

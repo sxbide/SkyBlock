@@ -14,6 +14,7 @@ import mc.skyblock.plugin.codec.LocationCodec;
 import mc.skyblock.plugin.command.CommandManager;
 import mc.skyblock.plugin.configuration.Configuration;
 import mc.skyblock.plugin.configuration.impl.ResourcePackConfiguration;
+import mc.skyblock.plugin.cosmetic.CosmeticManager;
 import mc.skyblock.plugin.guild.GuildManager;
 import mc.skyblock.plugin.hologram.HologramManager;
 import mc.skyblock.plugin.island.IslandManager;
@@ -69,6 +70,7 @@ public class SkyBlockPlugin extends JavaPlugin {
     PunishManager punishManager;
     WarpManager warpManager;
     ShopManager shopManager;
+    CosmeticManager cosmeticManager;
 
 
     public static SkyBlockPlugin instance() {
@@ -114,6 +116,7 @@ public class SkyBlockPlugin extends JavaPlugin {
         this.hologramManager = new HologramManager();
         this.warpManager = new WarpManager();
         this.shopManager = new ShopManager();
+        this.cosmeticManager = new CosmeticManager();
 
         this.inventoryManager = new InventoryManager(this);
         this.inventoryManager.invoke();

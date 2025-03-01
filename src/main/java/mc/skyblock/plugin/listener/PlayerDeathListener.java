@@ -2,6 +2,7 @@ package mc.skyblock.plugin.listener;
 
 import com.destroystokyo.paper.event.player.PlayerPostRespawnEvent;
 import mc.skyblock.plugin.SkyBlockPlugin;
+import mc.skyblock.plugin.cosmetic.Cosmetics;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,6 +15,8 @@ public class PlayerDeathListener implements Listener {
         Player player = event.getPlayer();
 
         SkyBlockPlugin.instance().getTagManager().destroyTag(player);
+
+        event.getDrops().removeIf(Cosmetics::isCosmeticItem);
     }
 
     @EventHandler
@@ -21,5 +24,6 @@ public class PlayerDeathListener implements Listener {
         Player player = event.getPlayer();
 
         SkyBlockPlugin.instance().getTagManager().updateTag(player);
+        SkyBlockPlugin.instance().getCosmeticManager().updateCosmetics(player);
     }
 }

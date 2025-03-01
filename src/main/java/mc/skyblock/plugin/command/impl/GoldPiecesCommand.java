@@ -2,6 +2,7 @@ package mc.skyblock.plugin.command.impl;
 
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.command.model.AbstractCommand;
+import mc.skyblock.plugin.cosmetic.Cosmetics;
 import mc.skyblock.plugin.user.model.SkyBlockUser;
 import mc.skyblock.plugin.util.ChatAction;
 import org.bukkit.entity.Player;
@@ -17,6 +18,8 @@ public class GoldPiecesCommand extends AbstractCommand {
     @Override
     public void run(Player player, String[] args) {
         SkyBlockUser skyBlockUser = SkyBlockPlugin.instance().getUserManager().getUser(player.getUniqueId());
+
+        skyBlockUser.addCosmetic(Cosmetics.DEBUG_HAT.getCosmetic());
         player.sendMessage(ChatAction.of("§7Du hast aktuell §e" + skyBlockUser.getGoldPieces() + " §7Goldstücke"));
     }
 }
