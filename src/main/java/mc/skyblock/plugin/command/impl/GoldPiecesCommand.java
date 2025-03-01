@@ -19,7 +19,12 @@ public class GoldPiecesCommand extends AbstractCommand {
     public void run(Player player, String[] args) {
         SkyBlockUser skyBlockUser = SkyBlockPlugin.instance().getUserManager().getUser(player.getUniqueId());
 
-        skyBlockUser.addCosmetic(Cosmetics.DEBUG_HAT.getCosmetic());
+        skyBlockUser.addCosmetic(Cosmetics.DEBUG_HAT);
+        skyBlockUser.addCosmetic(Cosmetics.DEBUG_ITEM);
+        skyBlockUser.addSelectedCosmetic(Cosmetics.DEBUG_HAT);
+        skyBlockUser.addSelectedCosmetic(Cosmetics.DEBUG_ITEM);
+        SkyBlockPlugin.instance().getCosmeticManager().updateCosmetics(player);
+
         player.sendMessage(ChatAction.of("§7Du hast aktuell §e" + skyBlockUser.getGoldPieces() + " §7Goldstücke"));
     }
 }

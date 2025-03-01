@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import mc.skyblock.plugin.cosmetic.model.Cosmetic;
 import mc.skyblock.plugin.cosmetic.model.CosmeticType;
+import mc.skyblock.plugin.util.Rarity;
 import org.bukkit.inventory.ItemStack;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -13,8 +14,10 @@ import org.bukkit.inventory.ItemStack;
 @Getter
 public enum Cosmetics {
 
-    DEBUG_HAT(new Cosmetic("§cDebug Hat", 101, CosmeticType.HEAD, false)),
-    DEBUG_ITEM(new Cosmetic("§cDebug Item", 102, CosmeticType.HAND, true));
+    DEBUG_HAT(new Cosmetic("§cDebug Hat", 101,100, CosmeticType.HEAD, Rarity.EPIC, false)),
+    DEBUG_ITEM(new Cosmetic("§cDebug Item", 102,100, CosmeticType.HAND,Rarity.EPIC, true)),
+    BANANA(new Cosmetic("§eKrumme Banane", 103,100, CosmeticType.HAND, Rarity.COMMON, true))
+    ;
 
     Cosmetic cosmetic;
 

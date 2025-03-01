@@ -28,7 +28,7 @@ public class UserManager {
         if (skyBlockUser == null) {
             skyBlockUser = new SkyBlockUser();
             skyBlockUser.setUniqueId(uuid);
-            skyBlockUser.setBalance(10);
+            skyBlockUser.setBalance(1);
             skyBlockUser.setGoldPieces(5);
             skyBlockUser.setSelectedTag(null);
             Map<Tags, Boolean> allTags = new ConcurrentHashMap<>();
@@ -42,9 +42,9 @@ public class UserManager {
                     "0".repeat(27)
             )));
 
-            Map<Cosmetic, Boolean> allCosmetics = new ConcurrentHashMap<>();
+            Map<Cosmetics, Boolean> allCosmetics = new ConcurrentHashMap<>();
             for (Cosmetics cosmetic : Cosmetics.values()) {
-                allCosmetics.put(cosmetic.getCosmetic(), false);
+                allCosmetics.put(cosmetic, false);
             }
             skyBlockUser.setCosmetics(allCosmetics);
             skyBlockUser.setSelectedCosmetic(new ArrayList<>());

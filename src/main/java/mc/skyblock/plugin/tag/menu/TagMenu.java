@@ -100,7 +100,7 @@ public class TagMenu implements InventoryProvider {
                     skyBlockUser.removeBalance(tag.getPrice());
                     skyBlockUser.addTag(tag);
                     SoundAction.playTaskComplete(player);
-                    player.sendMessage(ChatAction.of("§aDu hast den Titel erfolgreich gekauft."));
+                    player.sendMessage(ChatAction.of("§aDu hast den Titel erfolgreich erworben."));
                     player.closeInventory();
 
                 } else {

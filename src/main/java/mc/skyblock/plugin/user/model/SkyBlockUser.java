@@ -9,10 +9,12 @@ import lombok.experimental.FieldDefaults;
 import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.cosmetic.Cosmetics;
 import mc.skyblock.plugin.cosmetic.model.Cosmetic;
+import mc.skyblock.plugin.cosmetic.model.CosmeticType;
 import mc.skyblock.plugin.shop.model.currency.ShopCurrencyFormat;
 import mc.skyblock.plugin.tag.model.Tags;
 import mc.skyblock.plugin.user.model.setting.Setting;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -39,17 +41,49 @@ public class SkyBlockUser {
 
     Map<Setting, Integer> settings;
 
-    Map<Cosmetic, Boolean> cosmetics;
-    List<Cosmetic> selectedCosmetic;
+    Map<Cosmetics, Boolean> cosmetics;
+    List<Cosmetics> selectedCosmetic;
 
-    public void addCosmetic(Cosmetic cosmetic) {
-        this.cosmetics.put(cosmetic, true);
+    public boolean hasCosmetic(Cosmetics cosmetics) {
+        return this.cosmetics.getOrDefault(cosmetics, false);
+    }
+
+    public boolean hasCosmeticWithTypeSelected(CosmeticType cosmeticType) {
+        for (Cosmetics cosmetic : this.selectedCosmetic) {
+            if(cosmetic.getCosmetic().getType().equals(cosmeticType)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void clearSelectedCosmetics() {
+        this.selectedCosmetic = new ArrayList<>();
         SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
     }
 
-    public void addSelectedCosmetic(Cosmetic cosmetic) {
+    public boolean hasCosmeticSelected(Cosmetics cosmetics) {
+        return this.selectedCosmetic.contains(cosmetics);
+    }
+
+    public void addCosmetic(Cosmetics cosmetics) {
+        this.cosmetics.put(cosmetics, true);
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+    }
+
+    public void addSelectedCosmetic(Cosmetics cosmetic) {
         this.selectedCosmetic.add(cosmetic);
         SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+    }
+
+    public void toggleSelectedCosmetic(Cosmetics cosmetics) {
+        if(this.selectedCosmetic.contains(cosmetics)) {
+            this.selectedCosmetic.remove(cosmetics);
+        } else {
+            this.selectedCosmetic.add(cosmetics);
+        }
+        SkyBlockPlugin.instance().getUserManager().saveUser(uniqueId, this);
+
     }
 
     public void setSelectedTag(Tags tag) {
