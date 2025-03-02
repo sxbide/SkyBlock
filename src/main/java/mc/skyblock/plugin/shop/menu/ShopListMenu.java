@@ -76,7 +76,7 @@ public class ShopListMenu implements InventoryProvider {
                 skyBlockUser.removeBalance(shop.getCurrencyFormat(), item.getPrice());
                 player.getInventory().addItem(item.getItemStack());
                 Component itemDisplayName = item.getItemStack().getItemMeta().displayName() == null ? Component.text(BlockData.findBlockByMaterial(item.getItemStack().getType()).getName()) : item.getItemStack().getItemMeta().displayName();
-                player.sendMessage(ChatAction.of("Du hast erfolgreich ").append(itemDisplayName).append(MiniMessage.miniMessage().deserialize("<#6cd414> für " + NumberUtil.formatBalance(item.getPrice()) + " " + shop.getCurrencyFormat().getDisplayName() + " gekauft.")));
+                player.sendMessage(ChatAction.of("Du hast erfolgreich ").append(itemDisplayName).append(MiniMessage.miniMessage().deserialize("<#6cd414> für " + NumberUtil.formatBalance(item.getPrice()) + " ⛃ gekauft.")));
                 CustomSounds.CASHIER.playSound(player, 0.6F, 1.0F, player.getLocation());
             }));
         }
