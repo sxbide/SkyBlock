@@ -62,7 +62,11 @@ public class IslandManager {
      * @return null if no island is given
      */
     public SkyBlockIsland getIslandByPlayer(Player player) {
-        return this.repository.findFirstByOwnerUniqueId(player.getUniqueId());
+        SkyBlockIsland island = this.islands.get(player.getUniqueId());
+        if (island == null) {
+            island = repository.findFirstByOwnerUniqueId(player.getUniqueId());
+        }
+        return island;
     }
 
     /**
@@ -201,42 +205,56 @@ public class IslandManager {
     }
 
     public void deleteIsland(Player player) {
-        if (this.repository.findFirstByOwnerUniqueId(player.getUniqueId()) == null) {
+        System.out.println("Attempting to delete island for: " + player.getName());
+
+        SkyBlockIsland skyBlockIsland = this.repository.findFirstByOwnerUniqueId(player.getUniqueId());
+        if (skyBlockIsland == null) {
+            System.out.println("Player " + player.getName() + " has no registered island.");
             return;
         }
 
         SlimeWorld slimeWorld = slimePlugin.getWorld(islandWorldPrefix + player.getUniqueId());
+        if (slimeWorld == null) {
+            System.out.println("SlimeWorld not found for " + player.getName());
+            return;
+        }
+
         if (!slimePlugin.getLoadedWorlds().contains(slimeWorld)) {
+            System.out.println("SlimeWorld for " + player.getName() + " is not loaded.");
             return;
         }
 
         World world = Bukkit.getWorld(slimeWorld.getName());
         if (world == null) {
+            System.out.println("Bukkit world for " + player.getName() + " not found.");
             return;
         }
 
         long millis = System.currentTimeMillis();
 
-        SkyBlockIsland skyBlockIsland = this.repository.findFirstByOwnerUniqueId(player.getUniqueId());
-
         if (!world.getPlayers().isEmpty()) {
             for (Player worldPlayer : world.getPlayers()) {
-                SkyBlockPlugin.instance().getTagManager().teleportPlayer(worldPlayer, SkyBlockPlugin.instance().getLocationManager().getPosition("spawn").getLocation());
+                SkyBlockPlugin.instance().getTagManager().teleportPlayer(
+                        worldPlayer, SkyBlockPlugin.instance().getLocationManager().getPosition("spawn").getLocation()
+                );
             }
-            Bukkit.unloadWorld(world, false);
-
-        } else {
-            Bukkit.unloadWorld(world, false);
         }
+
+        Bukkit.unloadWorld(world, false);
+        System.out.println("Unloaded world: " + world.getName());
+
         try {
             this.slimeLoader.deleteWorld(slimeWorld.getName());
-            player.sendMessage(ChatAction.of("§7Insel gelöscht in §e" + (System.currentTimeMillis() - millis) + "§7ms"));
+            System.out.println("Deleted SlimeWorld: " + slimeWorld.getName());
+
+            player.sendMessage(ChatAction.of("§7Deine Insel wurde gelöscht in §e" + (System.currentTimeMillis() - millis) + "§7ms"));
 
             this.islands.remove(player.getUniqueId());
             this.repository.delete(skyBlockIsland);
+            System.out.println("Deleted island data for: " + player.getName());
         } catch (UnknownWorldException | IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-
     }
+
 }

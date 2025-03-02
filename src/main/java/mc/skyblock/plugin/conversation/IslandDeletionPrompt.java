@@ -22,11 +22,7 @@ public class IslandDeletionPrompt extends StringPrompt {
 
         if (input.trim().equalsIgnoreCase("Ja")) {
 
-            Bukkit.getScheduler().runTask(SkyBlockPlugin.instance(), () -> {
-                player.sendMessage(ChatAction.of("§aDeine Insel wurde erfolgreich permanent gelöscht!"));
-            });
-
-            SkyBlockPlugin.instance().getIslandManager().deleteIsland(player);
+            Bukkit.getScheduler().runTask(SkyBlockPlugin.instance(), () -> SkyBlockPlugin.instance().getIslandManager().deleteIsland(player));
 
             return Prompt.END_OF_CONVERSATION;
 
