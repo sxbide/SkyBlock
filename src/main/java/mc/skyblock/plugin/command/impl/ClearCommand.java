@@ -34,6 +34,11 @@ public class ClearCommand extends AbstractCommand {
 
             Player targetPlayer = Bukkit.getPlayer(args[0]);
 
+            if(targetPlayer == null) {
+                player.sendMessage(ChatAction.getOffline());
+                return;
+            }
+
             for (@Nullable ItemStack content : targetPlayer.getInventory().getContents()) {
                 if (content == null) continue;
                 if (Cosmetics.isCosmeticItem(content)) continue;
