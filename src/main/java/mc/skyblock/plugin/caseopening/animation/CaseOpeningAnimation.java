@@ -111,7 +111,10 @@ public class CaseOpeningAnimation {
 
                     if (winningItem.getRarity().getWeight() >= 5) {
                         Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
-                            onlinePlayer.sendMessage(ChatAction.of("§7" + player.getName() + " hat " + winningItem.getItemStack().getAmount() + "x ").append(winningItem.getItemStack().getItemMeta().hasDisplayName() ? Objects.requireNonNull(winningItem.getItemStack().getItemMeta().displayName()) : Component.text(winningItem.getItemStack().getType().name())).append(MiniMessage.miniMessage().deserialize(" <#6cd414>aus der Kiste erhalten!")));
+                            onlinePlayer.sendMessage(ChatAction.of("§7" + player.getName() + " hat " + winningItem.getItemStack().getAmount() + "x ")
+                                    .append(winningItem.getItemStack().getItemMeta().hasDisplayName()
+                                            ? Objects.requireNonNull(winningItem.getItemStack().getItemMeta().displayName())
+                                            : Component.text(mc.skyblock.plugin.util.data.BlockData.findBlockByMaterial(winningItem.getItemStack().getType()).getName())).append(MiniMessage.miniMessage().deserialize(" <#6cd414>aus der Kiste erhalten!")));
                             CustomSounds.WINNING.playSound(onlinePlayer, 0.2F, 1F, onlinePlayer.getLocation());
                             if (onlinePlayer.getUniqueId().equals(player.getUniqueId())) return;
                             //onlinePlayer.playSound(onlinePlayer.getLocation(), Sound.ENTITY_ENDER_DRAGON_DEATH, 1.0F, 2.0F);
