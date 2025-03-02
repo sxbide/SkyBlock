@@ -13,6 +13,7 @@ import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.cosmetic.Cosmetics;
 import mc.skyblock.plugin.user.model.SkyBlockUser;
 import mc.skyblock.plugin.util.*;
+import mc.skyblock.plugin.util.custom.CustomSounds;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
@@ -83,8 +84,9 @@ public class CosmeticMenu implements InventoryProvider {
                 if (skyBlockUser.hasCosmetic(cosmetic)) {
 
                     if(skyBlockUser.hasCosmeticWithTypeSelected(cosmetic.getCosmetic().getType())) {
-                        skyBlockUser.toggleSelectedCosmetic(skyBlockUser.getSelectedCosmetic().stream().filter(cosmetics -> cosmetics.getCosmetic().getType().equals(cosmetic.getCosmetic().getType()))
-                                .findAny().get());
+                        skyBlockUser.toggleSelectedCosmetic(skyBlockUser.getSelectedCosmetic()
+                                .stream().filter(cosmetics -> cosmetics.getCosmetic().getType().equals(cosmetic.getCosmetic().getType()))
+                                .findFirst().get());
                     }
 
                     skyBlockUser.toggleSelectedCosmetic(cosmetic);
@@ -100,7 +102,7 @@ public class CosmeticMenu implements InventoryProvider {
 
                     skyBlockUser.removeBalance(cosmetic.getCosmetic().getPrice());
                     skyBlockUser.addCosmetic(cosmetic);
-                    SoundAction.playTaskComplete(player);
+                    CustomSounds.CASHIER.playSound(player, 0.6F, 1F, player.getLocation());
                     player.sendMessage(ChatAction.of("§aDu hast den Kosmetik Gegenstand erfolgreich erworben."));
                     player.closeInventory();
                 }

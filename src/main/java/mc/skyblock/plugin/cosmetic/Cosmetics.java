@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 @Getter
 public enum Cosmetics {
 
-    DEBUG_HAT(new Cosmetic("§cDebug Hat", 101,100, CosmeticType.HEAD, Rarity.EPIC, false)),
+    HEADSET(new Cosmetic("§7Headset", 101,100, CosmeticType.HEAD, Rarity.COMMON, false)),
     DEBUG_ITEM(new Cosmetic("§cDebug Item", 102,100, CosmeticType.HAND,Rarity.EPIC, true)),
     BANANA(new Cosmetic("§eKrumme Banane", 103,100, CosmeticType.HAND, Rarity.COMMON, true))
     ;

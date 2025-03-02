@@ -11,6 +11,7 @@ import mc.skyblock.plugin.SkyBlockPlugin;
 import mc.skyblock.plugin.tag.model.Tags;
 import mc.skyblock.plugin.user.model.SkyBlockUser;
 import mc.skyblock.plugin.util.*;
+import mc.skyblock.plugin.util.custom.CustomSounds;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
@@ -99,7 +100,7 @@ public class TagMenu implements InventoryProvider {
 
                     skyBlockUser.removeBalance(tag.getPrice());
                     skyBlockUser.addTag(tag);
-                    SoundAction.playTaskComplete(player);
+                    CustomSounds.CASHIER.playSound(player, 0.6F, 1F, player.getLocation());
                     player.sendMessage(ChatAction.of("§aDu hast den Titel erfolgreich erworben."));
                     player.closeInventory();
 
