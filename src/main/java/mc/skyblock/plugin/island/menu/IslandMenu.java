@@ -13,6 +13,7 @@ import mc.skyblock.plugin.util.ChatAction;
 import mc.skyblock.plugin.util.ItemBuilder;
 import mc.skyblock.plugin.util.SoundAction;
 import mc.skyblock.plugin.util.Util;
+import mc.skyblock.plugin.util.custom.CustomSounds;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -117,7 +118,7 @@ public class IslandMenu implements InventoryProvider {
                         skyBlockIsland.setBoughtWarpLocation(location);
 
                         skyBlockUser.removeBalance(5000);
-                        SoundAction.playNotification(player);
+                        CustomSounds.CASHIER.playSound(player, 0.6F, 1F, player.getLocation());
                         player.sendMessage(ChatAction.of("§aDein Kauf wurde erfolgreich abgeschlossen!"));
                         player.closeInventory();
                         return;
